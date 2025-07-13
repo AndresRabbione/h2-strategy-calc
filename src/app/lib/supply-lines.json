@@ -1,0 +1,3195 @@
+{
+    "SUPER EARTH": {
+        "index": 0,
+        "links": [],
+        "disabled": false
+    },
+    "KLEN DAHTH II": {
+        "index": 1,
+        "links": [],
+        "disabled": false
+    },
+    "PATHFINDER V": {
+        "index": 2,
+        "links": [],
+        "disabled": false
+    },
+    "WIDOW'S HARBOR": {
+        "index": 3,
+        "links": [],
+        "disabled": false
+    },
+    "NEW HAVEN": {
+        "index": 4,
+        "links": [],
+        "disabled": false
+    },
+    "PILEN V": {
+        "index": 5,
+        "links": [],
+        "disabled": false
+    },
+    "HYDROFALL PRIME": {
+        "index": 6,
+        "links": [],
+        "disabled": false
+    },
+    "ZEA RUGOSIA": {
+        "index": 7,
+        "links": [
+            {
+                "name": "HALDUS",
+                "index": 178
+            },
+            {
+                "name": "HERTHON SECUNDUS",
+                "index": 180
+            },
+            {
+                "name": "AFOYAY BAY",
+                "index": 136
+            }
+        ],
+        "disabled": false
+    },
+    "DARROWSPORT": {
+        "index": 8,
+        "links": [],
+        "disabled": false
+    },
+    "FORNSKOGUR II": {
+        "index": 9,
+        "links": [],
+        "disabled": false
+    },
+    "MIDASBURG": {
+        "index": 10,
+        "links": [],
+        "disabled": false
+    },
+    "CERBERUS IIIc": {
+        "index": 11,
+        "links": [],
+        "disabled": false
+    },
+    "PROSPERITY FALLS": {
+        "index": 12,
+        "links": [],
+        "disabled": false
+    },
+    "OKUL VI": {
+        "index": 13,
+        "links": [],
+        "disabled": false
+    },
+    "MARTYR'S BAY": {
+        "index": 14,
+        "links": [],
+        "disabled": false
+    },
+    "FREEDOM PEAK": {
+        "index": 15,
+        "links": [],
+        "disabled": false
+    },
+    "FORT UNION": {
+        "index": 16,
+        "links": [
+            {
+                "name": "CIRRUS",
+                "index": 77
+            },
+            {
+                "name": "NUBLARIA I",
+                "index": 26
+            }
+        ],
+        "disabled": false
+    },
+    "KELVINOR": {
+        "index": 17,
+        "links": [],
+        "disabled": false
+    },
+    "WRAITH": {
+        "index": 18,
+        "links": [],
+        "disabled": false
+    },
+    "IGLA": {
+        "index": 19,
+        "links": [],
+        "disabled": false
+    },
+    "NEW KIRUNA": {
+        "index": 20,
+        "links": [],
+        "disabled": false
+    },
+    "FORT JUSTICE": {
+        "index": 21,
+        "links": [],
+        "disabled": false
+    },
+    "ZEGEMA PARADISE": {
+        "index": 22,
+        "links": [],
+        "disabled": false
+    },
+    "PROVIDENCE": {
+        "index": 23,
+        "links": [],
+        "disabled": false
+    },
+    "PRIMORDIA": {
+        "index": 24,
+        "links": [],
+        "disabled": false
+    },
+    "SULFURA": {
+        "index": 25,
+        "links": [
+            {
+                "name": "AZTERRA",
+                "index": 49
+            },
+            {
+                "name": "NUBLARIA I",
+                "index": 26
+            }
+        ],
+        "disabled": false
+    },
+    "NUBLARIA I": {
+        "index": 26,
+        "links": [
+            {
+                "name": "FORT UNION",
+                "index": 16
+            },
+            {
+                "name": "SULFURA",
+                "index": 25
+            },
+            {
+                "name": "KRAKATWO",
+                "index": 27
+            }
+        ],
+        "disabled": false
+    },
+    "KRAKATWO": {
+        "index": 27,
+        "links": [
+            {
+                "name": "NUBLARIA I",
+                "index": 26
+            },
+            {
+                "name": "SLIF",
+                "index": 52
+            },
+            {
+                "name": "CRUCIBLE",
+                "index": 29
+            }
+        ],
+        "disabled": false
+    },
+    "VOLTERRA": {
+        "index": 28,
+        "links": [
+            {
+                "name": "SLIF",
+                "index": 52
+            },
+            {
+                "name": "CRUCIBLE",
+                "index": 29
+            },
+            {
+                "name": "ALTA V",
+                "index": 81
+            },
+            {
+                "name": "CARAMOOR",
+                "index": 53
+            }
+        ],
+        "disabled": false
+    },
+    "CRUCIBLE": {
+        "index": 29,
+        "links": [
+            {
+                "name": "KRAKATWO",
+                "index": 27
+            },
+            {
+                "name": "VOLTERRA",
+                "index": 28
+            }
+        ],
+        "disabled": false
+    },
+    "VEIL": {
+        "index": 30,
+        "links": [],
+        "disabled": false
+    },
+    "MARRE IV": {
+        "index": 31,
+        "links": [],
+        "disabled": false
+    },
+    "FORT SANCTUARY": {
+        "index": 32,
+        "links": [],
+        "disabled": false
+    },
+    "SEYSHEL BEACH": {
+        "index": 33,
+        "links": [],
+        "disabled": false
+    },
+    "HELLMIRE": {
+        "index": 34,
+        "links": [
+            {
+                "name": "ERATA PRIME",
+                "index": 168
+            },
+            {
+                "name": "NIVEL 43",
+                "index": 211
+            },
+            {
+                "name": "FENRIR III",
+                "index": 125
+            },
+            {
+                "name": "ESTANU",
+                "index": 169
+            }
+        ],
+        "disabled": true
+    },
+    "EFFLUVIA": {
+        "index": 35,
+        "links": [],
+        "disabled": false
+    },
+    "SOLGHAST": {
+        "index": 36,
+        "links": [],
+        "disabled": false
+    },
+    "DILUVIA": {
+        "index": 37,
+        "links": [],
+        "disabled": false
+    },
+    "VIRIDIA PRIME": {
+        "index": 38,
+        "links": [],
+        "disabled": false
+    },
+    "OBARI": {
+        "index": 39,
+        "links": [],
+        "disabled": false
+    },
+    "MYRADESH": {
+        "index": 40,
+        "links": [],
+        "disabled": false
+    },
+    "ATRAMA": {
+        "index": 41,
+        "links": [],
+        "disabled": false
+    },
+    "EMERIA": {
+        "index": 42,
+        "links": [],
+        "disabled": false
+    },
+    "BARABOS": {
+        "index": 43,
+        "links": [
+            {
+                "name": "FENMIRE",
+                "index": 44
+            }
+        ],
+        "disabled": false
+    },
+    "FENMIRE": {
+        "index": 44,
+        "links": [
+            {
+                "name": "BARABOS",
+                "index": 43
+            },
+            {
+                "name": "CURIA",
+                "index": 66
+            },
+            {
+                "name": "MASTIA",
+                "index": 45
+            }
+        ],
+        "disabled": false
+    },
+    "MASTIA": {
+        "index": 45,
+        "links": [
+            {
+                "name": "FENMIRE",
+                "index": 44
+            },
+            {
+                "name": "SHELT",
+                "index": 68
+            },
+            {
+                "name": "SHALLUS",
+                "index": 46
+            },
+            {
+                "name": "TARSH",
+                "index": 67
+            },
+            {
+                "name": "GAELLIVARE",
+                "index": 116
+            }
+        ],
+        "disabled": false
+    },
+    "SHALLUS": {
+        "index": 46,
+        "links": [
+            {
+                "name": "MASTIA",
+                "index": 45
+            },
+            {
+                "name": "SHELT",
+                "index": 68
+            }
+        ],
+        "disabled": false
+    },
+    "KRAKABOS": {
+        "index": 47,
+        "links": [],
+        "disabled": false
+    },
+    "IRIDICA": {
+        "index": 48,
+        "links": [],
+        "disabled": false
+    },
+    "AZTERRA": {
+        "index": 49,
+        "links": [
+            {
+                "name": "SULFURA",
+                "index": 25
+            },
+            {
+                "name": "TERREK",
+                "index": 76
+            },
+            {
+                "name": "CIRRUS",
+                "index": 77
+            }
+        ],
+        "disabled": false
+    },
+    "AZUR SECUNDUS": {
+        "index": 50,
+        "links": [
+            {
+                "name": "OVERGOE PRIME",
+                "index": 213
+            }
+        ],
+        "disabled": true
+    },
+    "IVIS": {
+        "index": 51,
+        "links": [],
+        "disabled": false
+    },
+    "SLIF": {
+        "index": 52,
+        "links": [
+            {
+                "name": "KRAKATWO",
+                "index": 27
+            },
+            {
+                "name": "VOLTERRA",
+                "index": 28
+            },
+            {
+                "name": "ALTA V",
+                "index": 81
+            },
+            {
+                "name": "VELD",
+                "index": 80
+            }
+        ],
+        "disabled": false
+    },
+    "CARAMOOR": {
+        "index": 53,
+        "links": [
+            {
+                "name": "VOLTERRA",
+                "index": 28
+            },
+            {
+                "name": "ALTA V",
+                "index": 81
+            }
+        ],
+        "disabled": false
+    },
+    "KHARST": {
+        "index": 54,
+        "links": [],
+        "disabled": false
+    },
+    "EUKORIA": {
+        "index": 55,
+        "links": [],
+        "disabled": false
+    },
+    "MYRIUM": {
+        "index": 56,
+        "links": [],
+        "disabled": false
+    },
+    "KERTH SECUNDUS": {
+        "index": 57,
+        "links": [],
+        "disabled": false
+    },
+    "PARSH": {
+        "index": 58,
+        "links": [],
+        "disabled": false
+    },
+    "REAF": {
+        "index": 59,
+        "links": [],
+        "disabled": false
+    },
+    "IRULTA": {
+        "index": 60,
+        "links": [],
+        "disabled": false
+    },
+    "EMORATH": {
+        "index": 61,
+        "links": [],
+        "disabled": false
+    },
+    "ILDUNA PRIME": {
+        "index": 62,
+        "links": [],
+        "disabled": false
+    },
+    "MAW": {
+        "index": 63,
+        "links": [],
+        "disabled": false
+    },
+    "MERIDIA": {
+        "index": 64,
+        "links": [],
+        "disabled": false
+    },
+    "BOREA": {
+        "index": 65,
+        "links": [
+            {
+                "name": "CURIA",
+                "index": 66
+            },
+            {
+                "name": "DUMA TYR",
+                "index": 111
+            },
+            {
+                "name": "GUNVALD",
+                "index": 108
+            }
+        ],
+        "disabled": false
+    },
+    "CURIA": {
+        "index": 66,
+        "links": [
+            {
+                "name": "FENMIRE",
+                "index": 44
+            },
+            {
+                "name": "BOREA",
+                "index": 65
+            },
+            {
+                "name": "TARSH",
+                "index": 67
+            },
+            {
+                "name": "AESIR PASS",
+                "index": 113
+            }
+        ],
+        "disabled": false
+    },
+    "TARSH": {
+        "index": 67,
+        "links": [
+            {
+                "name": "MASTIA",
+                "index": 45
+            },
+            {
+                "name": "CURIA",
+                "index": 66
+            },
+            {
+                "name": "VERNEN WELLS",
+                "index": 112
+            }
+        ],
+        "disabled": false
+    },
+    "SHELT": {
+        "index": 68,
+        "links": [
+            {
+                "name": "MASTIA",
+                "index": 45
+            },
+            {
+                "name": "SHALLUS",
+                "index": 46
+            },
+            {
+                "name": "IMBER",
+                "index": 69
+            }
+        ],
+        "disabled": false
+    },
+    "IMBER": {
+        "index": 69,
+        "links": [
+            {
+                "name": "SHELT",
+                "index": 68
+            },
+            {
+                "name": "GAELLIVARE",
+                "index": 116
+            },
+            {
+                "name": "CLAORELL",
+                "index": 161
+            }
+        ],
+        "disabled": false
+    },
+    "BLISTICA": {
+        "index": 70,
+        "links": [
+            {
+                "name": "MINTORIA",
+                "index": 207
+            },
+            {
+                "name": "ZZANIAH PRIME",
+                "index": 253
+            },
+            {
+                "name": "YED PRIOR",
+                "index": 250
+            }
+        ],
+        "disabled": false
+    },
+    "RATCH": {
+        "index": 71,
+        "links": [],
+        "disabled": false
+    },
+    "JULHEIM": {
+        "index": 72,
+        "links": [
+            {
+                "name": "DOLPH",
+                "index": 109
+            },
+            {
+                "name": "DUMA TYR",
+                "index": 111
+            },
+            {
+                "name": "BEKVAM III",
+                "index": 110
+            },
+            {
+                "name": "CHARBAL-VII",
+                "index": 156
+            }
+        ],
+        "disabled": false
+    },
+    "VALGAARD": {
+        "index": 73,
+        "links": [],
+        "disabled": false
+    },
+    "ARKTURUS": {
+        "index": 74,
+        "links": [],
+        "disabled": false
+    },
+    "ESKER": {
+        "index": 75,
+        "links": [
+            {
+                "name": "BORE ROCK",
+                "index": 124
+            },
+            {
+                "name": "NIVEL 43",
+                "index": 211
+            },
+            {
+                "name": "ERSON SANDS",
+                "index": 122
+            },
+            {
+                "name": "SOCORRO III",
+                "index": 123
+            }
+        ],
+        "disabled": false
+    },
+    "TERREK": {
+        "index": 76,
+        "links": [
+            {
+                "name": "AZTERRA",
+                "index": 49
+            },
+            {
+                "name": "BORE ROCK",
+                "index": 124
+            },
+            {
+                "name": "CIRRUS",
+                "index": 77
+            }
+        ],
+        "disabled": false
+    },
+    "CIRRUS": {
+        "index": 77,
+        "links": [
+            {
+                "name": "FORT UNION",
+                "index": 16
+            },
+            {
+                "name": "AZTERRA",
+                "index": 49
+            },
+            {
+                "name": "TERREK",
+                "index": 76
+            },
+            {
+                "name": "HEETH",
+                "index": 79
+            }
+        ],
+        "disabled": false
+    },
+    "CRIMSICA": {
+        "index": 78,
+        "links": [
+            {
+                "name": "ESTANU",
+                "index": 169
+            },
+            {
+                "name": "FORI PRIME",
+                "index": 170
+            },
+            {
+                "name": "ACAMAR IV",
+                "index": 129
+            }
+        ],
+        "disabled": false
+    },
+    "HEETH": {
+        "index": 79,
+        "links": [
+            {
+                "name": "CIRRUS",
+                "index": 77
+            },
+            {
+                "name": "ERATA PRIME",
+                "index": 168
+            },
+            {
+                "name": "FENRIR III",
+                "index": 125
+            }
+        ],
+        "disabled": false
+    },
+    "VELD": {
+        "index": 80,
+        "links": [
+            {
+                "name": "SLIF",
+                "index": 52
+            },
+            {
+                "name": "TURING",
+                "index": 126
+            },
+            {
+                "name": "INARI",
+                "index": 83
+            }
+        ],
+        "disabled": false
+    },
+    "ALTA V": {
+        "index": 81,
+        "links": [
+            {
+                "name": "VOLTERRA",
+                "index": 28
+            },
+            {
+                "name": "SLIF",
+                "index": 52
+            },
+            {
+                "name": "CARAMOOR",
+                "index": 53
+            },
+            {
+                "name": "INARI",
+                "index": 83
+            }
+        ],
+        "disabled": false
+    },
+    "URSICA XI": {
+        "index": 82,
+        "links": [
+            {
+                "name": "INARI",
+                "index": 83
+            },
+            {
+                "name": "ACHERNAR SECUNDUS",
+                "index": 130
+            },
+            {
+                "name": "ACHIRD III",
+                "index": 131
+            }
+        ],
+        "disabled": false
+    },
+    "INARI": {
+        "index": 83,
+        "links": [
+            {
+                "name": "VELD",
+                "index": 80
+            },
+            {
+                "name": "ALTA V",
+                "index": 81
+            },
+            {
+                "name": "URSICA XI",
+                "index": 82
+            }
+        ],
+        "disabled": false
+    },
+    "SKAASH": {
+        "index": 84,
+        "links": [],
+        "disabled": false
+    },
+    "MORADESH": {
+        "index": 85,
+        "links": [],
+        "disabled": false
+    },
+    "RASP": {
+        "index": 86,
+        "links": [],
+        "disabled": false
+    },
+    "BASHYR": {
+        "index": 87,
+        "links": [],
+        "disabled": false
+    },
+    "REGNUS": {
+        "index": 88,
+        "links": [],
+        "disabled": false
+    },
+    "MOG": {
+        "index": 89,
+        "links": [],
+        "disabled": false
+    },
+    "VALMOX": {
+        "index": 90,
+        "links": [
+            {
+                "name": "IRO",
+                "index": 91
+            },
+            {
+                "name": "AFOYAY BAY",
+                "index": 136
+            }
+        ],
+        "disabled": false
+    },
+    "IRO": {
+        "index": 91,
+        "links": [
+            {
+                "name": "VALMOX",
+                "index": 90
+            },
+            {
+                "name": "GRAFMERE",
+                "index": 92
+            },
+            {
+                "name": "NEW STOCKHOLM",
+                "index": 93
+            }
+        ],
+        "disabled": false
+    },
+    "GRAFMERE": {
+        "index": 92,
+        "links": [
+            {
+                "name": "IRO",
+                "index": 91
+            },
+            {
+                "name": "OASIS",
+                "index": 94
+            }
+        ],
+        "disabled": false
+    },
+    "NEW STOCKHOLM": {
+        "index": 93,
+        "links": [
+            {
+                "name": "IRO",
+                "index": 91
+            },
+            {
+                "name": "ALAMAK VII",
+                "index": 139
+            },
+            {
+                "name": "AIN-5",
+                "index": 137
+            },
+            {
+                "name": "ALAIRT III",
+                "index": 138
+            },
+            {
+                "name": "HERTHON SECUNDUS",
+                "index": 180
+            }
+        ],
+        "disabled": false
+    },
+    "OASIS": {
+        "index": 94,
+        "links": [
+            {
+                "name": "GRAFMERE",
+                "index": 92
+            },
+            {
+                "name": "GENESIS PRIME",
+                "index": 95
+            },
+            {
+                "name": "ALARAPH",
+                "index": 140
+            },
+            {
+                "name": "ALAMAK VII",
+                "index": 139
+            }
+        ],
+        "disabled": false
+    },
+    "GENESIS PRIME": {
+        "index": 95,
+        "links": [
+            {
+                "name": "OASIS",
+                "index": 94
+            },
+            {
+                "name": "ALARAPH",
+                "index": 140
+            }
+        ],
+        "disabled": false
+    },
+    "OUTPOST 32": {
+        "index": 96,
+        "links": [],
+        "disabled": false
+    },
+    "CALYPSO": {
+        "index": 97,
+        "links": [],
+        "disabled": false
+    },
+    "ELYSIAN MEADOWS": {
+        "index": 98,
+        "links": [],
+        "disabled": false
+    },
+    "ALDERIDGE COVE": {
+        "index": 99,
+        "links": [],
+        "disabled": false
+    },
+    "TRANDOR": {
+        "index": 100,
+        "links": [
+            {
+                "name": "PEACOCK",
+                "index": 216
+            },
+            {
+                "name": "GATRIA",
+                "index": 173
+            }
+        ],
+        "disabled": false
+    },
+    "EAST IRIDIUM TRADING BAY": {
+        "index": 101,
+        "links": [],
+        "disabled": false
+    },
+    "LIBERTY RIDGE": {
+        "index": 102,
+        "links": [],
+        "disabled": false
+    },
+    "BALDRICK PRIME": {
+        "index": 103,
+        "links": [],
+        "disabled": false
+    },
+    "THE WEIR": {
+        "index": 104,
+        "links": [],
+        "disabled": false
+    },
+    "KUPER": {
+        "index": 105,
+        "links": [],
+        "disabled": false
+    },
+    "OSLO STATION": {
+        "index": 106,
+        "links": [
+            {
+                "name": "GUNVALD",
+                "index": 108
+            },
+            {
+                "name": "DUMA TYR",
+                "index": 111
+            },
+            {
+                "name": "DOLPH",
+                "index": 109
+            }
+        ],
+        "disabled": false
+    },
+    "P\u00d6PLI IX": {
+        "index": 107,
+        "links": [
+            {
+                "name": "DOLPH",
+                "index": 109
+            },
+            {
+                "name": "MORT",
+                "index": 154
+            },
+            {
+                "name": "INGMAR",
+                "index": 155
+            },
+            {
+                "name": "MANTES",
+                "index": 197
+            },
+            {
+                "name": "LASTOFE",
+                "index": 192
+            }
+        ],
+        "disabled": false
+    },
+    "GUNVALD": {
+        "index": 108,
+        "links": [
+            {
+                "name": "BOREA",
+                "index": 65
+            },
+            {
+                "name": "OSLO STATION",
+                "index": 106
+            }
+        ],
+        "disabled": false
+    },
+    "DOLPH": {
+        "index": 109,
+        "links": [
+            {
+                "name": "JULHEIM",
+                "index": 72
+            },
+            {
+                "name": "OSLO STATION",
+                "index": 106
+            },
+            {
+                "name": "P\u00d6PLI IX",
+                "index": 107
+            },
+            {
+                "name": "CAPH",
+                "index": 150
+            }
+        ],
+        "disabled": false
+    },
+    "BEKVAM III": {
+        "index": 110,
+        "links": [
+            {
+                "name": "JULHEIM",
+                "index": 72
+            },
+            {
+                "name": "DUMA TYR",
+                "index": 111
+            },
+            {
+                "name": "CHARON PRIME",
+                "index": 157
+            },
+            {
+                "name": "MARFARK",
+                "index": 198
+            }
+        ],
+        "disabled": false
+    },
+    "DUMA TYR": {
+        "index": 111,
+        "links": [
+            {
+                "name": "BOREA",
+                "index": 65
+            },
+            {
+                "name": "JULHEIM",
+                "index": 72
+            },
+            {
+                "name": "OSLO STATION",
+                "index": 106
+            },
+            {
+                "name": "BEKVAM III",
+                "index": 110
+            }
+        ],
+        "disabled": false
+    },
+    "VERNEN WELLS": {
+        "index": 112,
+        "links": [
+            {
+                "name": "TARSH",
+                "index": 67
+            },
+            {
+                "name": "AESIR PASS",
+                "index": 113
+            },
+            {
+                "name": "MENKENT",
+                "index": 203
+            },
+            {
+                "name": "LESATH",
+                "index": 194
+            }
+        ],
+        "disabled": false
+    },
+    "AESIR PASS": {
+        "index": 113,
+        "links": [
+            {
+                "name": "CURIA",
+                "index": 66
+            },
+            {
+                "name": "VERNEN WELLS",
+                "index": 112
+            },
+            {
+                "name": "MARFARK",
+                "index": 198
+            }
+        ],
+        "disabled": false
+    },
+    "AURORA BAY": {
+        "index": 114,
+        "links": [
+            {
+                "name": "CHOOHE",
+                "index": 159
+            }
+        ],
+        "disabled": false
+    },
+    "PENTA": {
+        "index": 115,
+        "links": [
+            {
+                "name": "MERAK",
+                "index": 204
+            },
+            {
+                "name": "CHORT BAY",
+                "index": 160
+            },
+            {
+                "name": "LESATH",
+                "index": 194
+            }
+        ],
+        "disabled": false
+    },
+    "GAELLIVARE": {
+        "index": 116,
+        "links": [
+            {
+                "name": "MASTIA",
+                "index": 45
+            },
+            {
+                "name": "IMBER",
+                "index": 69
+            },
+            {
+                "name": "LESATH",
+                "index": 194
+            }
+        ],
+        "disabled": false
+    },
+    "VOG-SOJOTH": {
+        "index": 117,
+        "links": [
+            {
+                "name": "CLASA",
+                "index": 162
+            },
+            {
+                "name": "CLAORELL",
+                "index": 161
+            },
+            {
+                "name": "LESATH",
+                "index": 194
+            }
+        ],
+        "disabled": false
+    },
+    "KIRRIK": {
+        "index": 118,
+        "links": [],
+        "disabled": false
+    },
+    "MORTAX PRIME": {
+        "index": 119,
+        "links": [],
+        "disabled": false
+    },
+    "WILFORD STATION": {
+        "index": 120,
+        "links": [],
+        "disabled": false
+    },
+    "PIONEER II": {
+        "index": 121,
+        "links": [],
+        "disabled": false
+    },
+    "ERSON SANDS": {
+        "index": 122,
+        "links": [
+            {
+                "name": "ESKER",
+                "index": 75
+            },
+            {
+                "name": "SOCORRO III",
+                "index": 123
+            },
+            {
+                "name": "NIVEL 43",
+                "index": 211
+            }
+        ],
+        "disabled": true
+    },
+    "SOCORRO III": {
+        "index": 123,
+        "links": [
+            {
+                "name": "ESKER",
+                "index": 75
+            },
+            {
+                "name": "ERSON SANDS",
+                "index": 122
+            }
+        ],
+        "disabled": false
+    },
+    "BORE ROCK": {
+        "index": 124,
+        "links": [
+            {
+                "name": "ESKER",
+                "index": 75
+            },
+            {
+                "name": "TERREK",
+                "index": 76
+            },
+            {
+                "name": "ERATA PRIME",
+                "index": 168
+            }
+        ],
+        "disabled": false
+    },
+    "FENRIR III": {
+        "index": 125,
+        "links": [
+            {
+                "name": "HELLMIRE",
+                "index": 34
+            },
+            {
+                "name": "HEETH",
+                "index": 79
+            },
+            {
+                "name": "ERATA PRIME",
+                "index": 168
+            }
+        ],
+        "disabled": false
+    },
+    "TURING": {
+        "index": 126,
+        "links": [
+            {
+                "name": "VELD",
+                "index": 80
+            },
+            {
+                "name": "ACAMAR IV",
+                "index": 129
+            },
+            {
+                "name": "ACHIRD III",
+                "index": 131
+            }
+        ],
+        "disabled": false
+    },
+    "ANGEL'S VENTURE": {
+        "index": 127,
+        "links": [],
+        "disabled": false
+    },
+    "DARIUS II": {
+        "index": 128,
+        "links": [
+            {
+                "name": "ACAMAR IV",
+                "index": 129
+            },
+            {
+                "name": "ACHIRD III",
+                "index": 131
+            },
+            {
+                "name": "ACHERNAR SECUNDUS",
+                "index": 130
+            },
+            {
+                "name": "PHACT BAY",
+                "index": 217
+            }
+        ],
+        "disabled": false
+    },
+    "ACAMAR IV": {
+        "index": 129,
+        "links": [
+            {
+                "name": "CRIMSICA",
+                "index": 78
+            },
+            {
+                "name": "TURING",
+                "index": 126
+            },
+            {
+                "name": "DARIUS II",
+                "index": 128
+            },
+            {
+                "name": "GACRUX",
+                "index": 171
+            },
+            {
+                "name": "PANDION-XXIV",
+                "index": 214
+            }
+        ],
+        "disabled": false
+    },
+    "ACHERNAR SECUNDUS": {
+        "index": 130,
+        "links": [
+            {
+                "name": "URSICA XI",
+                "index": 82
+            },
+            {
+                "name": "DARIUS II",
+                "index": 128
+            },
+            {
+                "name": "GAR HAREN",
+                "index": 172
+            }
+        ],
+        "disabled": false
+    },
+    "ACHIRD III": {
+        "index": 131,
+        "links": [
+            {
+                "name": "URSICA XI",
+                "index": 82
+            },
+            {
+                "name": "TURING",
+                "index": 126
+            },
+            {
+                "name": "DARIUS II",
+                "index": 128
+            }
+        ],
+        "disabled": false
+    },
+    "ACRAB XI": {
+        "index": 132,
+        "links": [],
+        "disabled": false
+    },
+    "ACRUX IX": {
+        "index": 133,
+        "links": [],
+        "disabled": false
+    },
+    "ACUBENS PRIME": {
+        "index": 134,
+        "links": [],
+        "disabled": false
+    },
+    "ADHARA": {
+        "index": 135,
+        "links": [
+            {
+                "name": "AFOYAY BAY",
+                "index": 136
+            },
+            {
+                "name": "HALDUS",
+                "index": 178
+            }
+        ],
+        "disabled": false
+    },
+    "AFOYAY BAY": {
+        "index": 136,
+        "links": [
+            {
+                "name": "ZEA RUGOSIA",
+                "index": 7
+            },
+            {
+                "name": "VALMOX",
+                "index": 90
+            },
+            {
+                "name": "ADHARA",
+                "index": 135
+            },
+            {
+                "name": "AIN-5",
+                "index": 137
+            }
+        ],
+        "disabled": false
+    },
+    "AIN-5": {
+        "index": 137,
+        "links": [
+            {
+                "name": "NEW STOCKHOLM",
+                "index": 93
+            },
+            {
+                "name": "AFOYAY BAY",
+                "index": 136
+            },
+            {
+                "name": "HERTHON SECUNDUS",
+                "index": 180
+            }
+        ],
+        "disabled": false
+    },
+    "ALAIRT III": {
+        "index": 138,
+        "links": [
+            {
+                "name": "NEW STOCKHOLM",
+                "index": 93
+            },
+            {
+                "name": "ALAMAK VII",
+                "index": 139
+            },
+            {
+                "name": "HERTHON SECUNDUS",
+                "index": 180
+            },
+            {
+                "name": "HEZE BAY",
+                "index": 182
+            }
+        ],
+        "disabled": false
+    },
+    "ALAMAK VII": {
+        "index": 139,
+        "links": [
+            {
+                "name": "NEW STOCKHOLM",
+                "index": 93
+            },
+            {
+                "name": "OASIS",
+                "index": 94
+            },
+            {
+                "name": "ALAIRT III",
+                "index": 138
+            },
+            {
+                "name": "ALARAPH",
+                "index": 140
+            }
+        ],
+        "disabled": false
+    },
+    "ALARAPH": {
+        "index": 140,
+        "links": [
+            {
+                "name": "OASIS",
+                "index": 94
+            },
+            {
+                "name": "GENESIS PRIME",
+                "index": 95
+            },
+            {
+                "name": "ALAMAK VII",
+                "index": 139
+            },
+            {
+                "name": "KARLIA",
+                "index": 185
+            },
+            {
+                "name": "HYDROBIUS",
+                "index": 184
+            }
+        ],
+        "disabled": false
+    },
+    "ALATHFAR XI": {
+        "index": 141,
+        "links": [],
+        "disabled": false
+    },
+    "ANDAR": {
+        "index": 142,
+        "links": [],
+        "disabled": false
+    },
+    "ASPEROTH PRIME": {
+        "index": 143,
+        "links": [],
+        "disabled": false
+    },
+    "BELLATRIX": {
+        "index": 144,
+        "links": [],
+        "disabled": false
+    },
+    "BOTEIN": {
+        "index": 145,
+        "links": [],
+        "disabled": false
+    },
+    "OSUPSAM": {
+        "index": 146,
+        "links": [],
+        "disabled": false
+    },
+    "BRINK-2": {
+        "index": 147,
+        "links": [],
+        "disabled": false
+    },
+    "BUNDA SECUNDUS": {
+        "index": 148,
+        "links": [],
+        "disabled": false
+    },
+    "CANOPUS": {
+        "index": 149,
+        "links": [],
+        "disabled": false
+    },
+    "CAPH": {
+        "index": 150,
+        "links": [
+            {
+                "name": "DOLPH",
+                "index": 109
+            },
+            {
+                "name": "LASTOFE",
+                "index": 192
+            },
+            {
+                "name": "CASTOR",
+                "index": 151
+            }
+        ],
+        "disabled": false
+    },
+    "CASTOR": {
+        "index": 151,
+        "links": [
+            {
+                "name": "CAPH",
+                "index": 150
+            },
+            {
+                "name": "TIEN KWAN",
+                "index": 239
+            }
+        ],
+        "disabled": false
+    },
+    "DURGEN": {
+        "index": 152,
+        "links": [
+            {
+                "name": "MALEVELON CREEK",
+                "index": 196
+            },
+            {
+                "name": "UBANEA",
+                "index": 241
+            }
+        ],
+        "disabled": false
+    },
+    "DRAUPNIR": {
+        "index": 153,
+        "links": [
+            {
+                "name": "MANTES",
+                "index": 197
+            },
+            {
+                "name": "MALEVELON CREEK",
+                "index": 196
+            },
+            {
+                "name": "UBANEA",
+                "index": 241
+            },
+            {
+                "name": "TIEN KWAN",
+                "index": 239
+            }
+        ],
+        "disabled": false
+    },
+    "MORT": {
+        "index": 154,
+        "links": [
+            {
+                "name": "P\u00d6PLI IX",
+                "index": 107
+            },
+            {
+                "name": "INGMAR",
+                "index": 155
+            },
+            {
+                "name": "CHARBAL-VII",
+                "index": 156
+            }
+        ],
+        "disabled": false
+    },
+    "INGMAR": {
+        "index": 155,
+        "links": [
+            {
+                "name": "P\u00d6PLI IX",
+                "index": 107
+            },
+            {
+                "name": "MORT",
+                "index": 154
+            },
+            {
+                "name": "MANTES",
+                "index": 197
+            },
+            {
+                "name": "VANDALON IV",
+                "index": 243
+            }
+        ],
+        "disabled": false
+    },
+    "CHARBAL-VII": {
+        "index": 156,
+        "links": [
+            {
+                "name": "JULHEIM",
+                "index": 72
+            },
+            {
+                "name": "MORT",
+                "index": 154
+            },
+            {
+                "name": "CHOEPESSA IV",
+                "index": 158
+            },
+            {
+                "name": "CHARON PRIME",
+                "index": 157
+            }
+        ],
+        "disabled": false
+    },
+    "CHARON PRIME": {
+        "index": 157,
+        "links": [
+            {
+                "name": "BEKVAM III",
+                "index": 110
+            },
+            {
+                "name": "CHARBAL-VII",
+                "index": 156
+            },
+            {
+                "name": "MARTALE",
+                "index": 199
+            },
+            {
+                "name": "CHOEPESSA IV",
+                "index": 158
+            }
+        ],
+        "disabled": false
+    },
+    "CHOEPESSA IV": {
+        "index": 158,
+        "links": [
+            {
+                "name": "CHARBAL-VII",
+                "index": 156
+            },
+            {
+                "name": "CHARON PRIME",
+                "index": 157
+            },
+            {
+                "name": "VARYLIA 5",
+                "index": 244
+            },
+            {
+                "name": "USTOTU",
+                "index": 242
+            }
+        ],
+        "disabled": false
+    },
+    "CHOOHE": {
+        "index": 159,
+        "links": [
+            {
+                "name": "AURORA BAY",
+                "index": 114
+            },
+            {
+                "name": "CHORT BAY",
+                "index": 160
+            },
+            {
+                "name": "MENKENT",
+                "index": 203
+            },
+            {
+                "name": "MATAR BAY",
+                "index": 200
+            }
+        ],
+        "disabled": false
+    },
+    "CHORT BAY": {
+        "index": 160,
+        "links": [
+            {
+                "name": "PENTA",
+                "index": 115
+            },
+            {
+                "name": "CHOOHE",
+                "index": 159
+            },
+            {
+                "name": "LESATH",
+                "index": 194
+            },
+            {
+                "name": "MENKENT",
+                "index": 203
+            }
+        ],
+        "disabled": false
+    },
+    "CLAORELL": {
+        "index": 161,
+        "links": [
+            {
+                "name": "IMBER",
+                "index": 69
+            },
+            {
+                "name": "VOG-SOJOTH",
+                "index": 117
+            },
+            {
+                "name": "CLASA",
+                "index": 162
+            }
+        ],
+        "disabled": false
+    },
+    "CLASA": {
+        "index": 162,
+        "links": [
+            {
+                "name": "VOG-SOJOTH",
+                "index": 117
+            },
+            {
+                "name": "CLAORELL",
+                "index": 161
+            },
+            {
+                "name": "ZEFIA",
+                "index": 251
+            },
+            {
+                "name": "YED PRIOR",
+                "index": 250
+            },
+            {
+                "name": "DEMIURG",
+                "index": 163
+            }
+        ],
+        "disabled": false
+    },
+    "DEMIURG": {
+        "index": 163,
+        "links": [
+            {
+                "name": "CLASA",
+                "index": 162
+            }
+        ],
+        "disabled": false
+    },
+    "DENEB SECUNDUS": {
+        "index": 164,
+        "links": [],
+        "disabled": false
+    },
+    "ELECTRA BAY": {
+        "index": 165,
+        "links": [],
+        "disabled": false
+    },
+    "ENULIALE": {
+        "index": 166,
+        "links": [
+            {
+                "name": "DIASPORA X",
+                "index": 256
+            },
+            {
+                "name": "EPSILON PHOENCIS VI",
+                "index": 167
+            }
+        ],
+        "disabled": true
+    },
+    "EPSILON PHOENCIS VI": {
+        "index": 167,
+        "links": [
+            {
+                "name": "ENULIALE",
+                "index": 166
+            },
+            {
+                "name": "GEMSTONE BLUFFS",
+                "index": 257
+            }
+        ],
+        "disabled": true
+    },
+    "ERATA PRIME": {
+        "index": 168,
+        "links": [
+            {
+                "name": "HELLMIRE",
+                "index": 34
+            },
+            {
+                "name": "HEETH",
+                "index": 79
+            },
+            {
+                "name": "BORE ROCK",
+                "index": 124
+            },
+            {
+                "name": "FENRIR III",
+                "index": 125
+            }
+        ],
+        "disabled": false
+    },
+    "ESTANU": {
+        "index": 169,
+        "links": [
+            {
+                "name": "HELLMIRE",
+                "index": 34
+            },
+            {
+                "name": "CRIMSICA",
+                "index": 78
+            },
+            {
+                "name": "FORI PRIME",
+                "index": 170
+            }
+        ],
+        "disabled": false
+    },
+    "FORI PRIME": {
+        "index": 170,
+        "links": [
+            {
+                "name": "CRIMSICA",
+                "index": 78
+            },
+            {
+                "name": "ESTANU",
+                "index": 169
+            },
+            {
+                "name": "OSHAUNE",
+                "index": 212
+            },
+            {
+                "name": "GACRUX",
+                "index": 171
+            }
+        ],
+        "disabled": true
+    },
+    "GACRUX": {
+        "index": 171,
+        "links": [
+            {
+                "name": "ACAMAR IV",
+                "index": 129
+            },
+            {
+                "name": "FORI PRIME",
+                "index": 170
+            },
+            {
+                "name": "PANDION-XXIV",
+                "index": 214
+            },
+            {
+                "name": "PARTION",
+                "index": 215
+            }
+        ],
+        "disabled": false
+    },
+    "GAR HAREN": {
+        "index": 172,
+        "links": [
+            {
+                "name": "ACHERNAR SECUNDUS",
+                "index": 130
+            },
+            {
+                "name": "PHACT BAY",
+                "index": 217
+            },
+            {
+                "name": "GATRIA",
+                "index": 173
+            },
+            {
+                "name": "GRAND ERRANT",
+                "index": 175
+            }
+        ],
+        "disabled": false
+    },
+    "GATRIA": {
+        "index": 173,
+        "links": [
+            {
+                "name": "TRANDOR",
+                "index": 100
+            },
+            {
+                "name": "GAR HAREN",
+                "index": 172
+            },
+            {
+                "name": "PHACT BAY",
+                "index": 217
+            },
+            {
+                "name": "PHERKAD SECUNDUS",
+                "index": 218
+            }
+        ],
+        "disabled": false
+    },
+    "GEMMA": {
+        "index": 174,
+        "links": [],
+        "disabled": false
+    },
+    "GRAND ERRANT": {
+        "index": 175,
+        "links": [
+            {
+                "name": "GAR HAREN",
+                "index": 172
+            },
+            {
+                "name": "PHERKAD SECUNDUS",
+                "index": 218
+            },
+            {
+                "name": "POLARIS PRIME",
+                "index": 219
+            }
+        ],
+        "disabled": false
+    },
+    "HADAR": {
+        "index": 176,
+        "links": [],
+        "disabled": false
+    },
+    "HAKA": {
+        "index": 177,
+        "links": [],
+        "disabled": false
+    },
+    "HALDUS": {
+        "index": 178,
+        "links": [
+            {
+                "name": "ZEA RUGOSIA",
+                "index": 7
+            },
+            {
+                "name": "ADHARA",
+                "index": 135
+            }
+        ],
+        "disabled": false
+    },
+    "HALIES PORT": {
+        "index": 179,
+        "links": [],
+        "disabled": false
+    },
+    "HERTHON SECUNDUS": {
+        "index": 180,
+        "links": [
+            {
+                "name": "ZEA RUGOSIA",
+                "index": 7
+            },
+            {
+                "name": "NEW STOCKHOLM",
+                "index": 93
+            },
+            {
+                "name": "AIN-5",
+                "index": 137
+            },
+            {
+                "name": "ALAIRT III",
+                "index": 138
+            }
+        ],
+        "disabled": false
+    },
+    "HESOE PRIME": {
+        "index": 181,
+        "links": [],
+        "disabled": false
+    },
+    "HEZE BAY": {
+        "index": 182,
+        "links": [
+            {
+                "name": "ALAIRT III",
+                "index": 138
+            },
+            {
+                "name": "HYDROBIUS",
+                "index": 184
+            }
+        ],
+        "disabled": false
+    },
+    "HORT": {
+        "index": 183,
+        "links": [],
+        "disabled": false
+    },
+    "HYDROBIUS": {
+        "index": 184,
+        "links": [
+            {
+                "name": "ALARAPH",
+                "index": 140
+            },
+            {
+                "name": "HEZE BAY",
+                "index": 182
+            },
+            {
+                "name": "KARLIA",
+                "index": 185
+            },
+            {
+                "name": "SETIA",
+                "index": 229
+            },
+            {
+                "name": "SENGE 23",
+                "index": 228
+            }
+        ],
+        "disabled": false
+    },
+    "KARLIA": {
+        "index": 185,
+        "links": [
+            {
+                "name": "ALARAPH",
+                "index": 140
+            },
+            {
+                "name": "HYDROBIUS",
+                "index": 184
+            }
+        ],
+        "disabled": false
+    },
+    "KEID": {
+        "index": 186,
+        "links": [],
+        "disabled": false
+    },
+    "KHANDARK": {
+        "index": 187,
+        "links": [],
+        "disabled": false
+    },
+    "KLAKA 5": {
+        "index": 188,
+        "links": [],
+        "disabled": false
+    },
+    "KNETH PORT": {
+        "index": 189,
+        "links": [],
+        "disabled": false
+    },
+    "KRAZ": {
+        "index": 190,
+        "links": [],
+        "disabled": false
+    },
+    "KUMA": {
+        "index": 191,
+        "links": [],
+        "disabled": false
+    },
+    "LASTOFE": {
+        "index": 192,
+        "links": [
+            {
+                "name": "P\u00d6PLI IX",
+                "index": 107
+            },
+            {
+                "name": "CAPH",
+                "index": 150
+            },
+            {
+                "name": "TIEN KWAN",
+                "index": 239
+            }
+        ],
+        "disabled": false
+    },
+    "LENG SECUNDUS": {
+        "index": 193,
+        "links": [],
+        "disabled": false
+    },
+    "LESATH": {
+        "index": 194,
+        "links": [
+            {
+                "name": "VERNEN WELLS",
+                "index": 112
+            },
+            {
+                "name": "PENTA",
+                "index": 115
+            },
+            {
+                "name": "GAELLIVARE",
+                "index": 116
+            },
+            {
+                "name": "VOG-SOJOTH",
+                "index": 117
+            },
+            {
+                "name": "CHORT BAY",
+                "index": 160
+            },
+            {
+                "name": "MENKENT",
+                "index": 203
+            }
+        ],
+        "disabled": false
+    },
+    "MAIA": {
+        "index": 195,
+        "links": [
+            {
+                "name": "MALEVELON CREEK",
+                "index": 196
+            },
+            {
+                "name": "VANDALON IV",
+                "index": 243
+            }
+        ],
+        "disabled": false
+    },
+    "MALEVELON CREEK": {
+        "index": 196,
+        "links": [
+            {
+                "name": "DURGEN",
+                "index": 152
+            },
+            {
+                "name": "DRAUPNIR",
+                "index": 153
+            },
+            {
+                "name": "MAIA",
+                "index": 195
+            },
+            {
+                "name": "MANTES",
+                "index": 197
+            }
+        ],
+        "disabled": false
+    },
+    "MANTES": {
+        "index": 197,
+        "links": [
+            {
+                "name": "P\u00d6PLI IX",
+                "index": 107
+            },
+            {
+                "name": "DRAUPNIR",
+                "index": 153
+            },
+            {
+                "name": "INGMAR",
+                "index": 155
+            },
+            {
+                "name": "MALEVELON CREEK",
+                "index": 196
+            },
+            {
+                "name": "VANDALON IV",
+                "index": 243
+            }
+        ],
+        "disabled": false
+    },
+    "MARFARK": {
+        "index": 198,
+        "links": [
+            {
+                "name": "BEKVAM III",
+                "index": 110
+            },
+            {
+                "name": "AESIR PASS",
+                "index": 113
+            },
+            {
+                "name": "MARTALE",
+                "index": 199
+            },
+            {
+                "name": "MATAR BAY",
+                "index": 200
+            }
+        ],
+        "disabled": false
+    },
+    "MARTALE": {
+        "index": 199,
+        "links": [
+            {
+                "name": "CHARON PRIME",
+                "index": 157
+            },
+            {
+                "name": "MARFARK",
+                "index": 198
+            },
+            {
+                "name": "MATAR BAY",
+                "index": 200
+            }
+        ],
+        "disabled": false
+    },
+    "MATAR BAY": {
+        "index": 200,
+        "links": [
+            {
+                "name": "CHOOHE",
+                "index": 159
+            },
+            {
+                "name": "MARFARK",
+                "index": 198
+            },
+            {
+                "name": "MARTALE",
+                "index": 199
+            },
+            {
+                "name": "MEISSA",
+                "index": 201
+            }
+        ],
+        "disabled": false
+    },
+    "MEISSA": {
+        "index": 201,
+        "links": [
+            {
+                "name": "MATAR BAY",
+                "index": 200
+            },
+            {
+                "name": "WASAT",
+                "index": 245
+            },
+            {
+                "name": "X-45",
+                "index": 249
+            }
+        ],
+        "disabled": false
+    },
+    "MEKBUDA": {
+        "index": 202,
+        "links": [
+            {
+                "name": "CYBERSTAN",
+                "index": 260
+            },
+            {
+                "name": "VINDEMITARIX PRIME",
+                "index": 248
+            }
+        ],
+        "disabled": false
+    },
+    "MENKENT": {
+        "index": 203,
+        "links": [
+            {
+                "name": "VERNEN WELLS",
+                "index": 112
+            },
+            {
+                "name": "CHOOHE",
+                "index": 159
+            },
+            {
+                "name": "CHORT BAY",
+                "index": 160
+            },
+            {
+                "name": "LESATH",
+                "index": 194
+            }
+        ],
+        "disabled": false
+    },
+    "MERAK": {
+        "index": 204,
+        "links": [
+            {
+                "name": "PENTA",
+                "index": 115
+            }
+        ],
+        "disabled": false
+    },
+    "MERGA IV": {
+        "index": 205,
+        "links": [
+            {
+                "name": "CYBERSTAN",
+                "index": 260
+            }
+        ],
+        "disabled": false
+    },
+    "MINCHIR": {
+        "index": 206,
+        "links": [],
+        "disabled": false
+    },
+    "MINTORIA": {
+        "index": 207,
+        "links": [
+            {
+                "name": "BLISTICA",
+                "index": 70
+            },
+            {
+                "name": "ZZANIAH PRIME",
+                "index": 253
+            },
+            {
+                "name": "ZEFIA",
+                "index": 251
+            }
+        ],
+        "disabled": false
+    },
+    "MORDIA 9": {
+        "index": 208,
+        "links": [],
+        "disabled": false
+    },
+    "NABATEA SECUNDUS": {
+        "index": 209,
+        "links": [
+            {
+                "name": "GEMSTONE BLUFFS",
+                "index": 257
+            },
+            {
+                "name": "NAVI VII",
+                "index": 210
+            }
+        ],
+        "disabled": true
+    },
+    "NAVI VII": {
+        "index": 210,
+        "links": [
+            {
+                "name": "NABATEA SECUNDUS",
+                "index": 209
+            }
+        ],
+        "disabled": true
+    },
+    "NIVEL 43": {
+        "index": 211,
+        "links": [
+            {
+                "name": "HELLMIRE",
+                "index": 34
+            },
+            {
+                "name": "ESKER",
+                "index": 75
+            },
+            {
+                "name": "ERSON SANDS",
+                "index": 122
+            },
+            {
+                "name": "ZAGON PRIME",
+                "index": 258
+            }
+        ],
+        "disabled": true
+    },
+    "OSHAUNE": {
+        "index": 212,
+        "links": [
+            {
+                "name": "FORI PRIME",
+                "index": 170
+            },
+            {
+                "name": "OMICRON",
+                "index": 259
+            }
+        ],
+        "disabled": true
+    },
+    "OVERGOE PRIME": {
+        "index": 213,
+        "links": [
+            {
+                "name": "AZUR SECUNDUS",
+                "index": 50
+            },
+            {
+                "name": "PARTION",
+                "index": 215
+            }
+        ],
+        "disabled": false
+    },
+    "PANDION-XXIV": {
+        "index": 214,
+        "links": [
+            {
+                "name": "ACAMAR IV",
+                "index": 129
+            },
+            {
+                "name": "GACRUX",
+                "index": 171
+            },
+            {
+                "name": "PHACT BAY",
+                "index": 217
+            }
+        ],
+        "disabled": false
+    },
+    "PARTION": {
+        "index": 215,
+        "links": [
+            {
+                "name": "GACRUX",
+                "index": 171
+            },
+            {
+                "name": "OVERGOE PRIME",
+                "index": 213
+            },
+            {
+                "name": "PEACOCK",
+                "index": 216
+            },
+            {
+                "name": "PHACT BAY",
+                "index": 217
+            }
+        ],
+        "disabled": false
+    },
+    "PEACOCK": {
+        "index": 216,
+        "links": [
+            {
+                "name": "TRANDOR",
+                "index": 100
+            },
+            {
+                "name": "PARTION",
+                "index": 215
+            }
+        ],
+        "disabled": false
+    },
+    "PHACT BAY": {
+        "index": 217,
+        "links": [
+            {
+                "name": "DARIUS II",
+                "index": 128
+            },
+            {
+                "name": "GAR HAREN",
+                "index": 172
+            },
+            {
+                "name": "GATRIA",
+                "index": 173
+            },
+            {
+                "name": "PANDION-XXIV",
+                "index": 214
+            },
+            {
+                "name": "PARTION",
+                "index": 215
+            }
+        ],
+        "disabled": false
+    },
+    "PHERKAD SECUNDUS": {
+        "index": 218,
+        "links": [
+            {
+                "name": "GATRIA",
+                "index": 173
+            },
+            {
+                "name": "GRAND ERRANT",
+                "index": 175
+            },
+            {
+                "name": "POLARIS PRIME",
+                "index": 219
+            }
+        ],
+        "disabled": false
+    },
+    "POLARIS PRIME": {
+        "index": 219,
+        "links": [
+            {
+                "name": "GRAND ERRANT",
+                "index": 175
+            },
+            {
+                "name": "PHERKAD SECUNDUS",
+                "index": 218
+            },
+            {
+                "name": "POLLUX 31",
+                "index": 220
+            }
+        ],
+        "disabled": false
+    },
+    "POLLUX 31": {
+        "index": 220,
+        "links": [
+            {
+                "name": "POLARIS PRIME",
+                "index": 219
+            },
+            {
+                "name": "PRASA",
+                "index": 221
+            }
+        ],
+        "disabled": false
+    },
+    "PRASA": {
+        "index": 221,
+        "links": [
+            {
+                "name": "POLLUX 31",
+                "index": 220
+            }
+        ],
+        "disabled": false
+    },
+    "PROPUS": {
+        "index": 222,
+        "links": [],
+        "disabled": false
+    },
+    "RAS ALGETHI": {
+        "index": 223,
+        "links": [],
+        "disabled": false
+    },
+    "RD-4": {
+        "index": 224,
+        "links": [],
+        "disabled": false
+    },
+    "ROGUE 5": {
+        "index": 225,
+        "links": [],
+        "disabled": false
+    },
+    "RIRGA BAY": {
+        "index": 226,
+        "links": [],
+        "disabled": false
+    },
+    "SEASSE": {
+        "index": 227,
+        "links": [],
+        "disabled": false
+    },
+    "SENGE 23": {
+        "index": 228,
+        "links": [
+            {
+                "name": "HYDROBIUS",
+                "index": 184
+            },
+            {
+                "name": "SETIA",
+                "index": 229
+            }
+        ],
+        "disabled": false
+    },
+    "SETIA": {
+        "index": 229,
+        "links": [
+            {
+                "name": "HYDROBIUS",
+                "index": 184
+            },
+            {
+                "name": "SENGE 23",
+                "index": 228
+            }
+        ],
+        "disabled": false
+    },
+    "SHETE": {
+        "index": 230,
+        "links": [],
+        "disabled": false
+    },
+    "SIEMNOT": {
+        "index": 231,
+        "links": [],
+        "disabled": false
+    },
+    "SIRIUS": {
+        "index": 232,
+        "links": [],
+        "disabled": false
+    },
+    "SKAT BAY": {
+        "index": 233,
+        "links": [],
+        "disabled": false
+    },
+    "SPHERION": {
+        "index": 234,
+        "links": [],
+        "disabled": false
+    },
+    "STOR THA PRIME": {
+        "index": 235,
+        "links": [],
+        "disabled": false
+    },
+    "STOUT": {
+        "index": 236,
+        "links": [],
+        "disabled": false
+    },
+    "TERMADON": {
+        "index": 237,
+        "links": [],
+        "disabled": false
+    },
+    "TIBIT": {
+        "index": 238,
+        "links": [
+            {
+                "name": "UBANEA",
+                "index": 241
+            }
+        ],
+        "disabled": false
+    },
+    "TIEN KWAN": {
+        "index": 239,
+        "links": [
+            {
+                "name": "CASTOR",
+                "index": 151
+            },
+            {
+                "name": "DRAUPNIR",
+                "index": 153
+            },
+            {
+                "name": "LASTOFE",
+                "index": 192
+            }
+        ],
+        "disabled": false
+    },
+    "TROOST": {
+        "index": 240,
+        "links": [
+            {
+                "name": "USTOTU",
+                "index": 242
+            },
+            {
+                "name": "VANDALON IV",
+                "index": 243
+            }
+        ],
+        "disabled": false
+    },
+    "UBANEA": {
+        "index": 241,
+        "links": [
+            {
+                "name": "DURGEN",
+                "index": 152
+            },
+            {
+                "name": "DRAUPNIR",
+                "index": 153
+            },
+            {
+                "name": "TIBIT",
+                "index": 238
+            }
+        ],
+        "disabled": false
+    },
+    "USTOTU": {
+        "index": 242,
+        "links": [
+            {
+                "name": "CHOEPESSA IV",
+                "index": 158
+            },
+            {
+                "name": "TROOST",
+                "index": 240
+            },
+            {
+                "name": "VANDALON IV",
+                "index": 243
+            },
+            {
+                "name": "VARYLIA 5",
+                "index": 244
+            }
+        ],
+        "disabled": false
+    },
+    "VANDALON IV": {
+        "index": 243,
+        "links": [
+            {
+                "name": "INGMAR",
+                "index": 155
+            },
+            {
+                "name": "MAIA",
+                "index": 195
+            },
+            {
+                "name": "MANTES",
+                "index": 197
+            },
+            {
+                "name": "TROOST",
+                "index": 240
+            },
+            {
+                "name": "USTOTU",
+                "index": 242
+            }
+        ],
+        "disabled": false
+    },
+    "VARYLIA 5": {
+        "index": 244,
+        "links": [
+            {
+                "name": "CHOEPESSA IV",
+                "index": 158
+            },
+            {
+                "name": "USTOTU",
+                "index": 242
+            },
+            {
+                "name": "WEZEN",
+                "index": 247
+            }
+        ],
+        "disabled": false
+    },
+    "WASAT": {
+        "index": 245,
+        "links": [
+            {
+                "name": "MEISSA",
+                "index": 201
+            },
+            {
+                "name": "VEGA BAY",
+                "index": 246
+            },
+            {
+                "name": "X-45",
+                "index": 249
+            }
+        ],
+        "disabled": false
+    },
+    "VEGA BAY": {
+        "index": 246,
+        "links": [
+            {
+                "name": "WASAT",
+                "index": 245
+            },
+            {
+                "name": "X-45",
+                "index": 249
+            },
+            {
+                "name": "WEZEN",
+                "index": 247
+            }
+        ],
+        "disabled": false
+    },
+    "WEZEN": {
+        "index": 247,
+        "links": [
+            {
+                "name": "VARYLIA 5",
+                "index": 244
+            },
+            {
+                "name": "VEGA BAY",
+                "index": 246
+            }
+        ],
+        "disabled": false
+    },
+    "VINDEMITARIX PRIME": {
+        "index": 248,
+        "links": [
+            {
+                "name": "MEKBUDA",
+                "index": 202
+            }
+        ],
+        "disabled": false
+    },
+    "X-45": {
+        "index": 249,
+        "links": [
+            {
+                "name": "MEISSA",
+                "index": 201
+            },
+            {
+                "name": "WASAT",
+                "index": 245
+            },
+            {
+                "name": "VEGA BAY",
+                "index": 246
+            }
+        ],
+        "disabled": false
+    },
+    "YED PRIOR": {
+        "index": 250,
+        "links": [
+            {
+                "name": "BLISTICA",
+                "index": 70
+            },
+            {
+                "name": "CLASA",
+                "index": 162
+            },
+            {
+                "name": "ZEFIA",
+                "index": 251
+            }
+        ],
+        "disabled": false
+    },
+    "ZEFIA": {
+        "index": 251,
+        "links": [
+            {
+                "name": "CLASA",
+                "index": 162
+            },
+            {
+                "name": "MINTORIA",
+                "index": 207
+            },
+            {
+                "name": "YED PRIOR",
+                "index": 250
+            }
+        ],
+        "disabled": false
+    },
+    "ZOSMA": {
+        "index": 252,
+        "links": [
+            {
+                "name": "ZZANIAH PRIME",
+                "index": 253
+            }
+        ],
+        "disabled": false
+    },
+    "ZZANIAH PRIME": {
+        "index": 253,
+        "links": [
+            {
+                "name": "BLISTICA",
+                "index": 70
+            },
+            {
+                "name": "MINTORIA",
+                "index": 207
+            },
+            {
+                "name": "ZOSMA",
+                "index": 252
+            }
+        ],
+        "disabled": false
+    },
+    "SKITTER": {
+        "index": 254,
+        "links": [],
+        "disabled": false
+    },
+    "EUPHORIA III": {
+        "index": 255,
+        "links": [],
+        "disabled": false
+    },
+    "DIASPORA X": {
+        "index": 256,
+        "links": [
+            {
+                "name": "ENULIALE",
+                "index": 166
+            },
+            {
+                "name": "GEMSTONE BLUFFS",
+                "index": 257
+            }
+        ],
+        "disabled": true
+    },
+    "GEMSTONE BLUFFS": {
+        "index": 257,
+        "links": [
+            {
+                "name": "EPSILON PHOENCIS VI",
+                "index": 167
+            },
+            {
+                "name": "NABATEA SECUNDUS",
+                "index": 209
+            },
+            {
+                "name": "DIASPORA X",
+                "index": 256
+            }
+        ],
+        "disabled": true
+    },
+    "ZAGON PRIME": {
+        "index": 258,
+        "links": [
+            {
+                "name": "NIVEL 43",
+                "index": 211
+            },
+            {
+                "name": "OMICRON",
+                "index": 259
+            }
+        ],
+        "disabled": true
+    },
+    "OMICRON": {
+        "index": 259,
+        "links": [
+            {
+                "name": "OSHAUNE",
+                "index": 212
+            },
+            {
+                "name": "ZAGON PRIME",
+                "index": 258
+            }
+        ],
+        "disabled": true
+    },
+    "CYBERSTAN": {
+        "index": 260,
+        "links": [
+            {
+                "name": "MEKBUDA",
+                "index": 202
+            },
+            {
+                "name": "MERGA IV",
+                "index": 205
+            }
+        ],
+        "disabled": false
+    }
+}

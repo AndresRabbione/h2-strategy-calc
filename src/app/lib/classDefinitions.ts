@@ -1,8 +1,12 @@
 import { Attack, fetchAttacks } from "../API/gambits/route";
 import { findPlanetById } from "../API/planets/route";
 import {
+  Enemies,
+  EnemyIds,
   FactionIDs,
   Factions,
+  ItemIds,
+  Items,
   MajorOrder,
   ObjectiveTypes,
   ParsedMO,
@@ -38,73 +42,91 @@ export class PlanetObjective extends Objective {
 
 export class KillObjective extends Objective {
   faction: Factions | null;
-  enemy: number | null;
-  amount: number;
+  enemy: Enemies | null;
+  planet: Planet | null;
+  progress: number;
+  totalAmount: number;
 
   constructor(
     faction: Factions | null = null,
-    enemy: number | null = null,
-    amount: number,
+    enemy: Enemies | null = null,
+    planet: Planet | null = null,
+    progress: number,
+    total: number,
     complete: boolean
   ) {
     super(complete, ObjectiveTypes.KILL);
     this.faction = faction;
     this.enemy = enemy;
-    this.amount = amount;
+    this.totalAmount = total;
+    this.planet = planet;
+    this.progress = progress;
   }
 }
 
 export class CollectionObjective extends Objective {
   faction: Factions | null;
-  item: number;
-  amount: number;
+  planet: Planet | null;
+  item: Items;
+  progress: number;
+  totalAmount: number;
 
   constructor(
     completed: boolean,
     faction: Factions | null = null,
+    planet: Planet | null = null,
     item: number,
-    amount: number
+    progress: number,
+    total: number
   ) {
     super(completed, ObjectiveTypes.COLLECT);
     this.faction = faction;
     this.item = item;
-    this.amount = amount;
+    this.progress = progress;
+    this.planet = planet;
+    this.totalAmount = total;
   }
 }
 
 export class DefendAmountObjective extends Objective {
   faction: Factions | null;
-  amount: number;
+  totalAmount: number;
+  progress: number;
 
   constructor(
     complete: boolean,
     faction: Factions | null = null,
-    amount: number
+    total: number,
+    progress: number
   ) {
     super(complete, ObjectiveTypes.DEFEND_AMOUNT);
     this.faction = faction;
-    this.amount = amount;
+    this.totalAmount = total;
+    this.progress = progress;
   }
 }
 
 export class OperationObjective extends Objective {
   difficulty: number | null;
-  amount: number;
+  totalAmount: number;
+  progress: number;
   faction: Factions | null;
   planet: Planet | null;
 
   constructor(
     completed: boolean,
     difficulty: number | null,
-    amount: number,
+    total: number,
+    progress: number,
     faction: Factions | null = null,
     planet: Planet | null = null
   ) {
     super(completed, ObjectiveTypes.OPERATIONS);
     this.difficulty = difficulty;
-    this.amount = amount;
+    this.totalAmount = total;
     this.faction = faction;
     this.planet = planet;
+    this.progress = progress;
   }
 }
 
@@ -133,19 +155,22 @@ export abstract class CalculatorStrategy {
   protected timeLimit: number;
   protected targetedPlanetIds: number[];
   protected routeTable: SupplyLines;
+  protected parsedMO: ParsedMO;
 
   constructor(
     table: PriorityTable,
     impact: number,
     time: number,
     ids: number[],
-    routes: SupplyLines
+    routes: SupplyLines,
+    majorOrder: ParsedMO
   ) {
     this.priorityTable = table;
     this.impactModifier = impact;
     this.timeLimit = time;
     this.targetedPlanetIds = ids;
     this.routeTable = routes;
+    this.parsedMO = majorOrder;
   }
 
   protected abstract calcMinOffense(planet: Planet): number;
@@ -251,6 +276,18 @@ export abstract class CalculatorStrategy {
 
     return routes[index];
   }
+
+  public async isPlanetAvailable(planet: Planet): Promise<boolean> {
+    const linkedPlanets = this.routeTable[planet.name.toUpperCase()].links;
+
+    for (const linkedPlanet of linkedPlanets) {
+      const planetData = await findPlanetById(linkedPlanet.index);
+
+      if (planetData.currentOwner === Factions.HUMANS) return true;
+    }
+
+    return false;
+  }
 }
 
 export class LiberationStrategy extends CalculatorStrategy {
@@ -291,7 +328,39 @@ export class MOParser {
     }
   }
 
-  private parseEnemyId(enemyId: number): number {}
+  private parseEnemyId(enemyId: number): Enemies {
+    switch (enemyId) {
+      case EnemyIds.BILE_TITAN:
+        return Enemies.BILE_TITAN;
+        break;
+      case EnemyIds.CHARGER:
+        return Enemies.CHARGER;
+        break;
+      case EnemyIds.HULK:
+        return Enemies.HULK;
+        break;
+      default:
+        return Enemies.CHARGER;
+        break;
+    }
+  }
+
+  private parseItemId(itemId: number): Items {
+    switch (itemId) {
+      case ItemIds.COMMON:
+        return Items.COMMON;
+        break;
+      case ItemIds.RARE:
+        return Items.RARE;
+        break;
+      case ItemIds.SUPER_RARE:
+        return Items.SUPER_RARE;
+        break;
+      default:
+        return Items.COMMON;
+        break;
+    }
+  }
 
   private async parsePlanetObj(
     objective: Task,
@@ -316,10 +385,12 @@ export class MOParser {
     let difficulty: number | null = null;
     let faction: Factions | null = null;
     let planet: Planet | null = null;
+    let total: number = 0;
 
     for (let i = 0; i < objective.values.length; i++) {
       switch (objective.valueTypes[i]) {
         case ValueTypes.AMOUNT:
+          total = objective.values[i];
           complete = progress >= objective.values[i];
           break;
         case ValueTypes.DIFFICULTY:
@@ -339,20 +410,27 @@ export class MOParser {
     return new OperationObjective(
       complete,
       difficulty,
+      total,
       progress,
       faction,
       planet
     );
   }
 
-  private parseKillObj(objective: Task, progress: number): Objective | null {
+  private async parseKillObj(
+    objective: Task,
+    progress: number
+  ): Promise<Objective> {
     let complete: boolean = false;
     let faction: Factions | null = null;
     let enemy: number | null = null;
+    let planet: Planet | null = null;
+    let total: number = 0;
 
     for (let i = 0; i < objective.values.length; i++) {
       switch (objective.valueTypes[i]) {
         case ValueTypes.AMOUNT:
+          total = objective.values[i];
           complete = progress >= objective.values[i];
           break;
         case ValueTypes.TARGET_FACTION:
@@ -360,12 +438,54 @@ export class MOParser {
           break;
         case ValueTypes.ENEMY:
           //TODO: This needs to be changed once enemyIDS are known
-          enemy = objective.values[i]; //this.parseEnemyId(objective.values[i])
+          enemy = this.parseEnemyId(objective.values[i]);
+          break;
+        case ValueTypes.PLANET_ID:
+          planet = await findPlanetById(objective.values[i]);
           break;
       }
     }
 
-    return new KillObjective(faction, enemy, progress, complete);
+    return new KillObjective(faction, enemy, planet, progress, total, complete);
+  }
+
+  private async parseCollectionObj(
+    objective: Task,
+    progress: number
+  ): Promise<Objective> {
+    let complete: boolean = false;
+    let faction: Factions | null = null;
+    let item: Items = Items.COMMON;
+    let planet: Planet | null = null;
+    let total: number = 0;
+
+    for (let i = 0; i < objective.values.length; i++) {
+      switch (objective.valueTypes[i]) {
+        case ValueTypes.AMOUNT:
+          total = objective.values[i];
+          complete = progress >= objective.values[i];
+          break;
+        case ValueTypes.TARGET_FACTION:
+          faction = this.parseFactionId(objective.values[i]);
+          break;
+        case ValueTypes.ITEM:
+          //TODO: This needs to be changed once enemyIDS are known
+          item = this.parseItemId(objective.values[i]);
+          break;
+        case ValueTypes.PLANET_ID:
+          planet = await findPlanetById(objective.values[i]);
+          break;
+      }
+    }
+
+    return new CollectionObjective(
+      complete,
+      faction,
+      planet,
+      item,
+      progress,
+      total
+    );
   }
 
   public async getParsedObjective(
@@ -380,6 +500,7 @@ export class MOParser {
         return await this.parseOperationObj(objective, progress);
         break;
       case ObjectiveTypes.COLLECT:
+        return await this.parseCollectionObj(objective, progress);
         break;
       case ObjectiveTypes.DEFEND_AMOUNT:
         break;

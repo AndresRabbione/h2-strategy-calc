@@ -64,6 +64,7 @@ export type MajorOrder = {
 };
 
 export enum Factions {
+  // Confirmed, used for planet data as the v1 endpoints use the names instead of ids
   HUMANS = "Humans",
   TERMINIDS = "Terminids",
   AUTOMATONS = "Automaton",
@@ -71,6 +72,7 @@ export enum Factions {
 }
 
 export enum FactionIDs {
+  //Confirmed, used for MO parsing as the /raw endpoints use ids, not names
   HUMANS = 1,
   TERMINIDS = 2,
   AUTOMATONS = 3,
@@ -78,10 +80,10 @@ export enum FactionIDs {
 }
 
 export enum RegionSizes {
-  Settlement = "Settlement",
-  Town = "Town",
-  City = "City",
-  MegaCity = "MegaCity",
+  SETTLEMENT = "Settlement",
+  TOWN = "Town",
+  CITY = "City",
+  MEGACITY = "MegaCity",
 }
 
 export type SupplyLines = {
@@ -172,21 +174,48 @@ export type PriorityTable = {};
 export enum ObjectiveTypes {
   //TODO: FIND THE IDS
   HOLD = 13,
-  LIBERATE,
+  LIBERATE = 11, //Not sure about this one
   OPERATIONS = 9,
-  KILL,
+  KILL = 3, //Not sure about this one
   COLLECT,
   DEFEND_AMOUNT,
   LIBERATE_MORE,
+  DEFEND = 12, //Not sure about this one
 }
 
 export enum ValueTypes {
-  TARGET_FACTION = 1,
+  TARGET_FACTION = 1, //Not sure about this one
   AMOUNT = 3,
-  LIBERATION_REQUIRED = 11,
+  LIBERATION_REQUIRED = 11, //Not sure about this one
   PLANET_ID = 12,
   DIFFICULTY = 9,
   ENEMY,
+  ITEM,
+}
+
+export enum Enemies {
+  CHARGER,
+  BILE_TITAN,
+  HULK,
+}
+
+export enum EnemyIds {
+  CHARGER,
+  BILE_TITAN,
+  HULK,
+}
+//TODO: Needs filling as data comes in, in the future
+
+export enum Items {
+  COMMON,
+  RARE,
+  SUPER_RARE,
+}
+
+export enum ItemIds {
+  COMMON,
+  RARE,
+  SUPER_RARE,
 }
 
 export type ParsedMO = {

@@ -13,7 +13,13 @@ export async function getLatestMajorOrder(): Promise<MajorOrder> {
       },
     });
 
-    return await request.json();
+    const responseJson = await request.json();
+
+    if (responseJson.length === 0) {
+      return { id32: -1 } as MajorOrder;
+    }
+
+    return responseJson;
   } catch (e) {
     console.log(e);
     return { id32: -1 } as MajorOrder;

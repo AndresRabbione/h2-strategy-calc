@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import { Attack, fetchAttacks } from "../API/gambits/route";
 import { findPlanetById } from "../API/planets/route";
 import {
@@ -16,6 +17,8 @@ import {
   Task,
   ValueTypes,
 } from "./typeDefinitions";
+import ObjectiveProgressBar from "../../../components/objectiveProgressBar";
+import DualObjectiveProgressBar from "../../../components/dualObjectiveProgressBar";
 
 export abstract class Objective {
   completed: boolean;
@@ -25,6 +28,8 @@ export abstract class Objective {
     this.completed = complete;
     this.type = type;
   }
+
+  public abstract getObjectiveVisual(): JSX.Element;
 }
 
 export class PlanetObjective extends Objective {
@@ -37,6 +42,49 @@ export class PlanetObjective extends Objective {
   ) {
     super(complete, type);
     this.target = target;
+  }
+
+  public getObjectiveVisual(): JSX.Element {
+    const percentComplete: number =
+      ((this.target.maxHealth - this.target.health) / this.target.maxHealth) *
+      100;
+
+    const factionColor: string =
+      this.target.currentOwner === Factions.TERMINIDS
+        ? "#fdc300"
+        : this.target.currentOwner === Factions.AUTOMATONS
+        ? "#fe6d6a"
+        : this.target.currentOwner === Factions.ILLUMINATE
+        ? "#ce64f8"
+        : "#ffe711";
+    return (
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-row">
+          <div
+            className={`${
+              this.completed ? "bg-[--success]" : "bg-[#44464a]"
+            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
+          ></div>
+          <span>
+            {this.type == ObjectiveTypes.HOLD
+              ? "Hold "
+              : this.type === ObjectiveTypes.LIBERATE
+              ? "Liberate "
+              : "Defend "}
+            <span className={`text-[${factionColor}]`}>
+              {this.target.name + "."}
+            </span>
+          </span>
+        </div>
+        {!this.completed && (
+          <ObjectiveProgressBar
+            innerText={`(${percentComplete.toFixed(1)}%)`}
+            factionColor={factionColor}
+            percentage={percentComplete}
+          />
+        )}
+      </div>
+    );
   }
 }
 
@@ -62,6 +110,53 @@ export class KillObjective extends Objective {
     this.planet = planet;
     this.progress = progress;
   }
+
+  public getObjectiveVisual(): JSX.Element {
+    const percentComplete: number = (this.progress / this.totalAmount) * 100;
+
+    const factionColor: string =
+      this.faction === Factions.TERMINIDS
+        ? "#fdc300"
+        : this.faction === Factions.AUTOMATONS
+        ? "#fe6d6a"
+        : this.faction === Factions.ILLUMINATE
+        ? "#ce64f8"
+        : "#ffe711";
+
+    return (
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-row">
+          <div
+            className={`${
+              this.completed ? "bg-[--success]" : "bg-[#44464a]"
+            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
+          ></div>
+          <span>
+            Kill
+            <span className={`text-[--helldiver-yellow]`}>
+              {this.totalAmount}
+            </span>
+            <span className={`text-[${factionColor}]`}>
+              {this.faction && !this.enemy
+                ? this.faction + "."
+                : this.enemy
+                ? this.enemy + "s."
+                : "enemies."}
+            </span>
+          </span>
+        </div>
+        {!this.completed && (
+          <ObjectiveProgressBar
+            innerText={`${this.progress} / ${
+              this.totalAmount
+            } (${percentComplete.toFixed(1)}%)`}
+            factionColor={factionColor}
+            percentage={percentComplete}
+          />
+        )}
+      </div>
+    );
+  }
 }
 
 export class CollectionObjective extends Objective {
@@ -86,6 +181,59 @@ export class CollectionObjective extends Objective {
     this.planet = planet;
     this.totalAmount = total;
   }
+
+  public getObjectiveVisual(): JSX.Element {
+    const percentComplete: number = (this.progress / this.totalAmount) * 100;
+
+    const factionColor: string =
+      this.faction === Factions.TERMINIDS
+        ? "#fdc300"
+        : this.faction === Factions.AUTOMATONS
+        ? "#fe6d6a"
+        : this.faction === Factions.ILLUMINATE
+        ? "#ce64f8"
+        : "#ffe711";
+
+    return (
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-row">
+          <div
+            className={`${
+              this.completed ? "bg-[--success]" : "bg-[#44464a]"
+            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
+          ></div>
+          <span>
+            Collect
+            <span className={`text-[--helldiver-yellow]`}>
+              {this.totalAmount}
+            </span>
+            <span className={`text-[--helldiver-yellow]`}>
+              {this.item + "s" + this.faction && this.planet ? "" : "."}
+            </span>
+            {this.faction && (
+              <span className={`text-[${factionColor}]`}>
+                against the {this.faction + !this.planet ? "." : ""}
+              </span>
+            )}
+            {this.planet && (
+              <span className={`text-[${factionColor}]`}>
+                on {this.planet.name + "."}
+              </span>
+            )}
+          </span>
+        </div>
+        {!this.completed && (
+          <ObjectiveProgressBar
+            innerText={`${this.progress} / ${
+              this.totalAmount
+            } (${percentComplete.toFixed(1)}%)`}
+            factionColor={factionColor}
+            percentage={percentComplete}
+          />
+        )}
+      </div>
+    );
+  }
 }
 
 export class DefendAmountObjective extends Objective {
@@ -104,6 +252,47 @@ export class DefendAmountObjective extends Objective {
     this.totalAmount = total;
     this.progress = progress;
   }
+
+  public getObjectiveVisual(): JSX.Element {
+    const percentComplete: number = (this.progress / this.totalAmount) * 100;
+
+    const factionColor: string =
+      this.faction === Factions.TERMINIDS
+        ? "#fdc300"
+        : this.faction === Factions.AUTOMATONS
+        ? "#fe6d6a"
+        : this.faction === Factions.ILLUMINATE
+        ? "#ce64f8"
+        : "#ffe711";
+
+    return (
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-row">
+          <div
+            className={`${
+              this.completed ? "bg-[--success]" : "bg-[#44464a]"
+            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
+          ></div>
+          <span>
+            Successfully defend
+            <span className={`text-[--helldiver-yellow]`}>
+              {this.totalAmount}
+            </span>
+            <span>planets.</span>
+          </span>
+        </div>
+        {!this.completed && (
+          <ObjectiveProgressBar
+            innerText={`${this.progress} / ${
+              this.totalAmount
+            } (${percentComplete.toFixed(1)}%)`}
+            factionColor={factionColor}
+            percentage={percentComplete}
+          />
+        )}
+      </div>
+    );
+  }
 }
 
 export class OperationObjective extends Objective {
@@ -112,6 +301,7 @@ export class OperationObjective extends Objective {
   progress: number;
   faction: Factions | null;
   planet: Planet | null;
+  difficultyTable: string[];
 
   constructor(
     completed: boolean,
@@ -127,6 +317,81 @@ export class OperationObjective extends Objective {
     this.faction = faction;
     this.planet = planet;
     this.progress = progress;
+    this.difficultyTable = [
+      "Trivial",
+      "Easy",
+      "Medium",
+      "Challenging",
+      "Hard",
+      "Extreme",
+      "Suicide Mission",
+      "Impossible",
+      "Helldive",
+      "Super Helldive",
+    ];
+  }
+
+  public getObjectiveVisual(): JSX.Element {
+    const percentComplete: number = (this.progress / this.totalAmount) * 100;
+
+    const factionColor: string =
+      this.faction === Factions.TERMINIDS
+        ? "#fdc300"
+        : this.faction === Factions.AUTOMATONS
+        ? "#fe6d6a"
+        : this.faction === Factions.ILLUMINATE
+        ? "#ce64f8"
+        : "#ffe711";
+
+    return (
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-row">
+          <div
+            className={`${
+              this.completed ? "bg-[--success]" : "bg-[#44464a]"
+            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
+          ></div>
+          <span>
+            Complete
+            <span className="text-[--helldiver-yellow]">
+              {this.totalAmount}
+            </span>
+            <span>of Operations</span>
+            {this.difficulty && (
+              <span>
+                on difficulty{" "}
+                <span className="text-[--helldiver-yellow]">
+                  {this.difficultyTable[this.difficulty] +
+                    " or higher" +
+                    !this.faction && !this.planet
+                    ? "."
+                    : ""}
+                </span>
+              </span>
+            )}
+            {this.faction && (
+              <span className={`text-[${factionColor}]`}>
+                against the {this.faction + !this.planet ? "." : ""}
+              </span>
+            )}
+            {this.planet && (
+              <span className={`text-[${factionColor}]`}>
+                on {this.planet.name + "."}
+              </span>
+            )}
+          </span>
+        </div>
+        {!this.completed && (
+          <ObjectiveProgressBar
+            innerText={`${this.progress} / ${
+              this.totalAmount
+            } (${percentComplete.toFixed(1)}%)`}
+            factionColor={factionColor}
+            percentage={percentComplete}
+          />
+        )}
+      </div>
+    );
   }
 }
 
@@ -145,6 +410,45 @@ export class LiberateMoreObjective extends Objective {
     this.faction = faction;
     this.liberatedPlanetCount = liberatedCount;
     this.lostPlanetCount = lostCount;
+  }
+
+  public getObjectiveVisual(): JSX.Element {
+    const factionColor: string =
+      this.faction === Factions.TERMINIDS
+        ? "#fdc300"
+        : this.faction === Factions.AUTOMATONS
+        ? "#fe6d6a"
+        : this.faction === Factions.ILLUMINATE
+        ? "#ce64f8"
+        : "#ffe711";
+
+    return (
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-row">
+          <div
+            className={`${
+              this.completed ? "bg-[--success]" : "bg-[#44464a]"
+            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
+          ></div>
+          <span>
+            Liberate more planets
+            {this.faction && (
+              <span className={`text-[${factionColor}]`}>
+                from the {this.faction}
+              </span>
+            )}
+            than are lost.
+          </span>
+        </div>
+        {!this.completed && (
+          <DualObjectiveProgressBar
+            factionColor={factionColor}
+            friendlyCount={this.liberatedPlanetCount}
+            enemyCount={this.lostPlanetCount}
+          />
+        )}
+      </div>
+    );
   }
 }
 

@@ -19,9 +19,35 @@ export async function getLatestMajorOrder(): Promise<MajorOrder> {
       return { id32: -1 } as MajorOrder;
     }
 
-    return responseJson;
+    return responseJson[0];
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return { id32: -1 } as MajorOrder;
+  }
+}
+
+export async function getStrategicOpportunities(): Promise<
+  MajorOrder[] | null
+> {
+  try {
+    const request = await fetch(`${api}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Super-Client": "helldivers.strategy.calc",
+        "X-Super-Contact": "example@email.com",
+      },
+    });
+
+    const responseJson = await request.json();
+
+    if (responseJson.length < 2) {
+      return null;
+    }
+
+    return responseJson.slice(1);
+  } catch (e) {
+    console.error(e);
+    return null;
   }
 }

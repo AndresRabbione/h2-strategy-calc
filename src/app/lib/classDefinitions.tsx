@@ -1,7 +1,8 @@
 import { JSX } from "react";
-import { Attack, fetchAttacks } from "../API/gambits/route";
+import { findGambitForPlanet, isUnderAttack } from "../API/gambits/route";
 import { findPlanetById } from "../API/planets/route";
 import {
+  Attack,
   Enemies,
   EnemyIds,
   FactionIDs,
@@ -10,7 +11,7 @@ import {
   Items,
   MajorOrder,
   ObjectiveTypes,
-  ParsedMO,
+  ParsedAssignment,
   Planet,
   PriorityTable,
   SupplyLines,
@@ -23,10 +24,12 @@ import DualObjectiveProgressBar from "../../../components/dualObjectiveProgressB
 export abstract class Objective {
   completed: boolean;
   type: ObjectiveTypes;
+  currentPriority: number;
 
   constructor(complete: boolean, type: ObjectiveTypes) {
     this.completed = complete;
     this.type = type;
+    this.currentPriority = 0;
   }
 
   public abstract getObjectiveVisual(): JSX.Element;
@@ -459,7 +462,7 @@ export abstract class CalculatorStrategy {
   protected timeLimit: number;
   protected targetedPlanetIds: number[];
   protected routeTable: SupplyLines;
-  protected parsedMO: ParsedMO;
+  protected parsedAssignments: ParsedAssignment[];
 
   constructor(
     table: PriorityTable,
@@ -467,14 +470,14 @@ export abstract class CalculatorStrategy {
     time: number,
     ids: number[],
     routes: SupplyLines,
-    majorOrder: ParsedMO
+    assignments: ParsedAssignment[]
   ) {
     this.priorityTable = table;
     this.impactModifier = impact;
     this.timeLimit = time;
     this.targetedPlanetIds = ids;
     this.routeTable = routes;
-    this.parsedMO = majorOrder;
+    this.parsedAssignments = assignments;
   }
 
   protected abstract calcMinOffense(planet: Planet): number;
@@ -543,22 +546,11 @@ export abstract class CalculatorStrategy {
     return allRoutes;
   }
 
-  protected async findAllGambits(): Promise<Planet[][]> {
-    const attacks: Attack[] | undefined = await fetchAttacks();
-    if (!attacks) return [];
-    const moGambits = [];
+  protected async findAllMOGambits(): Promise<Attack[]> {
+    const moGambits: Attack[] = [];
 
-    for (const attack of attacks) {
-      if (
-        this.targetedPlanetIds.includes(attack.sourceId) ||
-        this.targetedPlanetIds.includes(attack.targetId)
-      ) {
-        const source = await findPlanetById(attack.sourceId);
-        const target = await findPlanetById(attack.targetId);
-        if (Object.keys(source).length > 0 && Object.keys(target).length > 0) {
-          moGambits.push([source, target]);
-        }
-      }
+    for (const planetId of this.targetedPlanetIds) {
+      moGambits.push(await findGambitForPlanet(planetId));
     }
 
     return moGambits;
@@ -598,6 +590,7 @@ export class LiberationStrategy extends CalculatorStrategy {
   protected calcMinOffense(planet: Planet): number {
     return planet.maxHealth / (this.timeLimit - 1);
   }
+
   protected calcRouteResistance(planets: Planet[]): number {
     return planets.reduce(
       (accumulator, currentPlanet) =>
@@ -678,7 +671,11 @@ export class MOParser {
       }
     }
 
-    return new PlanetObjective(progress === 1, ObjectiveTypes.HOLD, target!);
+    return new PlanetObjective(
+      progress === 1 && !(await isUnderAttack(target!.index)),
+      ObjectiveTypes.HOLD,
+      target!
+    );
   }
 
   private async parseOperationObj(
@@ -818,7 +815,7 @@ export class MOParser {
     return null;
   }
 
-  public isValidMO(majorOrder: MajorOrder): boolean {
+  public isValidAssignment(majorOrder: MajorOrder): boolean {
     return majorOrder.id32 !== -1;
   }
 }
@@ -826,18 +823,20 @@ export class MOParser {
 export class StrategyFactory {
   private majorOrderParser: MOParser;
   private currentMajorOrder: MajorOrder;
+  private opportunities: MajorOrder[];
 
-  constructor(currentOrder: MajorOrder) {
+  constructor(currentOrder: MajorOrder, opportunities: MajorOrder[]) {
     this.currentMajorOrder = currentOrder;
     this.majorOrderParser = new MOParser();
+    this.opportunities = opportunities;
   }
 
   public async generateNewStrategy(): Promise<CalculatorStrategy> {
     return {} as CalculatorStrategy;
   }
 
-  private async getParsedMO(): Promise<ParsedMO | null> {
-    if (this.majorOrderParser.isValidMO(this.currentMajorOrder)) {
+  private async getParsedMO(): Promise<ParsedAssignment | null> {
+    if (this.majorOrderParser.isValidAssignment(this.currentMajorOrder)) {
       return null;
     }
 
@@ -863,6 +862,47 @@ export class StrategyFactory {
       endDate: endDate,
       timeRemaining: this.currentMajorOrder.expiresIn * 1000,
       objectives: objectives,
+      isMajorOrder: true,
+      title: this.currentMajorOrder.setting.overrideTitle,
+      brief: this.currentMajorOrder.setting.overrideBrief,
     };
+  }
+
+  private async getParsedOpportunities(): Promise<ParsedAssignment[] | null> {
+    const parsedOpportunities: ParsedAssignment[] = [];
+
+    for (const opportunity of this.opportunities) {
+      if (this.majorOrderParser.isValidAssignment(opportunity)) {
+        const tasks = opportunity.setting.tasks;
+        const progress = opportunity.progress;
+        const objectives: Objective[] = [];
+
+        for (let i = 0; i < progress.length; i++) {
+          const parsedObj = await this.majorOrderParser.getParsedObjective(
+            tasks[i],
+            progress[i]
+          );
+
+          if (parsedObj !== null) {
+            objectives.push(parsedObj);
+          }
+        }
+
+        const endTime = Date.now() + opportunity.expiresIn * 1000;
+        const endDate = new Date(endTime);
+
+        parsedOpportunities.push({
+          id: opportunity.id32,
+          endDate: endDate,
+          timeRemaining: opportunity.expiresIn * 1000,
+          objectives: objectives,
+          isMajorOrder: false,
+          title: opportunity.setting.overrideTitle,
+          brief: opportunity.setting.overrideBrief,
+        });
+      }
+    }
+
+    return parsedOpportunities;
   }
 }

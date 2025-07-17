@@ -169,6 +169,11 @@ export type Planet = {
   regions: Region[];
 };
 
+export interface Attack {
+  targets: Planet[];
+  source: Planet;
+}
+
 export type PriorityTable = {};
 
 export enum ObjectiveTypes {
@@ -218,9 +223,12 @@ export enum ItemIds {
   SUPER_RARE,
 }
 
-export type ParsedMO = {
+export type ParsedAssignment = {
   id: number;
   endDate: Date;
   timeRemaining: number;
   objectives: Objective[];
+  title: string;
+  brief: string;
+  isMajorOrder: boolean;
 };

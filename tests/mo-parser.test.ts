@@ -21,7 +21,7 @@ describe("getLatestMajorOrder", () => {
       expiresIn: 1,
       setting: {} as MOSetting,
     };
-    const result = parser.isValidMO(majorOrder);
+    const result = parser.isValidAssignment(majorOrder);
 
     expect(result).toBe(true);
   });
@@ -34,7 +34,7 @@ describe("getLatestMajorOrder", () => {
       expiresIn: 1,
       setting: {} as MOSetting,
     };
-    const result = parser.isValidMO(majorOrder);
+    const result = parser.isValidAssignment(majorOrder);
 
     expect(result).toBe(false);
   });

@@ -15,7 +15,7 @@ export async function findPlanetById(id: number): Promise<Planet> {
 
     return await request.json();
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return {} as Planet;
   }
 }

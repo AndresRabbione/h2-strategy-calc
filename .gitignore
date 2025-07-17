@@ -40,3 +40,4 @@ next-env.d.ts
 
 # scripts for personal use
 /scripts
+.venv

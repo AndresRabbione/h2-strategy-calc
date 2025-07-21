@@ -1,5 +1,6 @@
 import { isUnderAttack } from "../API/gambits/route";
 import { findPlanetById } from "../API/planets/route";
+import { getCurrentImpactMultiplier } from "../API/status/route";
 import {
   CollectionObjective,
   KillObjective,
@@ -24,37 +25,38 @@ import {
   DSSStep,
   StrategyStep,
 } from "./typeDefinitions";
+import supplyLines from "@/app/lib/supply-lines.json";
 
 export abstract class CalculatorStrategy {
   protected impactModifier: number;
-  protected timeRemaining: number;
   protected targetedPlanets: Planet[];
   protected routeTable: SupplyLines;
   protected majorOrder: ParsedAssignment;
   protected opportunities: ParsedAssignment[];
+  public targetedFactions: Factions[];
   public DSSScript: DSSStep[];
   public ObjectiveScript: StrategyStep[];
 
   constructor(
     impact: number,
-    timeLeft: number,
     routes: SupplyLines,
     majorOrder: ParsedAssignment,
     opportunities: ParsedAssignment[],
-    targets: Planet[]
+    targets: Planet[],
+    factions: Factions[]
   ) {
     this.impactModifier = impact;
-    this.timeRemaining = timeLeft;
     this.routeTable = routes;
     this.majorOrder = majorOrder;
     this.opportunities = opportunities;
     this.targetedPlanets = targets;
     this.DSSScript = [];
     this.ObjectiveScript = [];
+    this.targetedFactions = factions;
   }
 
   protected calcMinOffense(planet: Planet): number {
-    return planet.maxHealth / (this.timeRemaining - 1);
+    return planet.maxHealth / (this.majorOrder.timeRemaining - 1);
   }
 
   protected calcRouteResistance(planets: Planet[]): number {
@@ -63,18 +65,6 @@ export abstract class CalculatorStrategy {
         accumulator + currentPlanet.regenPerSecond,
       0
     );
-  }
-
-  protected areTherePlanetsSpecified(): boolean {
-    for (const assignment of this.parsedAssignments) {
-      for (const objective of assignment.objectives) {
-        if (objective.hasSpecificPlanet()) {
-          return true;
-        }
-      }
-    }
-
-    return false;
   }
 
   protected async getAllRoutes(
@@ -170,28 +160,20 @@ export abstract class CalculatorStrategy {
     return false;
   }
 
-  public getTargetedFactions(): Factions[] {
-    let targetedFactions: Factions[] = [...this.majorOrder.targetFactions];
-
-    for (const opportunity of this.opportunities) {
-      targetedFactions = [...opportunity.targetFactions, ...targetedFactions];
-    }
-
-    return targetedFactions;
-  }
-
   public abstract calculateOptimalStrategy(): void;
 }
 
-export class LiberationStrategy extends CalculatorStrategy {
+export class PlanetaryStrategy extends CalculatorStrategy {
   public calculateOptimalStrategy(): void {}
 }
 
-export class FactionStrategy extends CalculatorStrategy {}
+export class FactionStrategy extends CalculatorStrategy {
+  public calculateOptimalStrategy(): void {}
+}
 
 export class NoMOStrategy extends CalculatorStrategy {
   constructor(impact: number, routes: SupplyLines) {
-    super(impact, 0, routes, {} as ParsedAssignment, [], []);
+    super(impact, routes, {} as ParsedAssignment, [], [], []);
   }
 
   public calculateOptimalStrategy(): void {
@@ -199,6 +181,18 @@ export class NoMOStrategy extends CalculatorStrategy {
   }
 }
 export class MOParser {
+  public hasSpecifiedPlanets(assignments: ParsedAssignment[]): boolean {
+    for (const assignment of assignments) {
+      for (const objective of assignment.objectives) {
+        if (objective.hasSpecificPlanet()) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
   private parseFactionId(factionId: number): Factions {
     switch (factionId) {
       case FactionIDs.HUMANS:
@@ -427,10 +421,86 @@ export class StrategyFactory {
 
   public async generateNewStrategy(): Promise<CalculatorStrategy> {
     const parsedMO = await this.getParsedMO();
+    const impact = await getCurrentImpactMultiplier();
+
     if (!parsedMO) {
-      return new NoMOStrategy();
+      return new NoMOStrategy(impact, supplyLines);
     }
-    return {} as CalculatorStrategy;
+
+    const opportunities = await this.getParsedOpportunities();
+
+    const safeOpportunities = opportunities ?? [];
+
+    const targetedFactions = this.getTargetedFactions(
+      parsedMO,
+      safeOpportunities
+    );
+
+    if (
+      !this.majorOrderParser.hasSpecifiedPlanets([
+        parsedMO,
+        ...safeOpportunities,
+      ])
+    ) {
+      return new FactionStrategy(
+        impact,
+        supplyLines,
+        parsedMO,
+        safeOpportunities,
+        [],
+        targetedFactions
+      );
+    }
+
+    const targets: Planet[] = this.getTargetedPlanets(
+      parsedMO,
+      safeOpportunities
+    );
+
+    return new PlanetaryStrategy(
+      impact,
+      supplyLines,
+      parsedMO,
+      safeOpportunities,
+      targets,
+      targetedFactions
+    );
+  }
+
+  public getTargetedFactions(
+    majorOrder: ParsedAssignment,
+    opportunities: ParsedAssignment[]
+  ): Factions[] {
+    let targetedFactions: Factions[] = [...majorOrder.targetFactions];
+
+    for (const opportunity of opportunities) {
+      targetedFactions = [...opportunity.targetFactions, ...targetedFactions];
+    }
+
+    return targetedFactions;
+  }
+
+  public getTargetedPlanets(
+    majorOrder: ParsedAssignment,
+    opportunities: ParsedAssignment[]
+  ): Planet[] {
+    const targets: Planet[] = [];
+
+    for (const objective of majorOrder.objectives) {
+      const planet: Planet | null = objective.getTargetPlanet();
+
+      if (planet) targets.push(planet);
+    }
+
+    for (const opportunity of opportunities) {
+      for (const objective of opportunity.objectives) {
+        const planet: Planet | null = objective.getTargetPlanet();
+
+        if (planet) targets.push(planet);
+      }
+    }
+
+    return targets;
   }
 
   private async getParsedMO(): Promise<ParsedAssignment | null> {

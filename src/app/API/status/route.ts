@@ -21,7 +21,28 @@ type StatusResponse = {
     race: number;
   }[];
   jointOperations: { id: number; planetIndex: number; hqNodeIndex: number }[];
-  planetEvents: { id: number; planetIndex: number }[];
+  planetEvents: {
+    id: number;
+    planetIndex: number;
+    eventType: number;
+    race: number;
+    health: number;
+    maxHealth: number;
+    startTime: number;
+    expireTime: number;
+    campaignId: number;
+    jointOperationIds: number[];
+  }[];
+  planetRegions: {
+    planetIndex: number;
+    regionIndex: number;
+    owner: number;
+    health: number;
+    regenPerSecond: number;
+    availabilityFactor: number;
+    isAvailable: boolean;
+    players: number;
+  }[];
 };
 
 export async function getCurrentImpactMultiplier(): Promise<number> {
@@ -36,7 +57,7 @@ export async function getCurrentImpactMultiplier(): Promise<number> {
     });
 
     const responseJson: StatusResponse = await request.json();
-    return;
+    return responseJson.impactMultiplier;
   } catch (e) {
     console.error(e);
     return 0;

@@ -1,6 +1,6 @@
-import { isUnderAttack } from "../API/gambits/route";
-import { findPlanetById } from "../API/planets/route";
-import { getCurrentImpactMultiplier } from "../API/status/route";
+import { isUnderAttack } from "../API/gambits/gambitCalls";
+import { findPlanetById } from "../API/planets/planetCalls";
+import { getCurrentImpactMultiplier } from "../API/status/statusCalls";
 import {
   CollectionObjective,
   KillObjective,

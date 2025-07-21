@@ -3,7 +3,7 @@
 import {
   getLatestMajorOrder,
   getStrategicOpportunities,
-} from "../API/orders/route";
+} from "../API/orders/orderCalls";
 import { StrategyFactory } from "../lib/classDefinitions";
 
 export default async function Home() {

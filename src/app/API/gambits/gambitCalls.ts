@@ -1,5 +1,5 @@
 import { Attack, Factions, Planet } from "@/app/lib/typeDefinitions";
-import { findPlanetById } from "../planets/route";
+import { findPlanetById } from "../planets/planetCalls";
 import supplyLines from "@/app/lib/supply-lines.json";
 
 const api = process.env.API_URL;

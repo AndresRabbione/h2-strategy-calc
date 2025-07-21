@@ -10,7 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "jest": "^30.0.4",
     "jwt-decode": "^4.0.0",
     "next": "15.3.4",
     "next-intl": "^4.1.0",
@@ -24,18 +23,13 @@
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
     "@eslint/eslintrc": "^3",
-    "@jest/globals": "^30.0.4",
     "@tailwindcss/postcss": "^4",
-    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "babel-jest": "^30.0.4",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
-    "expect-type": "^1.2.2",
     "tailwindcss": "^4",
-    "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5"
   }

@@ -73,6 +73,7 @@ export async function isUnderAttack(planetId: number): Promise<boolean> {
 export async function findGambitForPlanet(planetId: number): Promise<Attack> {
   const planet = await findPlanetById(planetId);
   try {
+    // Hack to bypass typescript stuff, unfortunate but necessary, in an ideal world this won't cause issues
     const linkedPlanets: { name: string; index: number }[] =
       supplyLines[planet.name as keyof typeof supplyLines].links;
 

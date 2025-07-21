@@ -1,501 +1,99 @@
-import { JSX } from "react";
-import { findGambitForPlanet, isUnderAttack } from "../API/gambits/route";
+import { isUnderAttack } from "../API/gambits/route";
 import { findPlanetById } from "../API/planets/route";
 import {
-  Attack,
+  CollectionObjective,
+  KillObjective,
+  Objective,
+  OperationObjective,
+  PlanetObjective,
+} from "./objectiveClasses";
+import {
   Enemies,
   EnemyIds,
   FactionIDs,
   Factions,
   ItemIds,
   Items,
-  MajorOrder,
+  Assignment,
   ObjectiveTypes,
   ParsedAssignment,
   Planet,
-  PriorityTable,
   SupplyLines,
   Task,
   ValueTypes,
+  DSSStep,
+  StrategyStep,
 } from "./typeDefinitions";
-import ObjectiveProgressBar from "../../../components/objectiveProgressBar";
-import DualObjectiveProgressBar from "../../../components/dualObjectiveProgressBar";
-
-export abstract class Objective {
-  completed: boolean;
-  type: ObjectiveTypes;
-  currentPriority: number;
-
-  constructor(complete: boolean, type: ObjectiveTypes) {
-    this.completed = complete;
-    this.type = type;
-    this.currentPriority = 0;
-  }
-
-  public abstract getObjectiveVisual(): JSX.Element;
-}
-
-export class PlanetObjective extends Objective {
-  target: Planet;
-
-  constructor(
-    complete: boolean,
-    type: ObjectiveTypes.HOLD | ObjectiveTypes.LIBERATE,
-    target: Planet
-  ) {
-    super(complete, type);
-    this.target = target;
-  }
-
-  public getObjectiveVisual(): JSX.Element {
-    const percentComplete: number =
-      ((this.target.maxHealth - this.target.health) / this.target.maxHealth) *
-      100;
-
-    const factionColor: string =
-      this.target.currentOwner === Factions.TERMINIDS
-        ? "#fdc300"
-        : this.target.currentOwner === Factions.AUTOMATONS
-        ? "#fe6d6a"
-        : this.target.currentOwner === Factions.ILLUMINATE
-        ? "#ce64f8"
-        : "#ffe711";
-    return (
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-row">
-          <div
-            className={`${
-              this.completed ? "bg-[--success]" : "bg-[#44464a]"
-            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
-          ></div>
-          <span>
-            {this.type == ObjectiveTypes.HOLD
-              ? "Hold "
-              : this.type === ObjectiveTypes.LIBERATE
-              ? "Liberate "
-              : "Defend "}
-            <span className={`text-[${factionColor}]`}>
-              {this.target.name + "."}
-            </span>
-          </span>
-        </div>
-        {!this.completed && (
-          <ObjectiveProgressBar
-            innerText={`(${percentComplete.toFixed(1)}%)`}
-            factionColor={factionColor}
-            percentage={percentComplete}
-          />
-        )}
-      </div>
-    );
-  }
-}
-
-export class KillObjective extends Objective {
-  faction: Factions | null;
-  enemy: Enemies | null;
-  planet: Planet | null;
-  progress: number;
-  totalAmount: number;
-
-  constructor(
-    faction: Factions | null = null,
-    enemy: Enemies | null = null,
-    planet: Planet | null = null,
-    progress: number,
-    total: number,
-    complete: boolean
-  ) {
-    super(complete, ObjectiveTypes.KILL);
-    this.faction = faction;
-    this.enemy = enemy;
-    this.totalAmount = total;
-    this.planet = planet;
-    this.progress = progress;
-  }
-
-  public getObjectiveVisual(): JSX.Element {
-    const percentComplete: number = (this.progress / this.totalAmount) * 100;
-
-    const factionColor: string =
-      this.faction === Factions.TERMINIDS
-        ? "#fdc300"
-        : this.faction === Factions.AUTOMATONS
-        ? "#fe6d6a"
-        : this.faction === Factions.ILLUMINATE
-        ? "#ce64f8"
-        : "#ffe711";
-
-    return (
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-row">
-          <div
-            className={`${
-              this.completed ? "bg-[--success]" : "bg-[#44464a]"
-            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
-          ></div>
-          <span>
-            Kill
-            <span className={`text-[--helldiver-yellow]`}>
-              {this.totalAmount}
-            </span>
-            <span className={`text-[${factionColor}]`}>
-              {this.faction && !this.enemy
-                ? this.faction + "."
-                : this.enemy
-                ? this.enemy + "s."
-                : "enemies."}
-            </span>
-          </span>
-        </div>
-        {!this.completed && (
-          <ObjectiveProgressBar
-            innerText={`${this.progress} / ${
-              this.totalAmount
-            } (${percentComplete.toFixed(1)}%)`}
-            factionColor={factionColor}
-            percentage={percentComplete}
-          />
-        )}
-      </div>
-    );
-  }
-}
-
-export class CollectionObjective extends Objective {
-  faction: Factions | null;
-  planet: Planet | null;
-  item: Items;
-  progress: number;
-  totalAmount: number;
-
-  constructor(
-    completed: boolean,
-    faction: Factions | null = null,
-    planet: Planet | null = null,
-    item: number,
-    progress: number,
-    total: number
-  ) {
-    super(completed, ObjectiveTypes.COLLECT);
-    this.faction = faction;
-    this.item = item;
-    this.progress = progress;
-    this.planet = planet;
-    this.totalAmount = total;
-  }
-
-  public getObjectiveVisual(): JSX.Element {
-    const percentComplete: number = (this.progress / this.totalAmount) * 100;
-
-    const factionColor: string =
-      this.faction === Factions.TERMINIDS
-        ? "#fdc300"
-        : this.faction === Factions.AUTOMATONS
-        ? "#fe6d6a"
-        : this.faction === Factions.ILLUMINATE
-        ? "#ce64f8"
-        : "#ffe711";
-
-    return (
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-row">
-          <div
-            className={`${
-              this.completed ? "bg-[--success]" : "bg-[#44464a]"
-            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
-          ></div>
-          <span>
-            Collect
-            <span className={`text-[--helldiver-yellow]`}>
-              {this.totalAmount}
-            </span>
-            <span className={`text-[--helldiver-yellow]`}>
-              {this.item + "s" + this.faction && this.planet ? "" : "."}
-            </span>
-            {this.faction && (
-              <span className={`text-[${factionColor}]`}>
-                against the {this.faction + !this.planet ? "." : ""}
-              </span>
-            )}
-            {this.planet && (
-              <span className={`text-[${factionColor}]`}>
-                on {this.planet.name + "."}
-              </span>
-            )}
-          </span>
-        </div>
-        {!this.completed && (
-          <ObjectiveProgressBar
-            innerText={`${this.progress} / ${
-              this.totalAmount
-            } (${percentComplete.toFixed(1)}%)`}
-            factionColor={factionColor}
-            percentage={percentComplete}
-          />
-        )}
-      </div>
-    );
-  }
-}
-
-export class DefendAmountObjective extends Objective {
-  faction: Factions | null;
-  totalAmount: number;
-  progress: number;
-
-  constructor(
-    complete: boolean,
-    faction: Factions | null = null,
-    total: number,
-    progress: number
-  ) {
-    super(complete, ObjectiveTypes.DEFEND_AMOUNT);
-    this.faction = faction;
-    this.totalAmount = total;
-    this.progress = progress;
-  }
-
-  public getObjectiveVisual(): JSX.Element {
-    const percentComplete: number = (this.progress / this.totalAmount) * 100;
-
-    const factionColor: string =
-      this.faction === Factions.TERMINIDS
-        ? "#fdc300"
-        : this.faction === Factions.AUTOMATONS
-        ? "#fe6d6a"
-        : this.faction === Factions.ILLUMINATE
-        ? "#ce64f8"
-        : "#ffe711";
-
-    return (
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-row">
-          <div
-            className={`${
-              this.completed ? "bg-[--success]" : "bg-[#44464a]"
-            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
-          ></div>
-          <span>
-            Successfully defend
-            <span className={`text-[--helldiver-yellow]`}>
-              {this.totalAmount}
-            </span>
-            <span>planets.</span>
-          </span>
-        </div>
-        {!this.completed && (
-          <ObjectiveProgressBar
-            innerText={`${this.progress} / ${
-              this.totalAmount
-            } (${percentComplete.toFixed(1)}%)`}
-            factionColor={factionColor}
-            percentage={percentComplete}
-          />
-        )}
-      </div>
-    );
-  }
-}
-
-export class OperationObjective extends Objective {
-  difficulty: number | null;
-  totalAmount: number;
-  progress: number;
-  faction: Factions | null;
-  planet: Planet | null;
-  difficultyTable: string[];
-
-  constructor(
-    completed: boolean,
-    difficulty: number | null,
-    total: number,
-    progress: number,
-    faction: Factions | null = null,
-    planet: Planet | null = null
-  ) {
-    super(completed, ObjectiveTypes.OPERATIONS);
-    this.difficulty = difficulty;
-    this.totalAmount = total;
-    this.faction = faction;
-    this.planet = planet;
-    this.progress = progress;
-    this.difficultyTable = [
-      "Trivial",
-      "Easy",
-      "Medium",
-      "Challenging",
-      "Hard",
-      "Extreme",
-      "Suicide Mission",
-      "Impossible",
-      "Helldive",
-      "Super Helldive",
-    ];
-  }
-
-  public getObjectiveVisual(): JSX.Element {
-    const percentComplete: number = (this.progress / this.totalAmount) * 100;
-
-    const factionColor: string =
-      this.faction === Factions.TERMINIDS
-        ? "#fdc300"
-        : this.faction === Factions.AUTOMATONS
-        ? "#fe6d6a"
-        : this.faction === Factions.ILLUMINATE
-        ? "#ce64f8"
-        : "#ffe711";
-
-    return (
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-row">
-          <div
-            className={`${
-              this.completed ? "bg-[--success]" : "bg-[#44464a]"
-            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
-          ></div>
-          <span>
-            Complete
-            <span className="text-[--helldiver-yellow]">
-              {this.totalAmount}
-            </span>
-            <span>of Operations</span>
-            {this.difficulty && (
-              <span>
-                on difficulty{" "}
-                <span className="text-[--helldiver-yellow]">
-                  {this.difficultyTable[this.difficulty] +
-                    " or higher" +
-                    !this.faction && !this.planet
-                    ? "."
-                    : ""}
-                </span>
-              </span>
-            )}
-            {this.faction && (
-              <span className={`text-[${factionColor}]`}>
-                against the {this.faction + !this.planet ? "." : ""}
-              </span>
-            )}
-            {this.planet && (
-              <span className={`text-[${factionColor}]`}>
-                on {this.planet.name + "."}
-              </span>
-            )}
-          </span>
-        </div>
-        {!this.completed && (
-          <ObjectiveProgressBar
-            innerText={`${this.progress} / ${
-              this.totalAmount
-            } (${percentComplete.toFixed(1)}%)`}
-            factionColor={factionColor}
-            percentage={percentComplete}
-          />
-        )}
-      </div>
-    );
-  }
-}
-
-export class LiberateMoreObjective extends Objective {
-  faction: Factions | null;
-  liberatedPlanetCount: number;
-  lostPlanetCount: number;
-
-  constructor(
-    completed: boolean,
-    faction: Factions | null = null,
-    liberatedCount: number,
-    lostCount: number
-  ) {
-    super(completed, ObjectiveTypes.LIBERATE_MORE);
-    this.faction = faction;
-    this.liberatedPlanetCount = liberatedCount;
-    this.lostPlanetCount = lostCount;
-  }
-
-  public getObjectiveVisual(): JSX.Element {
-    const factionColor: string =
-      this.faction === Factions.TERMINIDS
-        ? "#fdc300"
-        : this.faction === Factions.AUTOMATONS
-        ? "#fe6d6a"
-        : this.faction === Factions.ILLUMINATE
-        ? "#ce64f8"
-        : "#ffe711";
-
-    return (
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-row">
-          <div
-            className={`${
-              this.completed ? "bg-[--success]" : "bg-[#44464a]"
-            } h-1 w-1 p-0.5 m-1 border-1 border-[#61605f] shadow-inner`}
-          ></div>
-          <span>
-            Liberate more planets
-            {this.faction && (
-              <span className={`text-[${factionColor}]`}>
-                from the {this.faction}
-              </span>
-            )}
-            than are lost.
-          </span>
-        </div>
-        {!this.completed && (
-          <DualObjectiveProgressBar
-            factionColor={factionColor}
-            friendlyCount={this.liberatedPlanetCount}
-            enemyCount={this.lostPlanetCount}
-          />
-        )}
-      </div>
-    );
-  }
-}
 
 export abstract class CalculatorStrategy {
-  //TODO: Update to new API specifications, specifically for Attacks
-  protected priorityTable: PriorityTable;
   protected impactModifier: number;
-  protected timeLimit: number;
-  protected targetedPlanetIds: number[];
+  protected timeRemaining: number;
+  protected targetedPlanets: Planet[];
   protected routeTable: SupplyLines;
-  protected parsedAssignments: ParsedAssignment[];
+  protected majorOrder: ParsedAssignment;
+  protected opportunities: ParsedAssignment[];
+  public DSSScript: DSSStep[];
+  public ObjectiveScript: StrategyStep[];
 
   constructor(
-    table: PriorityTable,
     impact: number,
-    time: number,
-    ids: number[],
+    timeLeft: number,
     routes: SupplyLines,
-    assignments: ParsedAssignment[]
+    majorOrder: ParsedAssignment,
+    opportunities: ParsedAssignment[],
+    targets: Planet[]
   ) {
-    this.priorityTable = table;
     this.impactModifier = impact;
-    this.timeLimit = time;
-    this.targetedPlanetIds = ids;
+    this.timeRemaining = timeLeft;
     this.routeTable = routes;
-    this.parsedAssignments = assignments;
+    this.majorOrder = majorOrder;
+    this.opportunities = opportunities;
+    this.targetedPlanets = targets;
+    this.DSSScript = [];
+    this.ObjectiveScript = [];
   }
 
-  protected abstract calcMinOffense(planet: Planet): number;
-  protected abstract calcRouteResistance(planets: Planet[]): number;
+  protected calcMinOffense(planet: Planet): number {
+    return planet.maxHealth / (this.timeRemaining - 1);
+  }
+
+  protected calcRouteResistance(planets: Planet[]): number {
+    return planets.reduce(
+      (accumulator, currentPlanet) =>
+        accumulator + currentPlanet.regenPerSecond,
+      0
+    );
+  }
+
+  protected areTherePlanetsSpecified(): boolean {
+    for (const assignment of this.parsedAssignments) {
+      for (const objective of assignment.objectives) {
+        if (objective.hasSpecificPlanet()) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
   protected async getAllRoutes(
     startingPlanet: Planet,
     currentRoute: Planet[] = [],
     visited: Set<number> = new Set()
   ): Promise<Planet[][]> {
+    // Discarding the route when it crosses a disabled planet or finding a circular dependancy
     if (
       visited.has(startingPlanet.index) ||
       this.routeTable[startingPlanet.name.toUpperCase()].disabled
     )
       return [];
 
+    // Adding the next planet in the route and marking it as seen
     const newRoute = [...currentRoute, startingPlanet];
     visited.add(startingPlanet.index);
 
+    // The route is complete if it finds a plant under Super Earth control
     if (startingPlanet.currentOwner === Factions.HUMANS) {
       return [newRoute];
     }
@@ -503,12 +101,14 @@ export abstract class CalculatorStrategy {
     const linkedPlanets =
       this.routeTable[startingPlanet.name.toUpperCase()].links;
 
+    // The route is invalid if there are no remaining links
     if (!linkedPlanets || linkedPlanets.length === 0) {
       return [];
     }
 
     let allRoutes: Planet[][] = [];
 
+    // Searching recursivley for all the routes
     for (const link of linkedPlanets) {
       const nextPlanet = await findPlanetById(link.index);
       if (!nextPlanet) continue;
@@ -526,39 +126,24 @@ export abstract class CalculatorStrategy {
   protected async findAllRoutes(planet: Planet): Promise<Planet[][]> {
     const linkedPlanets: { name: string; index: number }[] =
       this.routeTable[planet.name.toUpperCase()].links;
-    const allRoutes: Planet[][] = [];
 
     for (const linkedPlanet of linkedPlanets) {
       const fullPlanetData: Planet = await findPlanetById(linkedPlanet.index);
 
       const routes = await this.getAllRoutes(fullPlanetData);
 
-      routes.forEach((route) => {
-        if (route.length > 0) {
-          if (route.length > 1) {
-            route.pop();
-          }
-          allRoutes.push(route);
-        }
-      });
+      return routes;
     }
 
-    return allRoutes;
+    return [];
   }
 
-  protected async findAllMOGambits(): Promise<Attack[]> {
-    const moGambits: Attack[] = [];
-
-    for (const planetId of this.targetedPlanetIds) {
-      moGambits.push(await findGambitForPlanet(planetId));
-    }
-
-    return moGambits;
+  protected calcMinPercentage(planet: Planet): number {
+    const minOffense: number = this.calcMinOffense(planet);
+    // TODO: Figure out the formula for the player weight
   }
 
-  public abstract calcMinPercentage(planet: Planet): number;
-
-  public async findShortestRoute(planet: Planet): Promise<Planet[]> {
+  protected async findShortestRoute(planet: Planet): Promise<Planet[]> {
     const routes = await this.findAllRoutes(planet);
     const routesRegen: number[] = [];
 
@@ -573,7 +158,7 @@ export abstract class CalculatorStrategy {
     return routes[index];
   }
 
-  public async isPlanetAvailable(planet: Planet): Promise<boolean> {
+  protected async isPlanetAvailable(planet: Planet): Promise<boolean> {
     const linkedPlanets = this.routeTable[planet.name.toUpperCase()].links;
 
     for (const linkedPlanet of linkedPlanets) {
@@ -584,26 +169,35 @@ export abstract class CalculatorStrategy {
 
     return false;
   }
+
+  public getTargetedFactions(): Factions[] {
+    let targetedFactions: Factions[] = [...this.majorOrder.targetFactions];
+
+    for (const opportunity of this.opportunities) {
+      targetedFactions = [...opportunity.targetFactions, ...targetedFactions];
+    }
+
+    return targetedFactions;
+  }
+
+  public abstract calculateOptimalStrategy(): void;
 }
 
 export class LiberationStrategy extends CalculatorStrategy {
-  protected calcMinOffense(planet: Planet): number {
-    return planet.maxHealth / (this.timeLimit - 1);
-  }
-
-  protected calcRouteResistance(planets: Planet[]): number {
-    return planets.reduce(
-      (accumulator, currentPlanet) =>
-        accumulator + currentPlanet.regenPerSecond,
-      0
-    );
-  }
-  public calcMinPercentage(planet: Planet): number {
-    const minOffense: number = this.calcMinOffense(planet);
-    // TODO: Figure out the formula for the player weight
-  }
+  public calculateOptimalStrategy(): void {}
 }
 
+export class FactionStrategy extends CalculatorStrategy {}
+
+export class NoMOStrategy extends CalculatorStrategy {
+  constructor(impact: number, routes: SupplyLines) {
+    super(impact, 0, routes, {} as ParsedAssignment, [], []);
+  }
+
+  public calculateOptimalStrategy(): void {
+    return;
+  }
+}
 export class MOParser {
   private parseFactionId(factionId: number): Factions {
     switch (factionId) {
@@ -815,23 +409,27 @@ export class MOParser {
     return null;
   }
 
-  public isValidAssignment(majorOrder: MajorOrder): boolean {
-    return majorOrder.id32 !== -1;
+  public isValidAssignment(assignment: Assignment): boolean {
+    return assignment.id32 !== -1;
   }
 }
 
 export class StrategyFactory {
   private majorOrderParser: MOParser;
-  private currentMajorOrder: MajorOrder;
-  private opportunities: MajorOrder[];
+  private currentMajorOrder: Assignment;
+  private opportunities: Assignment[];
 
-  constructor(currentOrder: MajorOrder, opportunities: MajorOrder[]) {
+  constructor(currentOrder: Assignment, opportunities: Assignment[]) {
     this.currentMajorOrder = currentOrder;
     this.majorOrderParser = new MOParser();
     this.opportunities = opportunities;
   }
 
   public async generateNewStrategy(): Promise<CalculatorStrategy> {
+    const parsedMO = await this.getParsedMO();
+    if (!parsedMO) {
+      return new NoMOStrategy();
+    }
     return {} as CalculatorStrategy;
   }
 
@@ -843,11 +441,18 @@ export class StrategyFactory {
     const tasks = this.currentMajorOrder.setting.tasks;
     const progress = this.currentMajorOrder.progress;
     const objectives: Objective[] = [];
+    const targetedFactions: Factions[] = [];
     for (let i = 0; i < progress.length; i++) {
       const parsedObj = await this.majorOrderParser.getParsedObjective(
         tasks[i],
         progress[i]
       );
+
+      const currentFaction = parsedObj?.getTargetedFaction();
+
+      if (currentFaction && !targetedFactions.includes(currentFaction)) {
+        targetedFactions.push(currentFaction);
+      }
 
       if (parsedObj !== null) {
         objectives.push(parsedObj);
@@ -865,6 +470,7 @@ export class StrategyFactory {
       isMajorOrder: true,
       title: this.currentMajorOrder.setting.overrideTitle,
       brief: this.currentMajorOrder.setting.overrideBrief,
+      targetFactions: targetedFactions,
     };
   }
 
@@ -876,12 +482,19 @@ export class StrategyFactory {
         const tasks = opportunity.setting.tasks;
         const progress = opportunity.progress;
         const objectives: Objective[] = [];
+        const targetedFactions: Factions[] = [];
 
         for (let i = 0; i < progress.length; i++) {
           const parsedObj = await this.majorOrderParser.getParsedObjective(
             tasks[i],
             progress[i]
           );
+
+          const currentFaction = parsedObj?.getTargetedFaction();
+
+          if (currentFaction && !targetedFactions.includes(currentFaction)) {
+            targetedFactions.push(currentFaction);
+          }
 
           if (parsedObj !== null) {
             objectives.push(parsedObj);
@@ -899,6 +512,7 @@ export class StrategyFactory {
           isMajorOrder: false,
           title: opportunity.setting.overrideTitle,
           brief: opportunity.setting.overrideBrief,
+          targetFactions: targetedFactions,
         });
       }
     }

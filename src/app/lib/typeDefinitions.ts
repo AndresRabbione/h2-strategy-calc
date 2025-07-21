@@ -1,4 +1,4 @@
-import { Objective } from "./classDefinitions";
+import { Objective } from "./objectiveClasses";
 
 export type Cost = {
   id: string;
@@ -45,7 +45,7 @@ export type Task = {
   valueTypes: number[];
 };
 
-export type MOSetting = {
+export type AssignmentSetting = {
   type: number;
   overrideTitle: string;
   overrideBrief: string;
@@ -55,12 +55,12 @@ export type MOSetting = {
   flags: number;
 };
 
-export type MajorOrder = {
+export type Assignment = {
   id32: number;
   startTime: number;
   progress: number[];
   expiresIn: number;
-  setting: MOSetting;
+  setting: AssignmentSetting;
 };
 
 export enum Factions {
@@ -174,8 +174,6 @@ export interface Attack {
   source: Planet;
 }
 
-export type PriorityTable = {};
-
 export enum ObjectiveTypes {
   //TODO: FIND THE IDS
   HOLD = 13,
@@ -198,6 +196,7 @@ export enum ValueTypes {
   ITEM,
 }
 
+//TODO: Needs filling as data comes in, in the future
 export enum Enemies {
   CHARGER,
   BILE_TITAN,
@@ -209,7 +208,6 @@ export enum EnemyIds {
   BILE_TITAN,
   HULK,
 }
-//TODO: Needs filling as data comes in, in the future
 
 export enum Items {
   COMMON,
@@ -228,7 +226,19 @@ export type ParsedAssignment = {
   endDate: Date;
   timeRemaining: number;
   objectives: Objective[];
+  targetFactions: Factions[];
   title: string;
   brief: string;
   isMajorOrder: boolean;
+};
+
+export type DSSStep = {
+  movementTarget: number;
+  currentActiveAction: TacticalAction;
+  actionToActivate: TacticalAction | null;
+};
+
+export type StrategyStep = {
+  targetId: number | null;
+  assignedPlayerPercentage: number;
 };

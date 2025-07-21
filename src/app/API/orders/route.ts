@@ -1,8 +1,8 @@
-import { MajorOrder } from "@/app/lib/typeDefinitions";
+import { Assignment } from "@/app/lib/typeDefinitions";
 
 const api = process.env.API_URL + "/raw/api/v2/Assignment/War/801";
 
-export async function getLatestMajorOrder(): Promise<MajorOrder> {
+export async function getLatestMajorOrder(): Promise<Assignment> {
   try {
     const request = await fetch(`${api}`, {
       method: "GET",
@@ -16,18 +16,18 @@ export async function getLatestMajorOrder(): Promise<MajorOrder> {
     const responseJson = await request.json();
 
     if (responseJson.length === 0) {
-      return { id32: -1 } as MajorOrder;
+      return { id32: -1 } as Assignment;
     }
 
     return responseJson[0];
   } catch (e) {
     console.error(e);
-    return { id32: -1 } as MajorOrder;
+    return { id32: -1 } as Assignment;
   }
 }
 
 export async function getStrategicOpportunities(): Promise<
-  MajorOrder[] | null
+  Assignment[] | null
 > {
   try {
     const request = await fetch(`${api}`, {

@@ -27,36 +27,10 @@ import {
 } from "./typeDefinitions";
 import supplyLines from "@/app/lib/supply-lines.json";
 
-export abstract class CalculatorStrategy {
-  protected impactModifier: number;
-  protected targetedPlanets: Planet[];
-  protected routeTable: SupplyLines;
-  protected majorOrder: ParsedAssignment;
-  protected opportunities: ParsedAssignment[];
-  public targetedFactions: Factions[];
-  public DSSScript: DSSStep[];
-  public ObjectiveScript: StrategyStep[];
-
-  constructor(
-    impact: number,
-    routes: SupplyLines,
-    majorOrder: ParsedAssignment,
-    opportunities: ParsedAssignment[],
-    targets: Planet[],
-    factions: Factions[]
-  ) {
-    this.impactModifier = impact;
+export class PlanetRouter {
+  public routeTable: SupplyLines;
+  constructor(routes: SupplyLines) {
     this.routeTable = routes;
-    this.majorOrder = majorOrder;
-    this.opportunities = opportunities;
-    this.targetedPlanets = targets;
-    this.DSSScript = [];
-    this.ObjectiveScript = [];
-    this.targetedFactions = factions;
-  }
-
-  protected calcMinOffense(planet: Planet): number {
-    return planet.maxHealth / (this.majorOrder.timeRemaining - 1);
   }
 
   protected calcRouteResistance(planets: Planet[]): number {
@@ -67,7 +41,7 @@ export abstract class CalculatorStrategy {
     );
   }
 
-  protected async getAllRoutes(
+  protected async getAllRoutesStartingWithPlanet(
     startingPlanet: Planet,
     currentRoute: Planet[] = [],
     visited: Set<number> = new Set()
@@ -102,7 +76,7 @@ export abstract class CalculatorStrategy {
     for (const link of linkedPlanets) {
       const nextPlanet = await findPlanetById(link.index);
       if (!nextPlanet) continue;
-      const routes = await this.getAllRoutes(
+      const routes = await this.getAllRoutesStartingWithPlanet(
         nextPlanet,
         newRoute,
         new Set(visited)
@@ -113,14 +87,14 @@ export abstract class CalculatorStrategy {
     return allRoutes;
   }
 
-  protected async findAllRoutes(planet: Planet): Promise<Planet[][]> {
+  public async getAllRoutesForPlanet(planet: Planet): Promise<Planet[][]> {
     const linkedPlanets: { name: string; index: number }[] =
       this.routeTable[planet.name.toUpperCase()].links;
 
     for (const linkedPlanet of linkedPlanets) {
       const fullPlanetData: Planet = await findPlanetById(linkedPlanet.index);
 
-      const routes = await this.getAllRoutes(fullPlanetData);
+      const routes = await this.getAllRoutesStartingWithPlanet(fullPlanetData);
 
       return routes;
     }
@@ -128,13 +102,8 @@ export abstract class CalculatorStrategy {
     return [];
   }
 
-  protected calcMinPercentage(planet: Planet): number {
-    const minOffense: number = this.calcMinOffense(planet);
-    // TODO: Figure out the formula for the player weight
-  }
-
-  protected async findShortestRoute(planet: Planet): Promise<Planet[]> {
-    const routes = await this.findAllRoutes(planet);
+  public async findShortestRoute(planet: Planet): Promise<Planet[]> {
+    const routes = await this.getAllRoutesForPlanet(planet);
     const routesRegen: number[] = [];
 
     for (const route of routes) {
@@ -148,7 +117,7 @@ export abstract class CalculatorStrategy {
     return routes[index];
   }
 
-  protected async isPlanetAvailable(planet: Planet): Promise<boolean> {
+  public async isPlanetAvailable(planet: Planet): Promise<boolean> {
     const linkedPlanets = this.routeTable[planet.name.toUpperCase()].links;
 
     for (const linkedPlanet of linkedPlanets) {
@@ -158,6 +127,44 @@ export abstract class CalculatorStrategy {
     }
 
     return false;
+  }
+}
+
+export abstract class CalculatorStrategy {
+  protected impactModifier: number;
+  protected targetedPlanets: Planet[];
+  protected majorOrder: ParsedAssignment;
+  protected opportunities: ParsedAssignment[];
+  public targetedFactions: Factions[];
+  public DSSScript: DSSStep[];
+  public ObjectiveScript: StrategyStep[];
+  protected router: PlanetRouter;
+
+  constructor(
+    impact: number,
+    routes: SupplyLines,
+    majorOrder: ParsedAssignment,
+    opportunities: ParsedAssignment[],
+    targets: Planet[],
+    factions: Factions[]
+  ) {
+    this.impactModifier = impact;
+    this.majorOrder = majorOrder;
+    this.opportunities = opportunities;
+    this.targetedPlanets = targets;
+    this.DSSScript = [];
+    this.ObjectiveScript = [];
+    this.targetedFactions = factions;
+    this.router = new PlanetRouter(routes);
+  }
+
+  protected calcMinOffense(planet: Planet): number {
+    return planet.maxHealth / (this.majorOrder.timeRemaining - 1);
+  }
+
+  protected calcMinPercentage(planet: Planet): number {
+    const minOffense: number = this.calcMinOffense(planet);
+    // TODO: Figure out the formula for the player weight
   }
 
   public abstract calculateOptimalStrategy(): void;

@@ -1,4 +1,5 @@
-const api = process.env.API_URL + "/raw/api/WarSeason/801/Status";
+const api =
+  process.env.NEXT_PUBLIC_HELLDIVERS_API_URL + "/raw/api/WarSeason/801/Status";
 
 type StatusResponse = {
   warId: number;
@@ -55,6 +56,10 @@ export async function getCurrentImpactMultiplier(): Promise<number> {
         "X-Super-Contact": "example@email.com",
       },
     });
+
+    if (request.status === 503) {
+      return 0;
+    }
 
     const responseJson: StatusResponse = await request.json();
     return responseJson.impactMultiplier;

@@ -36,7 +36,9 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-full min-w-full`}
       >
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <main>{children}</main>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -1,21 +1,29 @@
 interface Props {
-  innerText: string;
   factionColor: string;
-  percentage: number;
+  progress: number;
+  totalAmount: number | null;
 }
 
 export default function ObjectiveProgressBar({
-  innerText,
   factionColor,
-  percentage,
+  progress,
+  totalAmount,
 }: Props) {
+  const percentage =
+    totalAmount === null ? progress : (progress / totalAmount) * 100;
+  const innerText = `${progress.toLocaleString("en-US")}${
+    totalAmount !== null
+      ? ` / ${totalAmount.toLocaleString("en-US")} (${percentage.toFixed(2)}%)`
+      : "%"
+  }`;
+
   return (
     <div
-      className={`bg-[${factionColor}] w-4/5 before:top-1 before:right-0 relative h-6 before:absolute before:left-0 before:mr-2 before:text-end before:text-sm before:content-[attr(data-label)]`}
+      className={`bg-[${factionColor}] w-4/5 before:text-gray-700 before:top-0.5 before:left-0 relative h-6 before:absolute before:pl-2 before:text-sm before:content-[attr(data-label)]`}
       data-label={innerText}
     >
       <span
-        className="inline-block h-full bg-[--super-earth-blue]"
+        className="inline-block h-full bg-super-earth-blue"
         style={{ width: `${percentage}%` }}
       ></span>
     </div>

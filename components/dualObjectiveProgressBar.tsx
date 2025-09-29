@@ -24,7 +24,7 @@ export default function DualObjectiveProgressBar({
       data-label={totalCount}
     >
       <span
-        className={`inline-block h-full bg-[--super-earth-blue] w-${friendlyPercent}`}
+        className={`inline-block h-full bg-super-earth-blue w-${friendlyPercent}`}
       ></span>
     </div>
   );

@@ -8,7 +8,5 @@
     "about-btn": "About",
     "history-btn": "History"
   },
-  "ObjectiveSection": {
-    "faction-label": "Factions"
-  }
+  "AssignmentSection": {}
 }

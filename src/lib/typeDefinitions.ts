@@ -78,6 +78,13 @@ export enum Factions {
   ILLUMINATE = "Illuminate",
 }
 
+export enum FactionNames {
+  HUMANS = "Human",
+  TERMINIDS = "Terminid",
+  AUTOMATONS = "Automaton",
+  ILLUMINATE = "Illuminate",
+}
+
 export enum FactionIDs {
   HUMANS = 1,
   TERMINIDS = 2,
@@ -179,7 +186,6 @@ export enum ObjectiveTypes {
   OPERATIONS = 9,
   KILL = 3,
   COLLECT = 2,
-  DEFEND_AMOUNT,
   LIBERATE_MORE,
   DEFEND = 12, //Not sure about this one
 }
@@ -275,3 +281,22 @@ export type FullParsedAssignment = {
 };
 
 export type TableNames = keyof Database["public"]["Tables"];
+
+export type DisplayObjective = {
+  id: number;
+  type: ObjectiveTypes;
+  text: { text: string; color: string; joiner: string }[];
+  progress: number;
+  totalAmount: number | null;
+  enemyProgress: number | null;
+  displayedFaction: FactionIDs;
+};
+
+export type DisplayAssignment = {
+  brief: string | null;
+  endDate: string;
+  id: number;
+  isMajorOrder: boolean;
+  title: string | null;
+  objectives: DisplayObjective[];
+};

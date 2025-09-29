@@ -1,0 +1,14 @@
+{
+  "Header": {
+    "perfect-toggle": "Perfecta",
+    "realistic-toggle": "Realista",
+    "timeline-toggle": "Línea de Tiempo",
+    "table-toggle": "Tabla",
+    "settings-btn": "Opciones",
+    "about-btn": "Acerca de Nosotros",
+    "history-btn": "Historial"
+  },
+  "ObjectiveSection": {
+    "faction-label": "Facciones"
+  }
+}

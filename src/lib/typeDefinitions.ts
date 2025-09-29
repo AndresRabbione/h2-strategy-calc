@@ -1,4 +1,4 @@
-import { Objective } from "./classDefinitions";
+import { Database } from "../../database.types";
 
 export type Cost = {
   id: string;
@@ -23,13 +23,21 @@ export type TacticalAction = {
   activeEffectIds: number[];
 };
 
-export type SpaceStation = {
+export type SpaceStationRaw = {
   id32: number;
   planetIndex: number;
   lastElectionId: string;
   currentElectionId: string;
   currentElectionEndWarTime: number;
   flags: 1;
+  tacticalActions: TacticalAction[];
+};
+
+export type SpaceStationV2 = {
+  id32: number;
+  planet: Planet;
+  electionEnd: string;
+  flags: number;
   tacticalActions: TacticalAction[];
 };
 
@@ -45,7 +53,7 @@ export type Task = {
   valueTypes: number[];
 };
 
-export type MOSetting = {
+export type AssignmentSetting = {
   type: number;
   overrideTitle: string;
   overrideBrief: string;
@@ -55,24 +63,29 @@ export type MOSetting = {
   flags: number;
 };
 
-export type MajorOrder = {
+export type Assignment = {
   id32: number;
   startTime: number;
   progress: number[];
   expiresIn: number;
-  setting: MOSetting;
+  setting: AssignmentSetting;
 };
 
 export enum Factions {
-  // Confirmed, used for planet data as the v1 endpoints use the names instead of ids
   HUMANS = "Humans",
   TERMINIDS = "Terminids",
   AUTOMATONS = "Automaton",
   ILLUMINATE = "Illuminate",
 }
 
+export enum FactionNames {
+  HUMANS = "Human",
+  TERMINIDS = "Terminid",
+  AUTOMATONS = "Automaton",
+  ILLUMINATE = "Illuminate",
+}
+
 export enum FactionIDs {
-  //Confirmed, used for MO parsing as the /raw endpoints use ids, not names
   HUMANS = 1,
   TERMINIDS = 2,
   AUTOMATONS = 3,
@@ -85,14 +98,6 @@ export enum RegionSizes {
   CITY = "City",
   MEGACITY = "MegaCity",
 }
-
-export type SupplyLines = {
-  [planetName: string]: {
-    index: number;
-    links: { name: string; index: number }[];
-    disabled: boolean;
-  };
-};
 
 export type Biome = {
   name: string;
@@ -174,61 +179,124 @@ export interface Attack {
   source: Planet;
 }
 
-export type PriorityTable = {};
-
 export enum ObjectiveTypes {
   //TODO: FIND THE IDS
   HOLD = 13,
   LIBERATE = 11, //Not sure about this one
   OPERATIONS = 9,
-  KILL = 3, //Not sure about this one
-  COLLECT,
-  DEFEND_AMOUNT,
+  KILL = 3,
+  COLLECT = 2,
   LIBERATE_MORE,
   DEFEND = 12, //Not sure about this one
 }
 
 export enum ValueTypes {
-  TARGET_FACTION = 1, //Not sure about this one
+  TARGET_FACTION = 1,
   AMOUNT = 3,
-  LIBERATION_REQUIRED = 11, //Not sure about this one
-  PLANET_ID = 12,
+  TARGET_TYPE = 11,
+  TARGET_ID = 12,
   DIFFICULTY = 9,
-  ENEMY,
-  ITEM,
-}
-
-export enum Enemies {
-  CHARGER,
-  BILE_TITAN,
-  HULK,
+  ENEMY = 4,
+  ITEM = 5,
+  ITEM_TYPE = 6,
 }
 
 export enum EnemyIds {
-  CHARGER,
-  BILE_TITAN,
+  CHARGER = 1299714559,
+  BILE_TITAN = 2514244534,
   HULK,
-}
-//TODO: Needs filling as data comes in, in the future
-
-export enum Items {
-  COMMON,
-  RARE,
-  SUPER_RARE,
+  SHRIEKER = 793026793,
+  IMPALER = 1046000873,
+  FACTORY_STRIDER = 1153658728,
+  FLESHMOB = 2880434041,
+  LEVIATHAN = 3097344451,
+  TROOPER = 4039692928,
+  UNKNOWN = -1,
+  ANY = 0,
 }
 
 export enum ItemIds {
-  COMMON,
-  RARE,
+  COMMON = 3992382197,
+  RARE = 2985106497,
   SUPER_RARE,
+  MEDAL = 897894480,
+  UNKNOWN,
 }
 
 export type ParsedAssignment = {
   id: number;
-  endDate: Date;
-  timeRemaining: number;
-  objectives: Objective[];
-  title: string;
-  brief: string;
+  endDate: string;
+  title: string | null;
+  brief: string | null;
   isMajorOrder: boolean;
+};
+
+export type DSSStep = {
+  movementTarget: number;
+  currentActiveAction: TacticalAction | null;
+  actionToActivate: TacticalAction | null;
+};
+
+export type StrategyStep = {
+  id: number;
+  objectiveId: number;
+  planetId: number;
+  playerPercentage: number;
+  strategyId: number;
+  createdAt: string;
+  originalTimestamp: string;
+  branch: number;
+  progress: number;
+};
+
+export type DBObjective = {
+  id: number;
+  assignmentId: number;
+  planetId: number | null;
+  factionId: number | null;
+  enemyId: number | null;
+  playerProgress: number;
+  type: number;
+  totalAmount: number | null;
+  itemId: number | null;
+  enemyProgress: number | null;
+  stratagemId: number | null;
+  difficulty: number | null;
+  sectorId: number | null;
+  objectiveIndex: number;
+};
+
+export type Sector = {
+  id: number;
+  name: string;
+};
+
+export type FullParsedAssignment = {
+  brief: string | null;
+  endDate: string;
+  id: number;
+  isMajorOrder: boolean;
+  title: string | null;
+  objective: DBObjective[];
+};
+
+export type TableNames = keyof Database["public"]["Tables"];
+
+export type DisplayObjective = {
+  id: number;
+  type: ObjectiveTypes;
+  text: { text: string; color: string; joiner: string }[];
+  progress: number;
+  totalAmount: number | null;
+  enemyProgress: number | null;
+  displayedFaction: FactionIDs;
+};
+
+export type DisplayAssignment = {
+  brief: string | null;
+  endDate: string;
+  id: number;
+  isMajorOrder: boolean;
+  title: string | null;
+  objectives: DisplayObjective[];
 };

@@ -6,7 +6,42 @@
     "table-toggle": "Table View",
     "settings-btn": "Settings",
     "about-btn": "About",
-    "history-btn": "History"
+    "history-btn": "History",
+    "feedback-btn": "Feedback"
   },
-  "AssignmentSection": {}
+  "AssignmentSection": {
+    "decision-text": "Option"
+  },
+  "Objectives": {
+    "unknown-text": "Unknown Objective",
+    "liberate-planet": "Liberate",
+    "kill-start": "Kill",
+    "planet-join-text": "on",
+    "sector-join-text": "in the",
+    "strat-join-text": "using the"
+  },
+  "NoAssignments": {
+    "title": "Awaiting Major Order",
+    "brief": "Stand by for further orders from Super Earth High Command"
+  },
+  "FactionNames": {
+    "illuminate-uncountable": "the Illuminate",
+    "illuminate-countable": "Illuminate",
+    "terminid-uncountable": "the Terminids",
+    "terminid-countable": "Terminids",
+    "automaton-uncountable": "the Automatons",
+    "automaton-countable": "Automatons",
+    "human-uncountable": "Super Earth",
+    "human-countable": "Humans"
+  },
+  "Enemies": {
+    "any-enemy": "enemies",
+    "unknown-id": "Unknown Enemy"
+  },
+  "Stratagem": {
+    "unknown-id": "Unknown Stratagem"
+  },
+  "Sector": {
+    "unknown-id": "Unknown Sector"
+  }
 }

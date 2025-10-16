@@ -1,75 +1,82 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import { getAllAssignments } from "@/heldiversAPI/assignments";
 import AssignmentsAside from "../../../components/assignmentAside";
-import { fetchAllPlanets } from "@/heldiversAPI/planets";
-import { DisplayAssignment, DisplayObjective } from "@/lib/typeDefinitions";
-import { getObjectiveText } from "@/utils/parsing/objectives";
-import { getFactionFromObjective } from "@/utils/parsing/factions";
+import StepDisplayBox from "../../../components/strategyStepDisplayBox";
+import { getDisplayReadyAssingments } from "@/utils/helpers/displayTransform";
+import DispatchAside from "../../../components/dispatchAside";
+import TargetCardContainer from "../../../components/targetCardContainer";
+import { getLatestPlanetSnapshots } from "@/utils/helpers/progress";
+import { getLocale } from "next-intl/server";
 
 export default async function Home() {
-  const maxRetries = 3;
-  const now = new Date().toISOString();
-  const [supabase, currentAssignments, allPlanets] = await Promise.all([
-    createClient(),
-    getAllAssignments(),
-    fetchAllPlanets(),
+  const [supabase] = await Promise.all([createClient()]);
+
+  const [
+    { data: assignments },
+    { data: allPlanets },
+    { data: dispatches },
+    { data: sectors },
+    { data: totalPlayerCount },
+    latestSnapshots,
+    { data: regions },
+    locale,
+  ] = await Promise.all([
+    supabase
+      .from("assignment")
+      .select(
+        "*, objective(*), strategy(*, strategyStep(*, planet_region_split(*)))"
+      )
+      .eq("is_active", true),
+    supabase
+      .from("planet")
+      .select("*, planet_event(*)")
+      .order("id", { ascending: true }),
+    supabase
+      .from("dispatch")
+      .select("*")
+      .order("id", { ascending: false })
+      .limit(5),
+    supabase.from("sector").select("*").order("id", { ascending: true }),
+    supabase
+      .from("player_count_record")
+      .select("player_count")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .single(),
+    getLatestPlanetSnapshots(supabase),
+    supabase.from("planet_region").select("*"),
+    getLocale(),
   ]);
 
-  let { data: assignments } = await supabase
-    .from("assignment")
-    .select("*, objective(*)")
-    .gte("endDate", now);
+  const strategies =
+    assignments?.flatMap((assignment) => assignment.strategy) ?? [];
 
-  for (let retry = 0; retry < maxRetries && !assignments; retry++) {
-    const { data } = await supabase
-      .from("assignment")
-      .select("*, objective(*)")
-      .gte("endDate", now);
-    assignments = data;
-  }
-
-  const assignmentIds =
-    currentAssignments?.map((assignment) => assignment.id32) ?? [];
-
-  assignments =
-    assignments?.filter((assignment) =>
-      assignmentIds.includes(assignment.id)
-    ) ?? [];
-
-  const displayReadyAssignments: DisplayAssignment[] = await Promise.all(
-    assignments.map(async (assignment) => {
-      const objectives: DisplayObjective[] = await Promise.all(
-        assignment.objective.map(async (objective) => {
-          const text = await getObjectiveText(objective, allPlanets);
-          return {
-            id: objective.id,
-            type: objective.type,
-            text,
-            progress: objective.playerProgress,
-            totalAmount: objective.totalAmount,
-            enemyProgress: objective.enemyProgress,
-            displayedFaction: getFactionFromObjective(objective, allPlanets),
-          };
-        })
-      );
-
-      return {
-        brief: assignment.brief,
-        endDate: assignment.endDate,
-        id: assignment.id,
-        isMajorOrder: assignment.isMajorOrder,
-        title: assignment.title,
-        objectives,
-      };
-    })
+  const displayReadyAssignments = await getDisplayReadyAssingments(
+    assignments ?? [],
+    allPlanets ?? [],
+    locale,
+    latestSnapshots
   );
 
   return (
-    <main className="flex flex-row min-h-full divide-y-1 divide-white">
-      <div></div>
-      <AssignmentsAside assignments={displayReadyAssignments} />
+    <main className="flex flex-row h-full divide-x-1 divide-white">
+      <AssignmentsAside assignments={displayReadyAssignments} locale={locale} />
+      <div className="basis-4/5 flex flex-row w-full">
+        <TargetCardContainer
+          targets={strategies.flatMap((strategy) => strategy.strategyStep)}
+          allPlanets={allPlanets ?? []}
+          sectors={sectors ?? []}
+          totalPlayerCount={totalPlayerCount?.player_count ?? 0}
+          latestSnapshots={latestSnapshots}
+          regions={regions ?? []}
+        ></TargetCardContainer>
+        {/* {<StepDisplayBox
+          strategies={strategies ?? []}
+          allPlanets={allPlanets ?? []}
+        ></StepDisplayBox>} */}
+        <DispatchAside dispatches={dispatches ?? []}></DispatchAside>
+      </div>
     </main>
   );
 }

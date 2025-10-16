@@ -20,10 +20,12 @@ export default function DualObjectiveProgressBar({
 
   return (
     <div
-      className={`bg-[${factionColor}] w-4/5 relative h-6 before:top-1 before:right-0 before:absolute before:left-0 before:mr-2 before:text-center before:text-sm before:content-[attr(data-label)]`}
+      className={`w-4/5 relative h-6 before:top-1 before:right-0 before:absolute before:left-0 before:mr-2 before:text-center before:text-sm before:content-[attr(data-label)]`}
       data-label={totalCount}
+      style={{ backgroundColor: factionColor }}
     >
       <span
+        style={{ width: friendlyPercent }}
         className={`inline-block h-full bg-super-earth-blue w-${friendlyPercent}`}
       ></span>
     </div>

@@ -1,15 +1,18 @@
 import {
   DBObjective,
+  DBPlanet,
   FactionIDs,
-  FactionNames,
   Factions,
-  Planet,
 } from "@/lib/typeDefinitions";
+import { getTranslations } from "next-intl/server";
 
-export function getFactionColorFromId(factionId: FactionIDs): string {
+export function getFactionColorFromId(
+  factionId: FactionIDs,
+  isProgressBar: boolean
+): string {
   switch (factionId) {
     case FactionIDs.HUMANS:
-      return "#219ffb";
+      return isProgressBar ? "#ffe711" : "#219ffb";
     case FactionIDs.AUTOMATONS:
       return "#fe6d6a";
     case FactionIDs.ILLUMINATE:
@@ -38,13 +41,14 @@ export function getFactionColorFromName(faction: Factions): string {
 
 export function getFactionFromObjective(
   objective: DBObjective,
-  planets: Planet[]
+  planets: DBPlanet[]
 ): FactionIDs {
+  if (planets.length === 0) return FactionIDs.HUMANS;
+
   if (objective.factionId) return objective.factionId;
 
   if (objective.planetId) {
-    const faction = planets[objective.planetId].currentOwner;
-    return getFactionIdFromName(faction);
+    return planets[objective.planetId].current_faction;
   }
 
   return FactionIDs.HUMANS;
@@ -63,17 +67,23 @@ export function getFactionIdFromName(factionName: Factions): number {
   }
 }
 
-export function getFactionNameFromId(factionId: number): FactionNames {
+export async function getFactionNameFromId(
+  factionId: number,
+  isCountable: boolean
+): Promise<string> {
+  const t = await getTranslations("FactionNames");
+  const returnType = isCountable ? "countable" : "uncountable";
+
   switch (factionId) {
     case FactionIDs.HUMANS:
-      return FactionNames.HUMANS;
+      return t(`human-${returnType}`);
     case FactionIDs.AUTOMATONS:
-      return FactionNames.AUTOMATONS;
+      return t(`automaton-${returnType}`);
     case FactionIDs.ILLUMINATE:
-      return FactionNames.ILLUMINATE;
+      return t(`illuminate-${returnType}`);
     case FactionIDs.TERMINIDS:
-      return FactionNames.TERMINIDS;
+      return t(`terminid-${returnType}`);
     default:
-      return FactionNames.HUMANS;
+      return t(`human-${returnType}`);
   }
 }

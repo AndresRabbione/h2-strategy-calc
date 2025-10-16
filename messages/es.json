@@ -6,9 +6,42 @@
     "table-toggle": "Tabla",
     "settings-btn": "Opciones",
     "about-btn": "Acerca de Nosotros",
-    "history-btn": "Historial"
+    "history-btn": "Historial",
+    "feedback-btn": "Feedback"
   },
-  "ObjectiveSection": {
-    "faction-label": "Facciones"
+  "AssignmentSection": {
+    "decision-text": "Opción"
+  },
+  "Objectives": {
+    "unknown-text": "Objetivo Desconocido",
+    "liberate-planet": "Libera",
+    "kill-start": "Mata a",
+    "planet-join-text": "en",
+    "sector-join-text": "en el sector",
+    "strat-join-text": "usando el estratagema:"
+  },
+  "NoAssignments": {
+    "title": "Esprando Orden Suprema",
+    "brief": "Stand by for further orders from Super Earth High Command"
+  },
+  "FactionNames": {
+    "illuminate-uncountable": "los Iluminados",
+    "illuminate-countable": "Iluminados",
+    "terminid-uncountable": "los Terminídos",
+    "terminid-countable": "Terminídos",
+    "automaton-uncountable": "los Autómatas",
+    "automaton-countable": "Autómatas",
+    "human-uncountable": "Súper Tierra",
+    "human-countable": "Humanos"
+  },
+  "Enemies": {
+    "any-enemy": "enemigos",
+    "unknown-id": "Enemigo Desconocido"
+  },
+  "Stratagem": {
+    "unknown-id": "Estratagema Desconocido"
+  },
+  "Sector": {
+    "unknown-id": "Sector Desconocido"
   }
 }

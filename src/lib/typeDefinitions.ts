@@ -112,7 +112,7 @@ export type Hazard = {
 export type GameEvent = {
   id: number;
   eventType: number;
-  faction: string;
+  faction: Factions;
   health: number;
   maxHealth: number;
   startTime: string;
@@ -180,14 +180,14 @@ export interface Attack {
 }
 
 export enum ObjectiveTypes {
-  //TODO: FIND THE IDS
+  //TODO: Fix LIB MORE
   HOLD = 13,
-  LIBERATE = 11, //Not sure about this one
+  LIBERATE = 11,
   OPERATIONS = 9,
   KILL = 3,
   COLLECT = 2,
-  LIBERATE_MORE,
-  DEFEND = 12, //Not sure about this one
+  LIBERATE_MORE = -1, //Fix when found
+  DEFEND = 12,
 }
 
 export enum ValueTypes {
@@ -239,14 +239,12 @@ export type DSSStep = {
 
 export type StrategyStep = {
   id: number;
-  objectiveId: number;
   planetId: number;
   playerPercentage: number;
   strategyId: number;
-  createdAt: string;
-  originalTimestamp: string;
-  branch: number;
+  created_at: string;
   progress: number;
+  limit_date: string;
 };
 
 export type DBObjective = {
@@ -264,6 +262,7 @@ export type DBObjective = {
   difficulty: number | null;
   sectorId: number | null;
   objectiveIndex: number;
+  last_updated: string;
 };
 
 export type Sector = {
@@ -278,6 +277,9 @@ export type FullParsedAssignment = {
   isMajorOrder: boolean;
   title: string | null;
   objective: DBObjective[];
+  type: number;
+  is_decision: boolean;
+  is_active: boolean;
 };
 
 export type TableNames = keyof Database["public"]["Tables"];
@@ -290,6 +292,8 @@ export type DisplayObjective = {
   totalAmount: number | null;
   enemyProgress: number | null;
   displayedFaction: FactionIDs;
+  order: number;
+  progressPerHour: number;
 };
 
 export type DisplayAssignment = {
@@ -299,4 +303,103 @@ export type DisplayAssignment = {
   isMajorOrder: boolean;
   title: string | null;
   objectives: DisplayObjective[];
+  is_decision: boolean;
+};
+
+export type DBPlanet = {
+  id: number;
+  name: string;
+  disabled: boolean;
+  sector: number;
+  player_count: number;
+  current_faction: number;
+  latest_enemy: number | null;
+  latest_regen: number;
+  current_event: number | null;
+};
+
+export type DBPlanetFull = DBPlanet & {
+  planet_event: DBEvent | null;
+};
+
+export type FullStrategy = {
+  id: number;
+  assignmentId: number;
+  strategyStep: StrategyStepFull[];
+};
+
+export type StrategyStepFull = {
+  id: number;
+  planetId: number;
+  playerPercentage: number;
+  strategyId: number;
+  created_at: string;
+  progress: number;
+  limit_date: string;
+  planet_region_split: RegionSplit[];
+};
+
+export type RegionSplit = {
+  id: number;
+  step_id: number;
+  region_id: number | null;
+  percentage: number;
+  planet_id: number;
+  created_at: string;
+};
+
+export type DBRegion = {
+  id: number;
+  planet_id: number;
+  name: string;
+  size: "Town" | "Settlement" | "City" | "MegaCity";
+  latest_regen: number;
+  current_faction: FactionIDs;
+  latest_player_count: number;
+};
+
+export type DBDispatch = {
+  id: number;
+  type: number;
+  published: string;
+  body: string;
+  title: string;
+};
+
+export type DBSector = {
+  id: number;
+  name: string;
+};
+
+export type DBEvent = {
+  id: number;
+  faction: FactionIDs;
+  max_health: number;
+  start_time: string;
+  end_time: string;
+  progress_per_hour: number;
+};
+
+export type DisplayTarget = {
+  id: number;
+  name: string;
+  sector: DBSector;
+  playerCount: number;
+  progressPerHour: number;
+  regenPerHour: number;
+  assignedPercentage: number;
+  progress: number;
+  currentOwner: FactionIDs;
+  event: DBEvent | null;
+  regionSplits: RegionSplit[];
+};
+
+export type PlanetSnapshotFull = {
+  id: number;
+  planetId: number;
+  eventId: number | null;
+  maxHealth: number;
+  health: number;
+  createdAt: string;
+  regenPerSecond: number;
 };

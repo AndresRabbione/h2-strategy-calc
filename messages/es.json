@@ -22,7 +22,7 @@
   },
   "NoAssignments": {
     "title": "Esprando Orden Suprema",
-    "brief": "Stand by for further orders from Super Earth High Command"
+    "brief": "Estén atentos a nuevas órdenes del Alto Mando de la Súper Tierra"
   },
   "FactionNames": {
     "illuminate-uncountable": "los Iluminados",
@@ -43,5 +43,8 @@
   },
   "Sector": {
     "unknown-id": "Sector Desconocido"
+  },
+  "Loading": {
+    "main-load": "Cargando"
   }
 }

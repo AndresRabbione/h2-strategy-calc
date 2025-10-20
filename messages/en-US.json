@@ -43,5 +43,8 @@
   },
   "Sector": {
     "unknown-id": "Unknown Sector"
+  },
+  "Loading": {
+    "main-load": "Loading"
   }
 }

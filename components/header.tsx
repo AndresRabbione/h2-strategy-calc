@@ -36,8 +36,12 @@ export default function Header() {
         </div>
 
         <div className="flex flex-row items-center justify-between gap-3">
-          <Link href={"/perfect"}>{t("perfect-toggle")}</Link>
-          <Link href={"/realistic"}>{t("realistic-toggle")}</Link>
+          <Link className="cursor-pointer" href={"/"}>
+            {t("perfect-toggle")}
+          </Link>
+          <Link className="cursor-pointer" href={"/realistic"}>
+            {t("realistic-toggle")}
+          </Link>
         </div>
 
         <div

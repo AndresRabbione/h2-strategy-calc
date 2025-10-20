@@ -2,6 +2,8 @@
 
 import { DBRegion, FactionIDs, RegionSplit } from "@/lib/typeDefinitions";
 import { getFactionColorFromId } from "@/utils/parsing/factions";
+import { useEffect, useState } from "react";
+import "@/styles/sidebar.css";
 
 export default function RegionSplitModal({
   regionSplits,
@@ -18,22 +20,38 @@ export default function RegionSplitModal({
   planetOwner: FactionIDs;
   onClose: () => void;
 }) {
+  const [isMounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 10);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  function handleClose() {
+    setMounted(false);
+
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  }
+
   if (regionSplits.length === 0) {
     return (
       <div className="fixed" onClick={(event) => event.stopPropagation()}>
         <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
-        <div className="fixed top-1/3 left-2/5 flex flex-col items-start rounded-lg bg-slate-800 shadow-lg z-15 p-3 w-1/4 h-1/3">
+        <div className="fixed top-1/3 left-[35%] flex flex-col items-start rounded-lg bg-slate-800 shadow-lg z-15 p-3 w-1/3 h-1/3">
           <div className="flex flex-row items-center justify-between w-full">
             <span className="font-semibold text-lg">Regions</span>
             <button
-              className="flex items-center self-end justify-end font-light text-3xl p-2 hover:font-semibold cursor-pointer transition-all delay-75 duration-150 ease-in-out"
-              onClick={onClose}
+              className="flex items-center self-end justify-end font-light text-3xl p-2 hover:font-semibold cursor-pointer transition-all delay-75 duration-200 ease-in-out"
+              onClick={handleClose}
             >
               &times;
             </button>
           </div>
           <div className="flex flex-col self-start overflow-y-auto text-pretty mr-12">
-            {"This planet's regions haven't been assigned yet"}
+            {"This planet's regions have no assignment currently"}
           </div>
         </div>
       </div>
@@ -62,23 +80,36 @@ export default function RegionSplitModal({
 
   return (
     <div className="fixed" onClick={(event) => event.stopPropagation()}>
-      <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
-      <div className="fixed top-1/3 left-2/5 flex flex-col items-start rounded-lg bg-slate-800 shadow-lg z-15 p-3 w-1/4 h-1/3">
+      <div
+        className={`fixed inset-0 bg-black opacity-60 z-10 ${
+          isMounted
+            ? "overlay-fade-enter overlay-fade-enter-active"
+            : "overlay-fade-enter overlay-fade-exit-active"
+        }`}
+      ></div>
+      <div className="fixed top-1/3 left-[36%] flex flex-col items-start rounded-lg bg-slate-800 shadow-lg z-15 p-3 w-1/3 h-1/3">
         <div className="flex flex-row items-center justify-between w-full">
           <span className="font-semibold text-lg">Regions</span>
           <button
-            className="flex items-center self-end justify-end font-light text-3xl p-2 hover:font-semibold cursor-pointer transition-all delay-75 duration-150 ease-in-out"
-            onClick={onClose}
+            className="flex items-center self-end justify-end font-light text-3xl p-2 hover:font-semibold cursor-pointer transition-all delay-75 duration-200 ease-in-out"
+            onClick={handleClose}
           >
             &times;
           </button>
         </div>
-        <div className="flex flex-col self-start overflow-y-auto">
+        <div
+          className="flex flex-col self-start w-full gap-1 overflow-y-auto 
+          [&::-webkit-scrollbar]:w-1
+        [&::-webkit-scrollbar-track]:bg-gray-100
+        [&::-webkit-scrollbar-thumb]:bg-gray-300
+        dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+        dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+        >
           {sortedTimestamps.map((timestamp, index) => {
             const splits = groupedStepMap.get(timestamp);
 
             const priorParsedTimestamp =
-              index === 0
+              index !== 0
                 ? `${new Date(
                     sortedTimestamps[index - 1]
                   ).toLocaleDateString()} - ${new Date(
@@ -93,32 +124,30 @@ export default function RegionSplitModal({
             ).toLocaleTimeString()}`;
 
             return (
-              <div key={timestamp} className="flex flex-col mr-12">
+              <div key={timestamp} className="flex flex-col">
                 <span className="font-light text-xs opacity-90">
                   {index === 0
                     ? `From ${parsedTimestamp} to Now`
                     : `From ${parsedTimestamp} to ${priorParsedTimestamp}`}
                 </span>
                 <div className="grid grid-cols-[5%_95%] w-full">
-                  {index === sortedTimestamps.length - 1 && (
-                    <svg
-                      width="12"
-                      height="24"
-                      viewBox="0 0 12 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="opacity-90"
-                    >
-                      <line
-                        x1="6"
-                        y1="4"
-                        x2="6"
-                        y2="24"
-                        stroke="gray"
-                        strokeWidth="1"
-                      />
-                    </svg>
-                  )}
+                  <svg
+                    width="12"
+                    height="24"
+                    viewBox="0 0 12 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="opacity-90"
+                  >
+                    <line
+                      x1="6"
+                      y1="4"
+                      x2="6"
+                      y2="24"
+                      stroke="gray"
+                      strokeWidth="1"
+                    />
+                  </svg>
                   {splits!.map((split) => {
                     if (split.region_id) {
                       const region = regionsMap.get(split.region_id);

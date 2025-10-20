@@ -46,7 +46,7 @@ export default function TargetCardContainer({
   finalSteps.sort((a, b) => b.playerPercentage - a.playerPercentage);
 
   return (
-    <div className="grid lg:grid-cols-3 w-full p-3 gap-3">
+    <div className="grid lg:grid-cols-3 w-full h-fit p-3 gap-3">
       {finalSteps.map((step) => {
         const planet = allPlanets[step.planetId];
         const filteredSnapshots = latestSnapshots.filter(

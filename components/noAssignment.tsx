@@ -6,7 +6,7 @@ export default function NoAssignments() {
   return (
     <div className="flex flex-col gap-3">
       <span className="font-bold text-3xl text-center">{t("title")}</span>
-      <p className="text-pretty">{t("brief")}</p>
+      <p className="text-pretty text-center">{t("brief")}</p>
     </div>
   );
 }

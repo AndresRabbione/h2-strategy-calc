@@ -6,6 +6,7 @@ import PlanetProgressBar from "./planetProgressBar";
 import { useState } from "react";
 import RegionSplitModal from "./regionSplitModal";
 import { createPortal } from "react-dom";
+import { getFactionColorFromId } from "@/utils/parsing/factions";
 
 export default function TargetCard({
   target,
@@ -43,16 +44,19 @@ export default function TargetCard({
         )}
       <div className="flex flex-row gap-2 items-center">
         <FactionIcon factionId={target.currentOwner}></FactionIcon>
-        <div className="flex flex-col gap-0">
+        <div
+          className="flex flex-col gap-0"
+          style={{ color: getFactionColorFromId(target.currentOwner, false) }}
+        >
           <span>{target.name}</span>
           <span>{`${target.sector.name} Sector`}</span>
         </div>
       </div>
       <div
         id="playerCountStats"
-        className="grid grid-rows-1 grid-cols-[40%_30%_30%] items-center divide-x-1 divide-white"
+        className="grid grid-rows-1 grid-cols-[45%_27.5%_27.5%] items-center divide-x-1 divide-white"
       >
-        <div className="flex flex-row w-full items-end justify-center gap-1">
+        <div className="flex flex-row w-full items-end justify-center gap-1 text-helldiver-yellow">
           <span className="text-sm">{`${(
             (target.playerCount / totalPlayerCount) *
             100
@@ -63,16 +67,20 @@ export default function TargetCard({
           id="progressPerHourStats"
           className="flex w-full items-center justify-center"
         >
-          <span>{`${target.progressPerHour.toFixed(2)}%`}</span>
+          <span className="text-super-earth-blue">{`${target.progressPerHour.toFixed(
+            2
+          )}%`}</span>
         </div>
         <div
           id="regenStats"
           className="flex w-full justify-center items-center"
         >
-          <span>{`${
+          <span
+            style={{ color: getFactionColorFromId(target.currentOwner, false) }}
+          >{`${
             target.currentOwner !== FactionIDs.HUMANS
               ? target.regenPerHour.toFixed(2)
-              : 0
+              : "0.00"
           }%`}</span>
         </div>
       </div>

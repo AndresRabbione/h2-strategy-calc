@@ -38,13 +38,13 @@ export default function PlanetProgressBar({
       setProgress((prev) => {
         const newFriendlyProgress = prev + delta * friendlyProgressPerMs;
 
-        return Math.min(Math.max(newFriendlyProgress), 100);
+        return Math.min(Math.max(newFriendlyProgress, 0), 100);
       });
 
       setEnemyProgress((prev) => {
         const newEnemyProgress = prev + delta * enemyProgressPerMs;
 
-        return Math.min(Math.max(newEnemyProgress), 100);
+        return Math.min(Math.max(newEnemyProgress, 0), 100);
       });
 
       requestAnimationFrame(update);

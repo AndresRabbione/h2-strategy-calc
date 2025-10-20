@@ -26,7 +26,9 @@ export default async function RootLayout({
   }
   return (
     <html lang={locale}>
-      <body className={` ${tomorrow.className} antialiased bg-[#706969]`}>
+      <body
+        className={` ${tomorrow.className} min-h-screen flex flex-col antialiased bg-[#706969]`}
+      >
         <NextIntlClientProvider>
           <nav>
             <Header></Header>

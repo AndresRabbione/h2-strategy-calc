@@ -1,8 +1,13 @@
+import { useTranslations } from "next-intl";
+
 export default function LoadingHomePage() {
+  const t = useTranslations("Loading");
   return (
     <div className="fixed flex flex-col left-1/2 right-1/2 top-1/2 bottom-1/2">
       <div className="flex flex-col items-center gap-4">
-        <span className="relative text-4xl font-semibold">Loading...</span>
+        <span className="relative text-4xl font-semibold">
+          {t("main-load")}
+        </span>
         <svg
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

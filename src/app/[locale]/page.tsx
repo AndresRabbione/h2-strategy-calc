@@ -2,7 +2,6 @@
 
 import { createClient } from "@/utils/supabase/server";
 import AssignmentsAside from "../../../components/assignmentAside";
-import StepDisplayBox from "../../../components/strategyStepDisplayBox";
 import { getDisplayReadyAssingments } from "@/utils/helpers/displayTransform";
 import DispatchAside from "../../../components/dispatchAside";
 import TargetCardContainer from "../../../components/targetCardContainer";
@@ -15,7 +14,6 @@ export default async function Home() {
   const [
     { data: assignments },
     { data: allPlanets },
-    { data: dispatches },
     { data: sectors },
     { data: totalPlayerCount },
     latestSnapshots,
@@ -32,11 +30,6 @@ export default async function Home() {
       .from("planet")
       .select("*, planet_event(*)")
       .order("id", { ascending: true }),
-    supabase
-      .from("dispatch")
-      .select("*")
-      .order("id", { ascending: false })
-      .limit(5),
     supabase.from("sector").select("*").order("id", { ascending: true }),
     supabase
       .from("player_count_record")
@@ -60,9 +53,9 @@ export default async function Home() {
   );
 
   return (
-    <main className="flex flex-row h-full divide-x-1 divide-white">
+    <main className="grid grid-cols-[20%_80%] flex-1 divide-x-1 divide-white">
       <AssignmentsAside assignments={displayReadyAssignments} locale={locale} />
-      <div className="basis-4/5 flex flex-row w-full">
+      <div className="grid grid-cols-[95%_5%] w-full h-full">
         <TargetCardContainer
           targets={strategies.flatMap((strategy) => strategy.strategyStep)}
           allPlanets={allPlanets ?? []}
@@ -71,11 +64,7 @@ export default async function Home() {
           latestSnapshots={latestSnapshots}
           regions={regions ?? []}
         ></TargetCardContainer>
-        {/* {<StepDisplayBox
-          strategies={strategies ?? []}
-          allPlanets={allPlanets ?? []}
-        ></StepDisplayBox>} */}
-        <DispatchAside dispatches={dispatches ?? []}></DispatchAside>
+        <DispatchAside></DispatchAside>
       </div>
     </main>
   );

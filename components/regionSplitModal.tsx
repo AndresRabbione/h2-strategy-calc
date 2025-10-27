@@ -4,6 +4,7 @@ import { DBRegion, FactionIDs, RegionSplit } from "@/lib/typeDefinitions";
 import { getFactionColorFromId } from "@/utils/parsing/factions";
 import { useEffect, useState } from "react";
 import "@/styles/sidebar.css";
+import { useTranslations } from "next-intl";
 
 export default function RegionSplitModal({
   regionSplits,
@@ -21,6 +22,7 @@ export default function RegionSplitModal({
   onClose: () => void;
 }) {
   const [isMounted, setMounted] = useState(false);
+  const t = useTranslations("RegionSplitModal");
 
   useEffect(() => {
     const timer = setTimeout(() => setMounted(true), 10);
@@ -42,7 +44,7 @@ export default function RegionSplitModal({
         <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
         <div className="fixed top-1/3 left-[35%] flex flex-col items-start rounded-lg bg-slate-800 shadow-lg z-15 p-3 w-1/3 h-1/3">
           <div className="flex flex-row items-center justify-between w-full">
-            <span className="font-semibold text-lg">Regions</span>
+            <span className="font-semibold text-lg">{t("title")}</span>
             <button
               className="flex items-center self-end justify-end font-light text-3xl p-2 hover:font-semibold cursor-pointer transition-all delay-75 duration-200 ease-in-out"
               onClick={handleClose}
@@ -51,7 +53,7 @@ export default function RegionSplitModal({
             </button>
           </div>
           <div className="flex flex-col self-start overflow-y-auto text-pretty mr-12">
-            {"This planet's regions have no assignment currently"}
+            {t("no-split-body")}
           </div>
         </div>
       </div>
@@ -89,7 +91,7 @@ export default function RegionSplitModal({
       ></div>
       <div className="fixed top-1/3 left-[36%] flex flex-col items-start rounded-lg bg-slate-800 shadow-lg z-15 p-3 w-1/3 h-1/3">
         <div className="flex flex-row items-center justify-between w-full">
-          <span className="font-semibold text-lg">Regions</span>
+          <span className="font-semibold text-lg">{t("title")}</span>
           <button
             className="flex items-center self-end justify-end font-light text-3xl p-2 hover:font-semibold cursor-pointer transition-all delay-75 duration-200 ease-in-out"
             onClick={handleClose}
@@ -127,8 +129,14 @@ export default function RegionSplitModal({
               <div key={timestamp} className="flex flex-col">
                 <span className="font-light text-xs opacity-90">
                   {index === 0
-                    ? `From ${parsedTimestamp} to Now`
-                    : `From ${parsedTimestamp} to ${priorParsedTimestamp}`}
+                    ? t("timestamp-title", {
+                        previousTimestamp: parsedTimestamp,
+                        now: t("now"),
+                      })
+                    : t("timestamp-title", {
+                        previousTimestamp: parsedTimestamp,
+                        now: priorParsedTimestamp,
+                      })}
                 </span>
                 <div className="grid grid-cols-[5%_95%] w-full">
                   <svg

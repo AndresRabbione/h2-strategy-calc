@@ -4,10 +4,8 @@ import NoAssignments from "./noAssignment";
 
 export default function AssignmentsAside({
   assignments,
-  locale,
 }: {
   assignments: DisplayAssignment[];
-  locale: string;
 }) {
   if (assignments.length === 0) {
     return (
@@ -24,7 +22,6 @@ export default function AssignmentsAside({
           <AssignmentSection
             key={assignment.id}
             assignment={assignment}
-            locale={locale}
           ></AssignmentSection>
         ))}
       </div>

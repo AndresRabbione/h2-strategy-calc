@@ -1,9 +1,10 @@
-import { StrategyStepFull } from "@/lib/typeDefinitions";
+import { DBPlanet, StrategyStepFull } from "@/lib/typeDefinitions";
 
 export default function StepChainsHorizontal({
   steps,
   width = 800,
   height = 400,
+  allPlanets,
 }: {
   steps: {
     steps: StrategyStepFull[];
@@ -12,6 +13,7 @@ export default function StepChainsHorizontal({
   }[];
   width?: number;
   height?: number;
+  allPlanets: DBPlanet[];
 }) {
   if (steps.length === 0) return null;
 
@@ -78,7 +80,9 @@ export default function StepChainsHorizontal({
               fill="#333"
               textAnchor="end"
             >
-              {stepChain.planetId}
+              {allPlanets.length !== 0
+                ? allPlanets[stepChain.planetId].name
+                : ""}
             </text>
           </g>
         );

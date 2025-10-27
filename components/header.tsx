@@ -6,7 +6,6 @@ import { useState } from "react";
 
 export default function Header() {
   const t = useTranslations("Header");
-  const [tableMode, setMode] = useState(true);
   const [isHamburgerOpen, setHamburgerOpen] = useState(false);
   const [hamburgerTimeoutId, setHamburgerTimeoutId] =
     useState<NodeJS.Timeout | null>(null);
@@ -29,11 +28,7 @@ export default function Header() {
   return (
     <nav className="p-3 bg-gray-800">
       <div className="flex flex-row justify-between items-center">
-        <div>
-          <button onClick={() => setMode((prev) => !prev)}>
-            {tableMode ? t("timeline-toggle") : t("table-toggle")}
-          </button>
-        </div>
+        <div id="modeToggle"></div>
 
         <div className="flex flex-row items-center justify-between gap-3">
           <Link className="cursor-pointer" href={"/"}>

@@ -5,28 +5,29 @@ import {
   FullParsedAssignment,
   PlanetSnapshotFull,
 } from "@/lib/typeDefinitions";
-import { getObjectiveText } from "../parsing/objectives";
+import { getParsedDBObjectiveText } from "../parsing/objectives";
 import { getFactionFromObjective } from "../parsing/factions";
 import { estimateHourlyRateForPlanet } from "./progress";
 
 export async function getDisplayReadyAssingments(
   assignments: FullParsedAssignment[],
   allPlanets: DBPlanet[],
-  locale: string,
-  latestSnapshots: PlanetSnapshotFull[]
+  latestSnapshots: PlanetSnapshotFull[],
+  isHistorical: boolean
 ): Promise<DisplayAssignment[]> {
   const displayReadyAssignments: DisplayAssignment[] = await Promise.all(
     assignments.map(async (assignment) => {
       const objectives: DisplayObjective[] = await Promise.all(
         assignment.objective.map(async (objective) => {
-          const text = await getObjectiveText(objective, allPlanets, locale);
-          const progressPerHour = objective.planetId
-            ? estimateHourlyRateForPlanet(
-                latestSnapshots.filter(
-                  (snapshot) => snapshot.planetId === objective.planetId
-                )
-              ).regression
-            : 0;
+          const text = getParsedDBObjectiveText(objective.parsed_text);
+          const progressPerHour =
+            objective.planetId && !isHistorical
+              ? estimateHourlyRateForPlanet(
+                  latestSnapshots.filter(
+                    (snapshot) => snapshot.planetId === objective.planetId
+                  )
+                ).regression
+              : 0;
 
           return {
             id: objective.id,

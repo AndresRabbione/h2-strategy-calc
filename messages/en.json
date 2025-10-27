@@ -38,13 +38,30 @@
     "any-enemy": "enemies",
     "unknown-id": "Unknown Enemy"
   },
-  "Stratagem": {
-    "unknown-id": "Unknown Stratagem"
-  },
   "Sector": {
     "unknown-id": "Unknown Sector"
   },
   "Loading": {
     "main-load": "Loading"
+  },
+  "LocaleSwitcher": {
+    "label": "Select Language",
+    "locale": "{locale, select, en {English} es {Español} other {Unknown}}"
+  },
+  "RegionSplitModal": {
+    "title": "Regions",
+    "no-split-body": "This planet's regions have no assignment currently",
+    "timestamp-title": "From {previousTimestamp} to {nextTimestamp}",
+    "now": "Now"
+  },
+  "NoStrategy": {
+    "has-assignments-msg": "Awaiting strategic assessment...",
+    "no-assignments-msg": "No active targets found"
+  },
+  "DispatchAside": {
+    "title": "Dispatch",
+    "loading-msg": "Loading...",
+    "load-info-msg": "Scroll for more...",
+    "load-end-msg": "No more dispatches"
   }
 }

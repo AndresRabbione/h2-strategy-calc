@@ -258,11 +258,11 @@ export type DBObjective = {
   totalAmount: number | null;
   itemId: number | null;
   enemyProgress: number | null;
-  stratagemId: number | null;
   difficulty: number | null;
   sectorId: number | null;
   objectiveIndex: number;
   last_updated: string;
+  parsed_text: string;
 };
 
 export type Sector = {
@@ -280,6 +280,8 @@ export type FullParsedAssignment = {
   type: number;
   is_decision: boolean;
   is_active: boolean;
+  start_date: string;
+  actual_end_date: string | null;
 };
 
 export type TableNames = keyof Database["public"]["Tables"];
@@ -287,7 +289,7 @@ export type TableNames = keyof Database["public"]["Tables"];
 export type DisplayObjective = {
   id: number;
   type: ObjectiveTypes;
-  text: { text: string; color: string; joiner: string }[];
+  text: { text: string; color: string | null }[];
   progress: number;
   totalAmount: number | null;
   enemyProgress: number | null;

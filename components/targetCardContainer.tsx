@@ -17,6 +17,7 @@ export default function TargetCardContainer({
   totalPlayerCount,
   latestSnapshots,
   regions,
+  locale,
 }: {
   targets: StrategyStepFull[];
   allPlanets: DBPlanetFull[];
@@ -24,6 +25,7 @@ export default function TargetCardContainer({
   totalPlayerCount: number;
   latestSnapshots: PlanetSnapshotFull[];
   regions: DBRegion[];
+  locale: string;
 }) {
   const groupedStepMap = targets.reduce((map, target) => {
     if (!map.has(target.planetId)) map.set(target.planetId, []);
@@ -87,6 +89,7 @@ export default function TargetCardContainer({
             target={displayTarget}
             totalPlayerCount={totalPlayerCount}
             regions={regions}
+            locale={locale}
           ></TargetCard>
         );
       })}

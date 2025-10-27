@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DBPlanet,
   FullStrategy,
@@ -5,14 +7,27 @@ import {
 } from "@/lib/typeDefinitions";
 import StepChainsHorizontal from "./stepChainHorizontal";
 import StepChainsVertical from "./stepChainVertical";
+import { useEffect, useRef, useState } from "react";
 
 export default function StepDisplayBox({
   strategies,
   allPlanets,
+  horizontal = false,
 }: {
   strategies: FullStrategy[];
   allPlanets: DBPlanet[];
+  horizontal?: boolean;
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerHeight, setHeight] = useState(0);
+  const [containerWidth, setWidth] = useState(0);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      setHeight(containerRef.current.offsetHeight);
+      setWidth(containerRef.current.offsetWidth);
+    }
+  }, []);
   const groupedStepMap = strategies.reduce((map, strategy) => {
     strategy.strategyStep.forEach((step) => {
       if (!map.has(step.planetId))
@@ -49,11 +64,22 @@ export default function StepDisplayBox({
     });
 
   return (
-    <div className="border-white border-1 h-full m-3 basis-11/12">
-      <StepChainsVertical
-        steps={[...parsedMap]}
-        allPlanets={allPlanets}
-      ></StepChainsVertical>
+    <div className="border-white border-1 h-full" ref={containerRef}>
+      {horizontal ? (
+        <StepChainsHorizontal
+          steps={[...parsedMap]}
+          height={containerHeight}
+          width={containerWidth}
+          allPlanets={allPlanets}
+        ></StepChainsHorizontal>
+      ) : (
+        <StepChainsVertical
+          steps={[...parsedMap]}
+          allPlanets={allPlanets}
+          height={containerHeight}
+          width={containerWidth}
+        ></StepChainsVertical>
+      )}
     </div>
   );
 }

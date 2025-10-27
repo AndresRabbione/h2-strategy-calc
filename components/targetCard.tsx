@@ -12,10 +12,12 @@ export default function TargetCard({
   target,
   totalPlayerCount,
   regions,
+  locale,
 }: {
   target: DisplayTarget;
   totalPlayerCount: number;
   regions: DBRegion[];
+  locale: string;
 }) {
   const [isRegionsOpen, setRegionsOpen] = useState(false);
 
@@ -49,7 +51,11 @@ export default function TargetCard({
           style={{ color: getFactionColorFromId(target.currentOwner, false) }}
         >
           <span>{target.name}</span>
-          <span>{`${target.sector.name} Sector`}</span>
+          <span>
+            {locale.includes("en")
+              ? `${target.sector.name} Sector`
+              : `Sector ${target.sector.name}`}
+          </span>
         </div>
       </div>
       <div

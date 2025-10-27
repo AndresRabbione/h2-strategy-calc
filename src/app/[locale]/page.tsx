@@ -4,12 +4,12 @@ import { createClient } from "@/utils/supabase/server";
 import AssignmentsAside from "../../../components/assignmentAside";
 import { getDisplayReadyAssingments } from "@/utils/helpers/displayTransform";
 import DispatchAside from "../../../components/dispatchAside";
-import TargetCardContainer from "../../../components/targetCardContainer";
 import { getLatestPlanetSnapshots } from "@/utils/helpers/progress";
 import { getLocale } from "next-intl/server";
+import StrategyContainer from "../../../components/strategyContainer";
 
 export default async function Home() {
-  const [supabase] = await Promise.all([createClient()]);
+  const supabase = await createClient();
 
   const [
     { data: assignments },
@@ -25,7 +25,8 @@ export default async function Home() {
       .select(
         "*, objective(*), strategy(*, strategyStep(*, planet_region_split(*)))"
       )
-      .eq("is_active", true),
+      .eq("is_active", true)
+      .order("start_date", { ascending: true }),
     supabase
       .from("planet")
       .select("*, planet_event(*)")
@@ -48,22 +49,24 @@ export default async function Home() {
   const displayReadyAssignments = await getDisplayReadyAssingments(
     assignments ?? [],
     allPlanets ?? [],
-    locale,
-    latestSnapshots
+    latestSnapshots,
+    false
   );
 
   return (
-    <main className="grid grid-cols-[20%_80%] flex-1 divide-x-1 divide-white">
-      <AssignmentsAside assignments={displayReadyAssignments} locale={locale} />
+    <main className="grid grid-cols-[23%_77%] flex-1 divide-x-1 divide-white">
+      <AssignmentsAside assignments={displayReadyAssignments} />
       <div className="grid grid-cols-[95%_5%] w-full h-full">
-        <TargetCardContainer
-          targets={strategies.flatMap((strategy) => strategy.strategyStep)}
+        <StrategyContainer
+          displayReadyAssignments={displayReadyAssignments}
+          strategies={strategies}
           allPlanets={allPlanets ?? []}
           sectors={sectors ?? []}
           totalPlayerCount={totalPlayerCount?.player_count ?? 0}
           latestSnapshots={latestSnapshots}
           regions={regions ?? []}
-        ></TargetCardContainer>
+          locale={locale}
+        ></StrategyContainer>
         <DispatchAside></DispatchAside>
       </div>
     </main>

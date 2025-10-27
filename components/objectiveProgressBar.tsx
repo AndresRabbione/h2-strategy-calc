@@ -6,7 +6,6 @@ interface Props {
   factionColor: string;
   progress: number;
   totalAmount: number | null;
-  locale: string;
   progressPerHour: number;
 }
 
@@ -14,7 +13,6 @@ export default function ObjectiveProgressBar({
   factionColor,
   progress,
   totalAmount,
-  locale,
   progressPerHour,
 }: Props) {
   const [progressState, setProgress] = useState(progress);
@@ -22,15 +20,22 @@ export default function ObjectiveProgressBar({
   const percentage =
     totalAmount === null ? progressState : (progressState / totalAmount) * 100;
 
-  const innerText = `${progressState.toFixed(2).toLocaleString()}${
-    totalAmount !== null
-      ? ` / ${totalAmount.toLocaleString(locale)} (${percentage.toFixed(2)}%)`
-      : "%"
-  }`;
+  const innerText =
+    totalAmount === null
+      ? `${progressState.toFixed(2).toLocaleString()}%`
+      : `${progressState.toLocaleString()} / ${totalAmount.toLocaleString()} (${percentage.toFixed(
+          2
+        )}%)`;
 
   useEffect(() => {
     let friendlyProgressPerMs = progressPerHour / 3600000;
-    if (progress === 100) friendlyProgressPerMs = 0;
+    if (
+      (totalAmount === null && progress === 100) ||
+      (totalAmount && progress === totalAmount)
+    ) {
+      friendlyProgressPerMs = 0;
+      return;
+    }
 
     let lastTime = performance.now();
 
@@ -41,7 +46,9 @@ export default function ObjectiveProgressBar({
       setProgress((prev) => {
         const newFriendlyProgress = prev + delta * friendlyProgressPerMs;
 
-        return Math.min(Math.max(newFriendlyProgress, 0), 100);
+        return totalAmount === null
+          ? Math.min(Math.max(newFriendlyProgress, 0), 100)
+          : Math.min(newFriendlyProgress, totalAmount);
       });
 
       requestAnimationFrame(update);
@@ -50,17 +57,19 @@ export default function ObjectiveProgressBar({
     const frame = requestAnimationFrame(update);
 
     return () => cancelAnimationFrame(frame);
-  }, [progressPerHour]);
+  }, [progressPerHour, totalAmount, progress]);
 
   return (
     <div
       style={{ backgroundColor: factionColor }}
-      className={`w-full before:text-gray-700 before:top-0.5 before:left-0 relative h-6 before:absolute before:pl-2 before:text-sm before:content-[attr(data-label)]`}
+      className={`w-full before:text-gray-700 before:bottom-1 before:-left-0 relative h-6 before:absolute before:pl-1 before:text-xs before:content-[attr(data-label)]`}
       data-label={innerText}
     >
       <span
         className="inline-block h-full bg-super-earth-blue"
-        style={{ width: `${progressState}%` }}
+        style={{
+          width: `${percentage}%`,
+        }}
       ></span>
     </div>
   );

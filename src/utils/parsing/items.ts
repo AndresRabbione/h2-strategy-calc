@@ -7,5 +7,5 @@ export async function parseItemId(itemId: number): Promise<string> {
     .select("name")
     .eq("id", itemId)
     .single();
-  return data?.name ?? "Unknown";
+  return data?.name ?? "Unknown Item";
 }

@@ -2,7 +2,6 @@ import { FactionIDs } from "@/lib/typeDefinitions";
 import { createClient } from "@/utils/supabase/server";
 import AssignmentsAside from "../../../../components/assignmentAside";
 import { getDisplayReadyAssingments } from "@/utils/helpers/displayTransform";
-import { getLocale } from "next-intl/server";
 import { getLatestPlanetSnapshots } from "@/utils/helpers/progress";
 import DispatchAside from "../../../../components/dispatchAside";
 import { getFactionColorFromId } from "@/utils/parsing/factions";
@@ -20,7 +19,7 @@ export default async function RealisticStrategyPage() {
     .limit(1)
     .single();
 
-  const [{ data: assignments }, { data: allPlanets }, latestSnapshots, locale] =
+  const [{ data: assignments }, { data: allPlanets }, latestSnapshots] =
     await Promise.all([
       supabase
         .from("assignment")
@@ -33,19 +32,18 @@ export default async function RealisticStrategyPage() {
         .select("*, planet_event(*)")
         .order("id", { ascending: true }),
       getLatestPlanetSnapshots(supabase),
-      getLocale(),
     ]);
 
   const displayReadyAssignments = await getDisplayReadyAssingments(
     assignments ?? [],
     allPlanets ?? [],
-    locale,
-    latestSnapshots
+    latestSnapshots,
+    false
   );
 
   return (
     <main className="grid grid-cols-[20%_80%] flex-1 divide-x-1 divide-white">
-      <AssignmentsAside assignments={displayReadyAssignments} locale={locale} />
+      <AssignmentsAside assignments={displayReadyAssignments} />
       <div className="grid grid-cols-[95%_5%] w-full h-full">
         <div className="flex flex-col items-center justify-center">
           <p className="text-2xl">

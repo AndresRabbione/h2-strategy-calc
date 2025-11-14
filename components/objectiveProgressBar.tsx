@@ -62,7 +62,7 @@ export default function ObjectiveProgressBar({
   return (
     <div
       style={{ backgroundColor: factionColor }}
-      className={`w-full before:text-gray-700 before:bottom-1 before:-left-0 relative h-6 before:absolute before:pl-1 before:text-xs before:content-[attr(data-label)]`}
+      className={`w-full before:text-gray-700 before:bottom-1 before:left-0 relative h-6 before:absolute before:pl-1 before:text-xs before:content-[attr(data-label)]`}
       data-label={innerText}
     >
       <span

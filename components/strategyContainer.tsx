@@ -44,9 +44,12 @@ export default function StrategyContainer({
 
   return (
     <div>
-      {portalTarget
+      {portalTarget && strategies.length > 0
         ? createPortal(
-            <button onClick={() => setMode((prev) => !prev)}>
+            <button
+              className="cursor-pointer"
+              onClick={() => setMode((prev) => !prev)}
+            >
               {timelineMode ? t("table-toggle") : t("timeline-toggle")}
             </button>,
             document.getElementById("modeToggle")!
@@ -67,11 +70,13 @@ export default function StrategyContainer({
           locale={locale}
         ></TargetCardContainer>
       ) : (
-        <div className="p-3">
+        <div className="p-3 h-full">
           <StepDisplayBox
             strategies={strategies}
             allPlanets={allPlanets}
             horizontal={false}
+            regions={regions}
+            totalPlayerCount={totalPlayerCount}
           ></StepDisplayBox>
         </div>
       )}

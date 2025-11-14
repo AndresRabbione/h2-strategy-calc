@@ -15,7 +15,7 @@ export default function AssignmentSection({
   const assignmentEndDate = new Date(assignment.endDate);
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 w-full ">
       <div
         className={`flex flex-row items-center gap-2 ${
           assignmentEndDate.getTime() > now

@@ -2,6 +2,7 @@
 
 import {
   DBPlanet,
+  DBRegion,
   FullStrategy,
   StrategyStepFull,
 } from "@/lib/typeDefinitions";
@@ -13,10 +14,14 @@ export default function StepDisplayBox({
   strategies,
   allPlanets,
   horizontal = false,
+  regions,
+  totalPlayerCount,
 }: {
   strategies: FullStrategy[];
   allPlanets: DBPlanet[];
   horizontal?: boolean;
+  regions: DBRegion[];
+  totalPlayerCount: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setHeight] = useState(0);
@@ -28,6 +33,7 @@ export default function StepDisplayBox({
       setWidth(containerRef.current.offsetWidth);
     }
   }, []);
+
   const groupedStepMap = strategies.reduce((map, strategy) => {
     strategy.strategyStep.forEach((step) => {
       if (!map.has(step.planetId))
@@ -64,7 +70,7 @@ export default function StepDisplayBox({
     });
 
   return (
-    <div className="border-white border-1 h-full" ref={containerRef}>
+    <div className="border-white border h-full" ref={containerRef}>
       {horizontal ? (
         <StepChainsHorizontal
           steps={[...parsedMap]}
@@ -78,6 +84,8 @@ export default function StepDisplayBox({
           allPlanets={allPlanets}
           height={containerHeight}
           width={containerWidth}
+          regions={regions}
+          totalPlayerCount={totalPlayerCount}
         ></StepChainsVertical>
       )}
     </div>

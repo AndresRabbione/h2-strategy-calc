@@ -131,11 +131,11 @@ export default function RegionSplitModal({
                   {index === 0
                     ? t("timestamp-title", {
                         previousTimestamp: parsedTimestamp,
-                        now: t("now"),
+                        nextTimestamp: t("now"),
                       })
                     : t("timestamp-title", {
                         previousTimestamp: parsedTimestamp,
-                        now: priorParsedTimestamp,
+                        nextTimestamp: priorParsedTimestamp,
                       })}
                 </span>
                 <div className="grid grid-cols-[5%_95%] w-full">

@@ -29,7 +29,7 @@ export type SpaceStationRaw = {
   lastElectionId: string;
   currentElectionId: string;
   currentElectionEndWarTime: number;
-  flags: 1;
+  flags: number;
   tacticalActions: TacticalAction[];
 };
 
@@ -202,25 +202,8 @@ export enum ValueTypes {
 }
 
 export enum EnemyIds {
-  CHARGER = 1299714559,
-  BILE_TITAN = 2514244534,
-  HULK,
-  SHRIEKER = 793026793,
-  IMPALER = 1046000873,
-  FACTORY_STRIDER = 1153658728,
-  FLESHMOB = 2880434041,
-  LEVIATHAN = 3097344451,
-  TROOPER = 4039692928,
   UNKNOWN = -1,
   ANY = 0,
-}
-
-export enum ItemIds {
-  COMMON = 3992382197,
-  RARE = 2985106497,
-  SUPER_RARE,
-  MEDAL = 897894480,
-  UNKNOWN,
 }
 
 export type ParsedAssignment = {
@@ -404,4 +387,16 @@ export type PlanetSnapshotFull = {
   health: number;
   createdAt: string;
   regenPerSecond: number;
+};
+
+export type BlobTarget = {
+  id: number;
+  name: string;
+  currentOwner: FactionIDs;
+  sector: DBSector;
+  playerCount: number;
+  progressPerHour: number;
+  regenPerHour: number;
+  event: DBEvent | null;
+  progress: number;
 };

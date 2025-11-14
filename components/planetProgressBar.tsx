@@ -58,7 +58,7 @@ export default function PlanetProgressBar({
   if (event) {
     return (
       <div
-        className={`w-full before:text-gray-700 before:top-0.5 before:left-0 relative h-6 before:absolute before:pl-2 before:text-sm before:content-[attr(data-label)] bg-transparent overflow-hidden`}
+        className={`w-full before:text-black before:top-0.5 before:left-0 relative h-6 before:absolute before:pl-2 before:text-sm before:content-[attr(data-label)] bg-transparent overflow-hidden rounded-b-lg`}
         data-label={`${progressState.toFixed(2)}%`}
       >
         <span
@@ -79,7 +79,7 @@ export default function PlanetProgressBar({
   return (
     <div
       style={{ backgroundColor: factionColor }}
-      className={`overflow-hidden w-full before:text-gray-700 before:top-0.5 before:left-0 relative h-6 before:absolute before:pl-2 before:text-sm before:content-[attr(data-label)]`}
+      className={`overflow-hidden w-full before:text-black before:top-1.5 before:left-0 relative h-8 before:absolute before:pl-2 before:text-sm before:content-[attr(data-label)] before:justify-center rounded-b-lg`}
       data-label={`${progressState.toFixed(2)}%`}
     >
       <span

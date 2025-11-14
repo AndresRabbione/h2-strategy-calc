@@ -15,18 +15,30 @@ export default async function IndividualHistoryPage({
 
   const supabase = await createClient();
 
-  const [{ data: assignments }, { data: allPlanets }, latestSnapshots] =
-    await Promise.all([
-      supabase
-        .from("assignment")
-        .select(
-          "*, objective(*), strategy(*, strategyStep(*, planet_region_split(*)))"
-        )
-        .in("id", ids)
-        .order("start_date", { ascending: true }),
-      supabase.from("planet").select("*").order("id", { ascending: true }),
-      getLatestPlanetSnapshots(supabase),
-    ]);
+  const [
+    { data: assignments },
+    { data: allPlanets },
+    latestSnapshots,
+    { data: regions },
+    { data: totalPlayerCount },
+  ] = await Promise.all([
+    supabase
+      .from("assignment")
+      .select(
+        "*, objective(*), strategy(*, strategyStep(*, planet_region_split(*)))"
+      )
+      .in("id", ids)
+      .order("start_date", { ascending: true }),
+    supabase.from("planet").select("*").order("id", { ascending: true }),
+    getLatestPlanetSnapshots(supabase),
+    supabase.from("planet_region").select("*"),
+    supabase
+      .from("player_count_record")
+      .select("player_count")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .single(),
+  ]);
 
   const lastEndDate = new Date(
     assignments?.reduce((latest, assignment) => {
@@ -57,7 +69,7 @@ export default async function IndividualHistoryPage({
   );
 
   return (
-    <main className="grid grid-cols-[20%_80%] flex-1 divide-x-1 divide-white">
+    <main className="grid grid-cols-[23%_77%] flex-1 divide-x divide-white">
       <AssignmentsAside assignments={displayReadyAssignments} />
       <div
         className={`${
@@ -72,6 +84,8 @@ export default async function IndividualHistoryPage({
               strategies={strategies}
               allPlanets={allPlanets ?? []}
               horizontal={false}
+              regions={regions ?? []}
+              totalPlayerCount={totalPlayerCount?.player_count ?? 0}
             ></StepDisplayBox>
           ) : (
             <span className="h-full p-3 flex items-center justify-center text-2xl font-semibold">{`No assessment was made for ${

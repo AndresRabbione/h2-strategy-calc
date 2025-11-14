@@ -103,7 +103,7 @@ export default function DispatchAside() {
           isOpen
             ? "-translate-x-[(66.6vw_-_4rem)] lg:-translate-x-[(33.3vw_-_4rem)] xl:-translate-x-[(25vw_-_4rem)]"
             : ""
-        } z-6 cursor-pointer text-white transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]`}
+        } z-3 cursor-pointer text-white transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]`}
         onClick={(e) => {
           e.stopPropagation();
           setOpen((prev) => !prev);
@@ -128,7 +128,7 @@ export default function DispatchAside() {
       </button>
       <aside
         onClick={(e) => e.stopPropagation()}
-        className={`fixed h-[94%] right-0 w-2/3 lg:w-1/3 xl:w-1/4 flex flex-col items-end justify-end p-3 gap-6 basis-1/12 z-5 bg-[#344551] rounded-l-2xl ${
+        className={`fixed h-[94%] right-0 w-2/3 lg:w-1/3 xl:w-1/4 flex flex-col items-end justify-end p-3 gap-6 basis-1/12 z-2 bg-[#344551] rounded-l-2xl ${
           isOpen
             ? "sidebar-enter sidebar-enter-active"
             : "sidebar-exit sidebar-exit-active"

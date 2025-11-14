@@ -54,7 +54,7 @@ export default async function Home() {
   );
 
   return (
-    <main className="grid grid-cols-[23%_77%] flex-1 divide-x-1 divide-white">
+    <main className="grid grid-cols-[23%_77%] flex-1 divide-x divide-white max-h-svh min-h-0 h-screen overflow-hidden">
       <AssignmentsAside assignments={displayReadyAssignments} />
       <div className="grid grid-cols-[95%_5%] w-full h-full">
         <StrategyContainer

@@ -31,10 +31,16 @@ export default function Header() {
         <div id="modeToggle"></div>
 
         <div className="flex flex-row items-center justify-between gap-3">
-          <Link className="cursor-pointer" href={"/"}>
+          <Link
+            className="cursor-pointer hover:bg-gray-700 p-0.5 rounded-md"
+            href={"/"}
+          >
             {t("perfect-toggle")}
           </Link>
-          <Link className="cursor-pointer" href={"/realistic"}>
+          <Link
+            className="cursor-pointer hover:bg-gray-700 p-0.5 rounded-md"
+            href={"/realistic"}
+          >
             {t("realistic-toggle")}
           </Link>
         </div>

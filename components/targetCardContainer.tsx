@@ -20,7 +20,7 @@ export default function TargetCardContainer({
   locale,
 }: {
   targets: StrategyStepFull[];
-  allPlanets: DBPlanetFull[];
+  allPlanets: Map<number, DBPlanetFull>;
   sectors: DBSector[];
   totalPlayerCount: number;
   latestSnapshots: PlanetSnapshotFull[];
@@ -54,7 +54,7 @@ export default function TargetCardContainer({
       } w-full h-fit p-3 gap-3`}
     >
       {finalSteps.map((step) => {
-        const planet = allPlanets[step.planetId];
+        const planet = allPlanets.get(step.planetId)!;
         const filteredSnapshots = latestSnapshots.filter(
           (snapshot) => snapshot.planetId === step.planetId
         );

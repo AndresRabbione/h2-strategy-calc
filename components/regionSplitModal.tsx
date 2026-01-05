@@ -59,6 +59,7 @@ export default function RegionSplitModal({
       </div>
     );
   }
+
   const groupedStepMap = regionSplits.reduce((map, split) => {
     if (!map.has(split.created_at)) map.set(split.created_at, []);
 

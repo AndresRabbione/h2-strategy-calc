@@ -1,6 +1,10 @@
 "use client";
 
-import { DBPlanet, DBRegion, StrategyStepFull } from "@/lib/typeDefinitions";
+import {
+  DBPlanetFull,
+  DBRegion,
+  StrategyStepFull,
+} from "@/lib/typeDefinitions";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import RegionSplitModal from "./regionSplitModal";
@@ -20,7 +24,7 @@ export default function StepChainsVertical({
   }[];
   width?: number;
   height?: number;
-  allPlanets: DBPlanet[];
+  allPlanets: Map<number, DBPlanetFull>;
   regions: DBRegion[];
   totalPlayerCount: number;
 }) {
@@ -50,14 +54,14 @@ export default function StepChainsVertical({
             regionSplits={openedStep!.planet_region_split}
             regions={regions}
             totalPlayerCount={totalPlayerCount}
-            planetName={allPlanets[openedStep!.planetId].name}
-            planetOwner={allPlanets[openedStep!.planetId].current_faction}
+            planetName={allPlanets.get(openedStep!.planetId)!.name}
+            planetOwner={allPlanets.get(openedStep!.planetId)!.current_faction}
             onClose={() => setOpen(false)}
           ></RegionSplitModal>,
           document.body
         )}
       {steps.map((stepChain, i) => {
-        const chainPlanet = allPlanets[stepChain.planetId];
+        const chainPlanet = allPlanets.get(stepChain.planetId)!;
 
         const x = 100 + i * 150;
         const startY = scaleY(new Date(stepChain.firstTimeStamp).getTime());
@@ -166,7 +170,7 @@ export default function StepChainsVertical({
               textAnchor="middle"
               transform={`rotate(-30, ${x}, ${startY - 20})`}
             >
-              {allPlanets.length !== 0 ? chainPlanet.name : ""}
+              {allPlanets.size !== 0 ? chainPlanet.name : ""}
             </text>
           </g>
         );

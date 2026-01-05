@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  DBPlanet,
+  DBPlanetFull,
   DBRegion,
   FullStrategy,
   StrategyStepFull,
@@ -18,7 +18,7 @@ export default function StepDisplayBox({
   totalPlayerCount,
 }: {
   strategies: FullStrategy[];
-  allPlanets: DBPlanet[];
+  allPlanets: Map<number, DBPlanetFull>;
   horizontal?: boolean;
   regions: DBRegion[];
   totalPlayerCount: number;

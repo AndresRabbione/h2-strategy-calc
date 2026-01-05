@@ -57,7 +57,7 @@ function filterSearchResults(
         return assignments.some((assingment) => {
           return assingment.objective.every((obj) => {
             if (obj.type === ObjectiveTypes.LIBERATE_MORE) {
-              return obj.playerProgress > obj.enemyProgress!;
+              return obj.playerProgress > 0;
             }
 
             return obj.totalAmount
@@ -72,7 +72,7 @@ function filterSearchResults(
         return assignments.some((assingment) => {
           return assingment.objective.some((obj) => {
             if (obj.type === ObjectiveTypes.LIBERATE_MORE) {
-              return obj.playerProgress < obj.enemyProgress!;
+              return obj.playerProgress < 1;
             }
 
             return obj.totalAmount
@@ -204,9 +204,7 @@ export default async function HistoryMainPage(props: {
                     const isSuccessful = assignment.objective.every(
                       (objective) => {
                         if (objective.type === ObjectiveTypes.LIBERATE_MORE) {
-                          return (
-                            objective.playerProgress > objective.enemyProgress!
-                          );
+                          return objective.playerProgress > 0;
                         }
 
                         return objective.totalAmount

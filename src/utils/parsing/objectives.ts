@@ -10,12 +10,24 @@ export function getParsedDBObjectiveText(
   while ((match = regex.exec(objectiveText)) !== null) {
     const [fullMatch, color, innerText] = match;
 
-    segmentedText.push({
-      text: objectiveText.slice(lastIndex, match.index).trim(),
-      color: null,
-    });
+    const before = objectiveText.slice(lastIndex, match.index);
+
+    if (before.trim()) {
+      segmentedText.push({
+        text: objectiveText.slice(lastIndex, match.index).trim(),
+        color: null,
+      });
+    }
     segmentedText.push({ text: innerText.trim(), color });
     lastIndex = fullMatch.length + match.index;
+  }
+
+  const after = objectiveText.slice(lastIndex);
+  if (after.trim()) {
+    segmentedText.push({
+      text: after.trim(),
+      color: null,
+    });
   }
 
   return segmentedText;

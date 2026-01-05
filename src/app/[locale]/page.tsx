@@ -7,6 +7,7 @@ import DispatchAside from "../../../components/dispatchAside";
 import { getLatestPlanetSnapshots } from "@/utils/helpers/progress";
 import { getLocale } from "next-intl/server";
 import StrategyContainer from "../../../components/strategyContainer";
+import { createDBPlanetMap } from "@/utils/parsing/mapping";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -46,9 +47,11 @@ export default async function Home() {
   const strategies =
     assignments?.flatMap((assignment) => assignment.strategy) ?? [];
 
+  const dbPlanetMap = createDBPlanetMap(allPlanets ?? []);
+
   const displayReadyAssignments = await getDisplayReadyAssingments(
     assignments ?? [],
-    allPlanets ?? [],
+    dbPlanetMap,
     latestSnapshots,
     false
   );
@@ -60,7 +63,7 @@ export default async function Home() {
         <StrategyContainer
           displayReadyAssignments={displayReadyAssignments}
           strategies={strategies}
-          allPlanets={allPlanets ?? []}
+          allPlanets={dbPlanetMap}
           sectors={sectors ?? []}
           totalPlayerCount={totalPlayerCount?.player_count ?? 0}
           latestSnapshots={latestSnapshots}

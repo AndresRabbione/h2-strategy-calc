@@ -41,14 +41,14 @@ export function getFactionColorFromName(faction: Factions): string {
 
 export function getFactionFromObjective(
   objective: DBObjective,
-  planets: DBPlanet[]
+  planets: Map<number, DBPlanet>
 ): FactionIDs {
-  if (planets.length === 0) return FactionIDs.HUMANS;
+  if (planets.size === 0) return FactionIDs.HUMANS;
 
   if (objective.factionId) return objective.factionId;
 
   if (objective.planetId) {
-    return planets[objective.planetId].current_faction;
+    return planets.get(objective.planetId)!.current_faction;
   }
 
   return FactionIDs.HUMANS;

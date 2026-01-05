@@ -1,5 +1,5 @@
 import {
-  DBPlanet,
+  DBPlanetFull,
   DisplayAssignment,
   DisplayObjective,
   FullParsedAssignment,
@@ -11,7 +11,7 @@ import { estimateHourlyRateForPlanet } from "./progress";
 
 export async function getDisplayReadyAssingments(
   assignments: FullParsedAssignment[],
-  allPlanets: DBPlanet[],
+  allPlanets: Map<number, DBPlanetFull>,
   latestSnapshots: PlanetSnapshotFull[],
   isHistorical: boolean
 ): Promise<DisplayAssignment[]> {
@@ -35,11 +35,7 @@ export async function getDisplayReadyAssingments(
             text,
             progress: objective.playerProgress,
             totalAmount: objective.totalAmount,
-            enemyProgress: objective.enemyProgress,
-            displayedFaction: getFactionFromObjective(
-              objective,
-              allPlanets ?? []
-            ),
+            displayedFaction: getFactionFromObjective(objective, allPlanets),
             order: objective.objectiveIndex,
             progressPerHour,
           };

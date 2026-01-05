@@ -26,8 +26,7 @@ export default function GenericObjective({
       {objective.type === ObjectiveTypes.LIBERATE_MORE ? (
         <DualObjectiveProgressBar
           factionColor={getFactionColorFromId(objective.displayedFaction, true)}
-          friendlyCount={objective.progress}
-          enemyCount={objective.enemyProgress!}
+          progress={objective.progress}
         ></DualObjectiveProgressBar>
       ) : (
         <ObjectiveProgressBar

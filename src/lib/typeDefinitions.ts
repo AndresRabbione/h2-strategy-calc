@@ -186,7 +186,7 @@ export enum ObjectiveTypes {
   OPERATIONS = 9,
   KILL = 3,
   COLLECT = 2,
-  LIBERATE_MORE = -1, //Fix when found
+  LIBERATE_MORE = 15,
   DEFEND = 12,
 }
 
@@ -240,7 +240,6 @@ export type DBObjective = {
   type: number;
   totalAmount: number | null;
   itemId: number | null;
-  enemyProgress: number | null;
   difficulty: number | null;
   sectorId: number | null;
   objectiveIndex: number;
@@ -275,7 +274,6 @@ export type DisplayObjective = {
   text: { text: string; color: string | null }[];
   progress: number;
   totalAmount: number | null;
-  enemyProgress: number | null;
   displayedFaction: FactionIDs;
   order: number;
   progressPerHour: number;
@@ -301,6 +299,7 @@ export type DBPlanet = {
   latest_enemy: number | null;
   latest_regen: number;
   current_event: number | null;
+  true_index: number;
 };
 
 export type DBPlanetFull = DBPlanet & {

@@ -27,7 +27,7 @@ export default function StrategyContainer({
 }: {
   displayReadyAssignments: DisplayAssignment[];
   strategies: FullStrategy[];
-  allPlanets: DBPlanetFull[];
+  allPlanets: Map<number, DBPlanetFull>;
   sectors: DBSector[];
   totalPlayerCount: number;
   latestSnapshots: PlanetSnapshotFull[];
@@ -42,6 +42,10 @@ export default function StrategyContainer({
 
   const portalTarget = mounted ? document.getElementById("modeToggle") : null;
 
+  let stepCount = 0;
+
+  strategies.forEach((strat) => (stepCount += strat.strategyStep.length));
+
   return (
     <div>
       {portalTarget && strategies.length > 0
@@ -55,7 +59,9 @@ export default function StrategyContainer({
             document.getElementById("modeToggle")!
           )
         : null}
-      {displayReadyAssignments.length === 0 || strategies.length === 0 ? (
+      {displayReadyAssignments.length === 0 ||
+      strategies.length === 0 ||
+      stepCount === 0 ? (
         <NoStrategy
           hasAssignment={displayReadyAssignments.length > 0}
         ></NoStrategy>

@@ -104,7 +104,7 @@ export default function TargetCard({
               </span>
             </div>
           </div>
-          {victoryTime.length && (
+          {victoryTime.length > 0 && (
             <div className="flex flex-row gap-2 pr-2">
               <span>Est. Victory:</span>
               <span>

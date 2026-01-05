@@ -39,7 +39,7 @@ export default function LocaleSwitcherSelect({
       <label
         htmlFor="languageSelect"
         className={`relative text-white ${
-          isPending ? "transition-opacity [&:disabled]:opacity-30" : ""
+          isPending ? "transition-opacity disabled:opacity-30" : ""
         }`}
       >
         {label}
